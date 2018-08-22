@@ -32,6 +32,16 @@
 % of MATLAB, but this is not a comprehensive overview. See the appendix of
 % MF for a better overview, but the best way to learn is to do things 
 % yourself on the homework. 
+%
+% MATLAB is one of many languages used to do numerical and statistical work
+% in economics. Other popular choices are R, python (with numpy), and
+% sometimes julia or C or even (shudder) FORTRAN. These all have pros and cons. 
+% We're using MATLAB because it is user friendly and something of an industry 
+% standard. It also is very well documented relative to open source
+% options.
+% Most importantly, all our sample code is written in MATLAB. You are free to
+% program in whatever you want, just don't ask me to debug it. 
+%
 
 %% Assignment
 
@@ -113,14 +123,20 @@ inv(A)
 % built in functions work well for only specific applications, and sometimes
 % there are much better thrid-party packages available.
 %
-% We will make use of an added library called COMPECON Toolbox. This should 
-% already be loaded on the lab computers in the building. Just google it to 
+% We will make use of an added library called COMPECON Toolbox, <http://www4.ncsu.edu/~pfackler/compecon/toolbox.html>. 
+% This should 
+% already be loaded on the lab computers in the building. It is open source, so  
 % download for your own personal computer. Put the folder in somewhere and 
-% tell MATLAB to look for the packages by adding |addpath('path of folder')
+% tell MATLAB to look for the packages by adding |addpath('path of
+% folder')|
 % to the top of your script or function
 %
 % Useful buil-in functions: |exp|, |inv|, |diag|, |ln|, |abs|, |size|, |rand|, |zeros|
 % etc.  
+%
+%
+% How to find a function? Use the documentation. Always available on the
+% menu bar or you can just google what you want with `MATLAB' in the search string. 
 
 %% Indexing
 
