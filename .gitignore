@@ -1,4 +1,5 @@
 *.log
 *.synctex.gz
 *.aux
-
+*.m~
+*/html/
