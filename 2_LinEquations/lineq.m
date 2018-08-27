@@ -288,7 +288,7 @@ inv([2 0 0
 x = [1; 1; 1; 1;];
 maxit = 100;
 tol = 1e-4;
-A = A .* ((10*eye(4))+1);
+A = A .* ((10*eye(4))+1); %I'm cheating here, but we'll talk about why later...
 for it = 1:maxit
     dx = (b - A*x);
     x = x + dx;
@@ -332,7 +332,18 @@ for it = 1:maxit
     end
 end
 %%
-% With a more matrix-style notation, we get the same thing: 
+% Just to make sure everything works
+disp(x)
+disp(A\b)
+%%
+% We can see that this should work because now the discount factor of our
+% contraction is, 
+norm(eye(4) - Q\A)
+%%
+% *Hang on!*, that is not less than one! I guess it is important to know the
+% difference between sufficient and necessary. 
+%%
+% With a cleaner, more matrix-style notation, we get the same thing: 
 x = [1; 1; 1; 1;];
 Q = diag(diag(A));
 for it = 1:maxit
@@ -346,11 +357,6 @@ for it = 1:maxit
         fprintf('it: %d \t norm(dx) = %.4f\n', it, norm(dx)); 
     end
 end
-
-% We can see that this should work because now the discount factor of our
-% contraction is, 
-norm(eye(4) - Q\A)
-
 %%
 % Where we get exactly the same answer as before. 
 
@@ -364,9 +370,16 @@ norm(eye(4) - Q\A)
 %
 % If you stare at this, (maybe for a while) you can see we are using $x^{(k)}$ with the lower
 % triangular portion of $A$ and $x^{(k+1)}$ with the upper triangular
-% portion. And hence it is equivalent to using $Q = tril(A)$.
+% portion. And hence it is equivalent to using 
+Q = tril(A) 
+%%
+% in the "general" iteration method. To see this, we can write:
 %
-%Thus we just have: 
+% $$Qx = b - Lx$$
+%
+% $$Qx = b - (Q - A)x$$
+%
+% Thus we can implement Gauss-Seidel as: 
 x = [1; 1; 1; 1;];
 Q = tril(A);
 for it = 1:maxit
@@ -388,7 +401,7 @@ end
 norm(eye(4) - Q\A)
 %%
 % However, keep in mind this doesn't have to be the case, consider our
-% original
+% original A matrix, which worked just fine using direct methods,
 A =  [28    69    44    19
      5    32    38    49
     10    95    77    45
@@ -398,7 +411,7 @@ x = ones(4,1);
 Q = tril(A);
 norm(eye(4) - Q\A)
 %%
-% Doesn't look good for our hero Gauss-Seidel, and in fact it isn't: 
+% Doesn't look good for our hero Gauss-Seidel, but maybe it'll work out. In fact it isn't good: 
 success = 0;
 for it = 1:maxit
     dx = Q\(b - A*x);
@@ -414,5 +427,5 @@ if ~(success)
 end
 
 %%
-% For this reason, if you can, you probably should direct methods. Of
+% For this reason, if you can, you probably should direct methods for solving linear equations whenever possible. Of
 % course, we'll have a use for these iterative methods later on. 
