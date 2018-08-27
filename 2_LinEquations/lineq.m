@@ -193,13 +193,226 @@ end
 % * One moral of this story: *do not use logical equalities and floating point.* 
 % * A second moral: Be careful when working with variables of very
 % different magnitude, you may want to just rescale them so their magnitudes are similar. 
+%
+%% Conditioning, good and ill 
+%
+% * While pivoting can deal with rounding error issues in "nice" matrices,
+% some matrices are not "nice" meaning they are inherently difficult, or
+% impossible, to solve. 
+%
+% * The fact that such matrices exist is obvious, you can't solve a $Ax =
+% b$ if $A$ is singular. A computer will have trouble if $A$ is "nearly"
+% singular, but how to be more precise about what "nearly" means?
+%
+% * Following Judd, suppose we perturb $Ax = b$ to $A(x+e) = b + r$ so we
+% want to know how big $e$ is for a small perturbation $r$. 
+%
+% * Linearity implies $Ae = r$ and in turn: 
+%  $||A||\cdot||e|| \geq ||r||$, $e = A^{-1}r$,
+%  and $||e|| \geq ||A^{-1}|| \cdot ||r||$. For any valid matrix norm.
+%  Let's assume the $\ell_2$ norm for today.
+%
+% * Then let's define the elasiticty of error with respect to a
+%  perturbation of b, $\frac{||e||}{||x||} \div \frac{||r||}{||b||}.$
+%
+% * It is interesting because it tells us how rounding errors in $b$ "grow"
+%  through the solution of $Ax = b$. Bigger elasticity is going to cause more numerical problems. 
+%
+% * Now we can bound to percentage error: 
+%
+% $$ \frac{||r||}{||A||||A^{-1}|| ||b||} \leq \frac{||e||}{||x||} \leq
+% \frac{||A||||A^{-1}|| ||r||}{ ||b||} $$
+%
+% And define the condition number as |cond(A)| $=||A||||A^{-1}||$ it
+% gives an least upper bound on the error that is tight for some $b$. 
+% It also gives us an idea of "almost singular": 
 
-%%% Conditioing 
+Z = [2 0 0
+     0 1 0
+     0 0 1e-8];
+cond(Z)
+norm(Z)
+norm(inv(Z))
+%%
+% * The rule of thumb is that you lose one digit of precision for every
+%  power of 10 in the condition number. 
+%
+% * MATLAB double precision floating
+%  points are 64 bits: 1 sign, 11 exponent, 52 significant. This leads to
+%  16 (base 10) digits of precision, $2^{-53} \approx 1.11 \times 10^{-16}$. 
+%  MATLAB uses this rule of thumb to generate warning messages:
 
+inv([2 0 0
+     0 1 0
+     0 0 1e-15])
+%%
+% Works fine, but, 
+ 
+ inv([3 0 0
+     0 1 0
+     0 0 1e-16])
+%%
+% Gives us a warning. That said, we are losing a lot of precision in both cases.  
+ 
 %% Iterative Methods
-
-%%% When would we use them? 
-
+%
+% So far, we've talked about direct methods of solving linear equations,
+% and that is what we will use 99.9 percent of the time. We'll talk about
+% iterative methods for two reasons
+%
+% # You want to work with **Really** big data, where the direct methods will be very time
+%   consuming. If you find yourself here, you probably have data from Amazon,
+%   Facebook, or similar. 
+% # More likely, we're introducing iterative techniques in a linear context
+% because they will be useful in more advanced context later. 
+%
+% Iterating is just repeatedly applying an operator in hopes that it converes to a
+% fixed point which represents the solution of your problem.  
+%
+% In general, let $Q$ be some easy to invert matrix, then to solve $Ax = b$
+% we can use the fact that 
+%%
+% $$Qx = b + (Q-A)x$$
+%%
+% $$x = Q^{-1}b + (I - Q^{-1}A)x$$
+%
+% So for some initial guess, $x^{(0)}$ we can iterate: 
+%%
+% $$x^{(k+1)} = Q^{-1}b + (I - Q^{-1}A)x^{(k)}$$
+%
+% If the process converges such that $||x^(k+1) - x^{(k)}|| < \epsilon$
+% we've solved $Ax = b$. 
+%
+%
+% The simplist possible version of this is Q = I
+x = [1; 1; 1; 1;];
+maxit = 100;
+tol = 1e-4;
+A = A .* ((10*eye(4))+1);
+for it = 1:maxit
+    dx = (b - A*x);
+    x = x + dx;
+    if norm(dx) < tol 
+        fprintf('Converged: x(1) = %.4f, iter = %d\n', x(1), it);
+        break
+    end
+    if mod(it, 10)==0
+        fprintf('it: %d \t norm(dx) = %.4f\n', it, norm(dx)); 
+    end
+end
+%%
+% As you can see, that doesn't work so well. The reason is that A is a long
+% way from diagonal dominant. Specifically we can check whether this system
+% is a contraction by checking
+norm(eye(4) - A)
+%%
+% and see it is clearly not since the result is greater than 1. 
 %%% Gauss-Jacobi
+%
+% Gauss Jacobi iterations are probably the most intuitive iteration method
+% you could expect to work. In essence, for a guess of $x^{(t)}$ it guesses $x^{t+1}$ by 
+% solving for $x_i$ in the $i$th equation using fixing $x_{-i}$.  In short:
+% 
+% $$ x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b - \sum_{j \neq i} a_{ij} x_j^{(k)} \right)$$
+%
+% This is pretty easy to code: 
+x = [1; 1; 1; 1;];
+maxit = 100;
+tol = 1e-4;
+d = diag(A);
+for it = 1:maxit
+    dx = (b - A*x)./d;
+    x = x + dx;
+    if norm(dx) < tol 
+        fprintf('Converged: x(1) = %.4f, iter = %d\n', x(1), it);
+        break
+    end
+    if mod(it, 1)==0
+        fprintf('it: %d \t norm(dx) = %.4f\n', it, norm(dx)); 
+    end
+end
+%%
+% With a more matrix-style notation, we get the same thing: 
+x = [1; 1; 1; 1;];
+Q = diag(diag(A));
+for it = 1:maxit
+    dx = Q\(b - A*x);
+    x = x + dx;
+    if norm(dx) < tol 
+        fprintf('Converged: x(1) = %.4f, iter = %d\n', x(1), it);
+        break
+    end
+    if mod(it, 1)==0
+        fprintf('it: %d \t norm(dx) = %.4f\n', it, norm(dx)); 
+    end
+end
+
+% We can see that this should work because now the discount factor of our
+% contraction is, 
+norm(eye(4) - Q\A)
+
+%%
+% Where we get exactly the same answer as before. 
 
 %%% Gauss-Seidel
+%
+% Gauss-Seidel iteration goes a little bit further. Once you have computed
+% $x_i^{(k+1)}$, why not use it immediately instead of waiting to the next
+% round? 
+%
+% $$ x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b - \sum_{j = 1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j = i+1}^{n} a_{ij} x_j^{(k)} \right)$$
+%
+% If you stare at this, (maybe for a while) you can see we are using $x^{(k)}$ with the lower
+% triangular portion of $A$ and $x^{(k+1)}$ with the upper triangular
+% portion. And hence it is equivalent to using $Q = tril(A)$.
+%
+%Thus we just have: 
+x = [1; 1; 1; 1;];
+Q = tril(A);
+for it = 1:maxit
+    dx = Q\(b - A*x);
+    x = x + dx;
+    if norm(dx) < tol 
+        fprintf('Converged: x(1) = %.4f, iter = %d\n', x(1), it);
+        break
+    end
+    if mod(it, 1)==0
+        fprintf('it: %d \t norm(dx) = %.4f\n', it, norm(dx)); 
+    end
+end
+
+%%
+%
+% Notice it converges faster, which is intuitive because it updates more
+% quickly, the catch is it may be less stable. This is confirmed by
+norm(eye(4) - Q\A)
+%%
+% However, keep in mind this doesn't have to be the case, consider our
+% original
+A =  [28    69    44    19
+     5    32    38    49
+    10    95    77    45
+    82     3    80    65 ];
+
+x = ones(4,1);
+Q = tril(A);
+norm(eye(4) - Q\A)
+%%
+% Doesn't look good for our hero Gauss-Seidel, and in fact it isn't: 
+success = 0;
+for it = 1:maxit
+    dx = Q\(b - A*x);
+    x = x + dx;
+    if norm(dx) < tol 
+        success = 1;
+        fprintf('Converged: x(1) = %.4f, iter = %d\n', x(1), it);
+        break
+    end
+end
+if ~(success)
+    fprintf('Convergence Failed! norm(dx) = %.4f', norm(dx));
+end
+
+%%
+% For this reason, if you can, you probably should direct methods. Of
+% course, we'll have a use for these iterative methods later on. 
