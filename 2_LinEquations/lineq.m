@@ -284,7 +284,7 @@ inv([2 0 0
 % we've solved $Ax = b$. 
 %
 %
-% The simplist possible version of this is Q = I
+% The simplist possible version of this is $Q = I$: 
 x = [1; 1; 1; 1;];
 maxit = 100;
 tol = 1e-4;
@@ -313,7 +313,7 @@ norm(eye(4) - A)
 % you could expect to work. In essence, for a guess of $x^{(t)}$ it guesses $x^{t+1}$ by 
 % solving for $x_i$ in the $i$th equation using fixing $x_{-i}$.  In short:
 % 
-% $$ x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b - \sum_{j \neq i} a_{ij} x_j^{(k)} \right)$$
+% $$ x_i^{(k+1)} = x_i^{(k)} + \frac{1}{a_{ii}} \left(b - \sum_{j \neq i} a_{ij} x_j^{(k)} \right)$$
 %
 % This is pretty easy to code: 
 x = [1; 1; 1; 1;];
@@ -336,13 +336,6 @@ end
 disp(x)
 disp(A\b)
 %%
-% We can see that this should work because now the discount factor of our
-% contraction is, 
-norm(eye(4) - Q\A)
-%%
-% *Hang on!*, that is not less than one! I guess it is important to know the
-% difference between sufficient and necessary. 
-%%
 % With a cleaner, more matrix-style notation, we get the same thing: 
 x = [1; 1; 1; 1;];
 Q = diag(diag(A));
@@ -359,6 +352,12 @@ for it = 1:maxit
 end
 %%
 % Where we get exactly the same answer as before. 
+%%
+% We can see that this should work because now the discount factor of our
+% contraction is, 
+norm(eye(4) - Q\A)
+%%
+% Of course, if it were above one, it still _might_ work for some starting values. This condition is sufficient but not necessary for convergence.  
 
 %%% Gauss-Seidel
 %
@@ -366,16 +365,17 @@ end
 % $x_i^{(k+1)}$, why not use it immediately instead of waiting to the next
 % round? 
 %
-% $$ x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b - \sum_{j = 1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j = i+1}^{n} a_{ij} x_j^{(k)} \right)$$
+% $$ x_i^{(k+1)} = x_i^{(k)} + \frac{1}{a_{ii}} \left(b - \sum_{j = 1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j = i+1}^{n} a_{ij} x_j^{(k)} \right)$$
 %
-% If you stare at this, (maybe for a while) you can see we are using $x^{(k)}$ with the lower
-% triangular portion of $A$ and $x^{(k+1)}$ with the upper triangular
-% portion. And hence it is equivalent to using 
+% If you stare at this, (maybe for a while) you can see we are using
+% $x^{(k)}$ with the upper
+% triangular portion of $A$ and $x^{(k+1)}$ with the lower triangular
+% portion (with diagonal). And hence it is equivalent to using 
 Q = tril(A) 
 %%
 % in the "general" iteration method. To see this, we can write:
 %
-% $$Qx = b - Lx$$
+% $$Qx = b - Ux$$
 %
 % $$Qx = b - (Q - A)x$$
 %
@@ -397,7 +397,8 @@ end
 %%
 %
 % Notice it converges faster, which is intuitive because it updates more
-% quickly, the catch is it may be less stable. This is confirmed by
+% quickly, the catch is it may be less stable. In our case we are lucky and
+% Gauss-Seidel does produce a contraction
 norm(eye(4) - Q\A)
 %%
 % However, keep in mind this doesn't have to be the case, consider our
@@ -428,4 +429,5 @@ end
 
 %%
 % For this reason, if you can, you probably should direct methods for solving linear equations whenever possible. Of
-% course, we'll have a use for these iterative methods later on. 
+% course, we'll have a use for these iterative methods later on in
+% non-linear problems. That brings us to next week...
