@@ -27,7 +27,7 @@
 % * From here, the bisection algorithm simply bisects [a b] to get closer
 % and closer to a zero: 
 %
-% # Given $[a, b]$, compute the midpoint $c \rightarrow (a + b) /2$ and $f(c)$.
+% # Given $[a, b]$, compute the midpoint $c \leftarrow (a + b) /2$ and $f(c)$.
 % # if $f(c) < 0$, assign $a \leftarrow c$, else assign $b \leftarrow c$.
 % # if $b - a < \epsilon$, stop; else go to 1. 
 %
@@ -37,7 +37,7 @@ X = -2:.1:4;
 Fx = 2 + exp(X) - 3.*(X.^2);
 plot(X, Fx, X, zeros(size(X)));
 %%
-% It's continuous, and it has a zero (infact three) so bisection shoudl be able to find a root. 
+% It's continuous, and it has a zero (in fact, three) so bisection should be able to find a root. 
 % Here's our bisection code: 
 %
 % <include> bisection.m </include>
@@ -101,11 +101,11 @@ format short
 % linear taylor approximation, solves that, and then checks the solution
 % of the original problem. 
 %
-% In other words, we use the first-order Taylor approximation: 
+% Newton's method iterations are derived from a first-order Taylor approximation: 
 %
 % $$ f(x) \approx f(x^{(k)}) + f'(x^{(k)})(x - x^{(k)}) = 0 $$
 %
-% To get the iteration rule: 
+% Solve for $x^{(k+1)}$ to get the iteration rule: 
 %
 % $$ x^{(k+1)} \leftarrow x^{(k)} - [f'(x^{(k)})]^{-1}f(x^{(k)}) $$
 %
@@ -115,7 +115,7 @@ format short
 % # $f(x^{(0)}$ is sufficiently close to a root. 
 % # $f'$ is invertible at the root.
 %
-% These not always hold, there is not theoretical way to determine
+% These will not always hold, and there is no theoretical way to determine
 % sufficiently close. 
 %
 % Let's follow the Miranda and Fackler textbook and use newtons method to
@@ -154,7 +154,7 @@ end
 fprintf('Iter: %d, q = (%f, %f), f(q) = (%f, %f)\n', iter, q(1), q(2), f(1), f(2));
 %%
 %
-% The catch with Newton's method is that you have to compute the Jacobean,
+% The catch with Newton's method is that you have to compute the Jacobian,
 % and things may not work very well if it is ill-conditionioned.
 % Quasi-Newton methods, which we'll discuss next time, offer alternatives
 % based on the successive linearization principle. 
@@ -169,8 +169,8 @@ fsolve('cournot', [2; 2], options)
 
 %% Numerical Differentiation
 %
-% While it is best to have an analytic derivative. It is common to
-% approximate derivatives numerically. With most newton-based solvers such
+% While it is best to have an analytic derivative, it is common to
+% approximate derivatives numerically. With most Newton-based solvers such
 % as KNITRO and |fsolve| they will take their own numerical derivatives if
 % you don't specify the gradient. In our example above, that also works
 % just fine: 
@@ -224,6 +224,12 @@ fsolve('cournot', [2; 2], options)
 % So we can implement a numerical Jacobian as: 
 %
 % <include> myJac.m </include>
+%
+%
+% Note that the Jacobiean takes $N$ function evaluations to compute,
+% therefore for large functions, computing a numerical derivative may
+% produce a time sink, and it may be worthwhile to code the analytical
+% Jacobian. 
 %
 % To see that it works: 
 mJ = myJac('cournot', q)
