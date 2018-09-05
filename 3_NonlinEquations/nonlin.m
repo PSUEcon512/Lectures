@@ -6,8 +6,8 @@
 %
 %% Nonlinear Equation Form 
 %
-% * Consider a function $f: R^n \rightarrow R^n$ this week we will consider how to solve
-% a rootfinding problem, $f(x) = 0$. 
+% * Consider a function $f: R^n \rightarrow R^n$ our objective is to solve
+% a rootfinding problem, that is, to deterimine $x$ such that $f(x) = 0$. 
 %
 % * We may also want to solve an
 %   equivalent fixed point problem $g(x) = x$, simply by defining 
@@ -48,6 +48,9 @@ plot(X, Fx, X, zeros(size(X)));
 % all variables are really pointers, so we can assign a function using
 % anonomyous functions rather than writing a file for it: 
 f = @(x) 2 + exp(x) - 3.*(x.^2);
+f
+f(0)
+feval(f, 0)
 %%
 % Now we can call bisection: 
 sol1 = bisection(f, -2, 4)
@@ -60,6 +63,13 @@ f(sol1)
 sol2 = bisection(f, -1, 4)
 
 f(sol2)
+
+%% 
+% We can also adjust the stopping tolerance away from the defaults: 
+
+sol3 = bisection(f, -1, 4, 1e-3, 1e-3)
+
+f(sol3)
 
 %% Iteration 
 %
@@ -93,7 +103,7 @@ format short
 % Of course, this is going to be far less robust than something like
 % bisection, but it is easy, and if you know you have a contraction, it may
 % be worth implementing before moving on to other methods. 
-%% Newton's Method
+%% Newton's (aka Newton-Raphson) Method
 %
 % Newton's method is the real workhorse for solving nonlinear equations. It
 % is an iterative scheme that follows the principle of _successive
@@ -112,13 +122,13 @@ format short
 % For Newton's Method to work we need: 
 %
 % # $f$ is continuously differentiable.  
-% # $f(x^{(0)}$ is sufficiently close to a root. 
+% # $f(x^{(0)})$ is sufficiently close to a root. 
 % # $f'$ is invertible at the root.
 %
 % These will not always hold, and there is no theoretical way to determine
 % sufficiently close. 
 %
-% Let's follow the Miranda and Fackler textbook and use newtons method to
+% Let's follow the Miranda and Fackler textbook and use Newton's method to
 % solve a Cournot Duopoply. The primatives are: 
 %
 % * Demand for the good is CES: $P(q) = q^{-1/\eta}$, where $q = q_1 + q_2$. 
@@ -156,6 +166,9 @@ fprintf('Iter: %d, q = (%f, %f), f(q) = (%f, %f)\n', iter, q(1), q(2), f(1), f(2
 %
 % The catch with Newton's method is that you have to compute the Jacobian,
 % and things may not work very well if it is ill-conditionioned.
+% This is simply because the Newton itertion solves a linear equation, and
+% this can cause all the numerical issues we discussed last week.
+% 
 % Quasi-Newton methods, which we'll discuss next time, offer alternatives
 % based on the successive linearization principle. 
 %
@@ -166,6 +179,12 @@ options
 fsolve('cournot', [2; 2], options)
 %%
 % Seems to give us the same answer, that's good news. 
+%
+% By inspecting the steps, we can see one of the reasons that Newton's
+% method is so attractive. Once we are in a neighborhood of the solution,
+% Newton's method converges *quadratically* to the solution. 
+%
+% Of course, if you are not in the neighborhood, all bets are off. 
 
 %% Numerical Differentiation
 %
@@ -221,15 +240,16 @@ fsolve('cournot', [2; 2], options)
 %
 % These amount to about $10^{-8}$ or to $10^{-6}$ respecitively.
 %
-% So we can implement a numerical Jacobian as: 
+% We can implement a one-sided numerical Jacobian as: 
 %
 % <include> myJac.m </include>
 %
 %
-% Note that the Jacobiean takes $N$ function evaluations to compute,
+% Note that the Jacobian takes $N$ function evaluations to compute,
 % therefore for large functions, computing a numerical derivative may
-% produce a time sink, and it may be worthwhile to code the analytical
-% Jacobian. 
+% produce a time sink if $f$ is expensive to compute.
+% In this case, it may be worthwhile to code the analytical
+% Jacobian.  This is a classic *programmer-time/compute time tradeoff*.  
 %
 % To see that it works: 
 mJ = myJac('cournot', q)
