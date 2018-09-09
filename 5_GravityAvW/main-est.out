@@ -1,0 +1,1450 @@
+All warnings have the state 'off'.
+ 
+Standard A&vW gravity estimation 
+ 
+missing number of trade flows 135
+
+beta =
+
+  -27.2768
+    0.1731
+    0.1772
+    0.2280
+   -0.4308
+   -0.3410
+   -0.4867
+
+
+resnorm =
+
+   1.6056e+04
+
+
+exitflag =
+
+     1
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 2
+        funcCount: 24
+         stepsize: 0.0085
+     cgiterations: []
+    firstorderopt: 8.5511e-06
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum found.Optimization completed because the size of the gradient is less than1e-4 times the selected value of the function tolerance.Stopping criteria details:Optimization completed: The first-order optimality measure, 7.984545e-12,is less than 1e-4*options.FunctionTolerance = 1.000000e-08.Optimization Metric                                       Optionsrelative norm(gradient) =   7.98e-12     1e-4*FunctionTolerance =   1e-08 (selected)'
+
+   1    1 4.36e+12
+   2    1 2.23e+12
+   3    1 9.54e+11
+   4    1 4.38e+11
+   5    1 1.96e+11
+   6    1 8.84e+10
+   7    1 3.98e+10
+   8    1 1.79e+10
+   9    1 8.06e+09
+  10    1 3.63e+09
+  11    1 1.64e+09
+  12    1 7.37e+08
+  13    1 3.32e+08
+  14    1 1.51e+08
+  15    1 7.07e+07
+  16    1 3.79e+07
+  17    1 2.88e+07
+  18    1 2.83e+07
+  19   25 2.83e+07
+  20    1 8.05e+06
+  21    1 3.85e+06
+  22    1 1.49e+06
+  23    1 5.66e+05
+  24    1 7.33e+04
+  25    1 2.83e+04
+  26    1 4.67e+03
+  27    1 2.55e+03
+  28    1 6.16e+02
+  29    1 1.60e+02
+  30    1 2.65e+01
+  31    1 1.42e+01
+  32    1 9.94e-01
+  33    1 1.25e-01
+  34    1 3.62e-02
+  35    1 6.66e-03
+  36    1 5.76e-04
+  37    1 7.87e-05
+  38    1 1.44e-05
+  39    1 2.47e-06
+  40    1 7.51e-07
+  41    1 3.96e-08
+  42    1 1.33e-08
+  43    1 1.02e-08
+  44    1 3.73e-09
+Elapsed time is 0.176842 seconds.
+
+beta =
+
+   -1.7819
+    0.1159
+    0.2009
+    0.3554
+   -0.4838
+   -0.8547
+   -0.5863
+
+
+resnorm =
+
+   2.1084e+04
+
+
+exitflag =
+
+     1
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 2
+        funcCount: 24
+         stepsize: 0.0076
+     cgiterations: []
+    firstorderopt: 1.0719e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum found.Optimization completed because the size of the gradient is less than1e-4 times the selected value of the function tolerance.Stopping criteria details:Optimization completed: The first-order optimality measure, 2.478304e-11,is less than 1e-4*options.FunctionTolerance = 1.000000e-08.Optimization Metric                                       Optionsrelative norm(gradient) =   2.48e-11     1e-4*FunctionTolerance =   1e-08 (selected)'
+
+   1    1 4.53e+05
+   2    1 3.47e+05
+   3    1 3.50e+04
+   4    1 1.95e+04
+   5    1 7.75e+03
+   6    1 6.88e+02
+   7    1 2.24e+02
+   8    1 2.31e+01
+   9    1 1.19e+01
+  10    1 1.75e+00
+  11    1 4.79e-01
+  12    1 1.39e-01
+  13    1 9.41e-03
+  14    1 4.80e-03
+  15    1 2.63e-04
+  16    1 1.64e-04
+  17    1 2.04e-05
+  18    1 5.04e-06
+  19    1 6.71e-07
+  20    1 2.58e-07
+  21    1 2.56e-08
+  22    1 9.31e-09
+Elapsed time is 0.054575 seconds.
+
+beta =
+
+   -1.1981
+    0.1239
+    0.1904
+    0.3497
+   -0.5544
+   -0.9168
+   -0.5657
+
+
+resnorm =
+
+   2.0651e+04
+
+
+exitflag =
+
+     1
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 2
+        funcCount: 24
+         stepsize: 1.7056e-04
+     cgiterations: []
+    firstorderopt: 2.6701e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum found.Optimization completed because the size of the gradient is less than1e-4 times the selected value of the function tolerance.Stopping criteria details:Optimization completed: The first-order optimality measure, 4.106667e-09,is less than 1e-4*options.FunctionTolerance = 1.000000e-08.Optimization Metric                                       Optionsrelative norm(gradient) =   4.11e-09     1e-4*FunctionTolerance =   1e-08 (selected)'
+
+   1    1 3.65e+03
+   2    1 3.02e+02
+   3    1 1.06e+01
+   4    1 3.27e-01
+   5    1 2.88e-02
+   6    1 8.91e-04
+   7    1 3.21e-05
+   8    1 1.53e-06
+   9    1 2.29e-08
+  10    1 1.40e-09
+Elapsed time is 0.046339 seconds.
+
+beta =
+
+   -1.1978
+    0.1248
+    0.1845
+    0.3521
+   -0.5718
+   -0.9273
+   -0.5486
+
+
+resnorm =
+
+   2.0780e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 2
+        funcCount: 17
+         stepsize: 3.2950e-06
+     cgiterations: []
+    firstorderopt: 1.7449e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 1.872562e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   1.87e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 7.00e+02
+   2    1 1.90e+01
+   3    1 1.81e-01
+   4    1 4.39e-03
+   5    1 5.66e-05
+   6    1 1.10e-06
+   7    1 2.61e-08
+   8    1 1.40e-09
+Elapsed time is 0.047871 seconds.
+
+beta =
+
+   -1.1702
+    0.1256
+    0.1819
+    0.3527
+   -0.5783
+   -0.9272
+   -0.5413
+
+
+resnorm =
+
+   2.0788e+04
+
+
+exitflag =
+
+     3
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 0.0295
+     cgiterations: []
+    firstorderopt: 2.2191e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the final change in the sum of squares relative to its initial value is less than the selected value of the function tolerance.Stopping criteria details:Optimization stopped because the relative sum of squares (r) is changingby less than options.FunctionTolerance = 1.000000e-04.Optimization Metric                                  Optionsrelative change r =   6.35e-05             FunctionTolerance =   1e-04 (selected)'
+
+   1    1 1.78e+02
+   2    1 1.81e+00
+   3    1 1.16e-02
+   4    1 1.91e-05
+   5    1 2.30e-07
+   6    1 1.40e-09
+Elapsed time is 0.061215 seconds.
+
+beta =
+
+   -1.1649
+    0.1259
+    0.1810
+    0.3530
+   -0.5799
+   -0.9245
+   -0.5388
+
+
+resnorm =
+
+   2.0790e+04
+
+
+exitflag =
+
+     3
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 0.0067
+     cgiterations: []
+    firstorderopt: 2.9515e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the final change in the sum of squares relative to its initial value is less than the selected value of the function tolerance.Stopping criteria details:Optimization stopped because the relative sum of squares (r) is changingby less than options.FunctionTolerance = 1.000000e-04.Optimization Metric                                  Optionsrelative change r =   3.03e-06             FunctionTolerance =   1e-04 (selected)'
+
+   1    1 1.17e+02
+   2    1 7.66e-01
+   3    1 5.39e-04
+   4    1 1.01e-06
+   5    1 1.40e-09
+Elapsed time is 0.053556 seconds.
+
+beta =
+
+   -1.1634
+    0.1260
+    0.1806
+    0.3531
+   -0.5801
+   -0.9222
+   -0.5381
+
+
+resnorm =
+
+   2.0788e+04
+
+
+exitflag =
+
+     3
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 0.0028
+     cgiterations: []
+    firstorderopt: 3.7719e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the final change in the sum of squares relative to its initial value is less than the selected value of the function tolerance.Stopping criteria details:Optimization stopped because the relative sum of squares (r) is changingby less than options.FunctionTolerance = 1.000000e-04.Optimization Metric                                  Optionsrelative change r =   6.30e-07             FunctionTolerance =   1e-04 (selected)'
+
+   1    1 4.59e+01
+   2    1 1.79e-01
+   3    1 6.36e-05
+   4    1 7.22e-08
+   5    1 1.86e-09
+Elapsed time is 0.051880 seconds.
+
+beta =
+
+   -1.1632
+    0.1260
+    0.1805
+    0.3532
+   -0.5801
+   -0.9209
+   -0.5380
+
+
+resnorm =
+
+   2.0786e+04
+
+
+exitflag =
+
+     3
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 0.0014
+     cgiterations: []
+    firstorderopt: 2.3965e-05
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the final change in the sum of squares relative to its initial value is less than the selected value of the function tolerance.Stopping criteria details:Optimization stopped because the relative sum of squares (r) is changingby less than options.FunctionTolerance = 1.000000e-04.Optimization Metric                                  Optionsrelative change r =   2.83e-07             FunctionTolerance =   1e-04 (selected)'
+
+   1    1 1.38e+01
+   2    1 3.02e-02
+   3    1 7.62e-06
+   4    1 4.66e-09
+Elapsed time is 0.054569 seconds.
+
+beta =
+
+   -1.1633
+    0.1260
+    0.1804
+    0.3532
+   -0.5800
+   -0.9201
+   -0.5381
+
+
+resnorm =
+
+   2.0784e+04
+
+
+exitflag =
+
+     3
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 7.7989e-04
+     cgiterations: []
+    firstorderopt: 3.7236e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the final change in the sum of squares relative to its initial value is less than the selected value of the function tolerance.Stopping criteria details:Optimization stopped because the relative sum of squares (r) is changingby less than options.FunctionTolerance = 1.000000e-04.Optimization Metric                                  Optionsrelative change r =   9.97e-08             FunctionTolerance =   1e-04 (selected)'
+
+   1    1 3.60e+00
+   2    1 4.09e-03
+   3    1 6.74e-07
+   4    1 1.86e-09
+Elapsed time is 0.044559 seconds.
+
+beta =
+
+   -1.1634
+    0.1260
+    0.1804
+    0.3532
+   -0.5799
+   -0.9197
+   -0.5381
+
+
+resnorm =
+
+   2.0784e+04
+
+
+exitflag =
+
+     3
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 4.1434e-04
+     cgiterations: []
+    firstorderopt: 3.6599e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the final change in the sum of squares relative to its initial value is less than the selected value of the function tolerance.Stopping criteria details:Optimization stopped because the relative sum of squares (r) is changingby less than options.FunctionTolerance = 1.000000e-04.Optimization Metric                                  Optionsrelative change r =   2.88e-08             FunctionTolerance =   1e-04 (selected)'
+
+   1    1 8.70e-01
+   2    1 4.94e-04
+   3    1 4.98e-08
+   4    1 2.33e-09
+Elapsed time is 0.042772 seconds.
+
+beta =
+
+   -1.1635
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9195
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     3
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 2.2070e-04
+     cgiterations: []
+    firstorderopt: 3.4764e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the final change in the sum of squares relative to its initial value is less than the selected value of the function tolerance.Stopping criteria details:Optimization stopped because the relative sum of squares (r) is changingby less than options.FunctionTolerance = 1.000000e-04.Optimization Metric                                  Optionsrelative change r =   7.86e-09             FunctionTolerance =   1e-04 (selected)'
+
+   1    1 1.89e-01
+   2    1 4.98e-05
+   3    1 2.79e-09
+Elapsed time is 0.044045 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 9.8966e-05
+     cgiterations: []
+    firstorderopt: 7.9316e-05
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 5.715519e-05,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   5.72e-05                 StepTolerance =   1e-04 (selected)'
+
+   1    1 4.36e-02
+   2    1 5.63e-06
+   3    1 1.40e-09
+Elapsed time is 0.044225 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 5.4782e-05
+     cgiterations: []
+    firstorderopt: 5.8766e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 3.163757e-05,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   3.16e-05                 StepTolerance =   1e-04 (selected)'
+
+   1    1 8.45e-03
+   2    1 4.75e-07
+   3    1 2.33e-09
+Elapsed time is 0.042964 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 3.4140e-05
+     cgiterations: []
+    firstorderopt: 6.9027e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 1.971630e-05,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   1.97e-05                 StepTolerance =   1e-04 (selected)'
+
+   1    1 1.11e-03
+   2    1 2.00e-08
+   3    1 1.40e-09
+Elapsed time is 0.049795 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 2.5807e-05
+     cgiterations: []
+    firstorderopt: 4.5502e-05
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 1.490420e-05,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   1.49e-05                 StepTolerance =   1e-04 (selected)'
+
+   1    1 8.40e-04
+   2    1 1.44e-08
+   3    1 1.40e-09
+Elapsed time is 0.044730 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 1.4488e-05
+     cgiterations: []
+    firstorderopt: 7.2062e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 8.367441e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   8.37e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 7.46e-05
+   2    1 2.79e-09
+Elapsed time is 0.043073 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 2.2737e-05
+     cgiterations: []
+    firstorderopt: 3.6310e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 1.313128e-05,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   1.31e-05                 StepTolerance =   1e-04 (selected)'
+
+   1    1 6.27e-05
+   2    1 1.63e-09
+Elapsed time is 0.044262 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 2.1509e-05
+     cgiterations: []
+    firstorderopt: 3.6432e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 1.242194e-05,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   1.24e-05                 StepTolerance =   1e-04 (selected)'
+
+   1    1 4.97e-05
+   2    1 2.33e-09
+Elapsed time is 0.043873 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 1.6194e-05
+     cgiterations: []
+    firstorderopt: 0.0011
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 9.352613e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   9.35e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 1.73e-05
+   2    1 1.86e-09
+Elapsed time is 0.044598 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 3.7913e-05
+     cgiterations: []
+    firstorderopt: 3.8076e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 2.189616e-05,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   2.19e-05                 StepTolerance =   1e-04 (selected)'
+
+   1    1 2.78e-04
+   2    1 2.79e-09
+Elapsed time is 0.042628 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 2.8697e-05
+     cgiterations: []
+    firstorderopt: 6.9752e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 1.657298e-05,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   1.66e-05                 StepTolerance =   1e-04 (selected)'
+
+   1    1 2.58e-05
+   2    1 2.33e-09
+Elapsed time is 0.043092 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 1.5610e-05
+     cgiterations: []
+    firstorderopt: 7.9611e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 9.015258e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   9.02e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 1.10e-04
+   2    1 1.40e-09
+Elapsed time is 0.043725 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 3.4571e-05
+     cgiterations: []
+    firstorderopt: 7.8430e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 1.996598e-05,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   2.00e-05                 StepTolerance =   1e-04 (selected)'
+
+   1    1 1.37e-04
+   2    1 1.40e-09
+Elapsed time is 0.044832 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 3.5306e-05
+     cgiterations: []
+    firstorderopt: 4.0569e-05
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 2.038984e-05,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   2.04e-05                 StepTolerance =   1e-04 (selected)'
+
+   1    1 1.18e-04
+   2    1 2.33e-09
+Elapsed time is 0.052323 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 1.2552e-05
+     cgiterations: []
+    firstorderopt: 3.5117e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 7.248817e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   7.25e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 1.33e-06
+   2    1 2.33e-09
+Elapsed time is 0.049131 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 1.0790e-05
+     cgiterations: []
+    firstorderopt: 3.5039e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 6.231454e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   6.23e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 3.41e-05
+   2    1 2.79e-09
+Elapsed time is 0.045459 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 1.5468e-05
+     cgiterations: []
+    firstorderopt: 3.6309e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 8.933030e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   8.93e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 1.90e-05
+   2    1 1.86e-09
+Elapsed time is 0.044629 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 1.6111e-05
+     cgiterations: []
+    firstorderopt: 3.2850e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 9.304700e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   9.30e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 3.23e-05
+   2    1 1.86e-09
+Elapsed time is 0.043052 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 4.2634e-06
+     cgiterations: []
+    firstorderopt: 2.7839e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 2.462195e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   2.46e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 2.70e-05
+   2    1 1.40e-09
+Elapsed time is 0.044636 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 1.3849e-05
+     cgiterations: []
+    firstorderopt: 5.7328e-05
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 7.997842e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   8.00e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 1.62e-05
+   2    1 1.86e-09
+Elapsed time is 0.043019 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 16
+         stepsize: 2.2943e-06
+     cgiterations: []
+    firstorderopt: 3.6130e-04
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 1.325006e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   1.33e-06                 StepTolerance =   1e-04 (selected)'
+
+   1    1 9.90e-07
+   2    1 2.79e-09
+Elapsed time is 0.043672 seconds.
+
+beta =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+resnorm =
+
+   2.0783e+04
+
+
+exitflag =
+
+     4
+
+
+output = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+       iterations: 1
+        funcCount: 9
+         stepsize: 9.8078e-06
+     cgiterations: []
+    firstorderopt: 0.1105
+        algorithm: 'levenberg-marquardt'
+          message: 'Local minimum possible.lsqnonlin stopped because the relative size of the current step is less thanthe selected value of the step size tolerance.Stopping criteria details:Optimization stopped because the relative norm of the current step, 5.664215e-06,is less than options.StepTolerance = 1.000000e-04.Optimization Metric                                    Optionsrelative norm(step) =   5.66e-06                 StepTolerance =   1e-04 (selected)'
+
+Elapsed time is 0.041728 seconds.
+ 
+(1) Finished Standard A&vW gravity estimation
+
+ans =
+
+     5
+
+
+betafinal =
+
+   -1.1636
+    0.1260
+    0.1804
+    0.3532
+   -0.5798
+   -0.9194
+   -0.5382
+
+
+Pnew =
+
+    0.0367
+    0.0330
+    0.0321
+    0.0312
+    0.0288
+    0.0348
+    0.0364
+    0.0366
+    0.0290
+    0.0261
+    0.0314
+    0.0355
+    0.0231
+    0.0351
+    0.0325
+    0.0267
+    0.0342
+    0.0366
+    0.0338
+    0.0291
+    0.0367
+    0.0336
+    0.0276
+    0.0273
+    0.0337
+    0.0352
+    0.0421
+    0.0329
+    0.0302
+    0.0259
+    0.0310
+    0.0377
+    0.0284
+    0.0264
+    0.0365
+    0.0304
+    0.0394
+    0.0356
+    0.0306
+    0.0375
+    0.0377
+    0.0285
+    0.0327
+    0.0352
+    0.0300
+    0.0341
+    0.0405
+    0.0417
+    0.0326
+    0.0376
+    0.0338
+    0.0307
+    0.0346
+    0.0413
+    0.0343
+    0.0286
+    0.0331
+    0.0355
+    0.0317
+    0.0341
+    0.0327
+    0.0431
+    0.0326
+    0.0396
+    0.0331
+    0.0337
+    0.0224
+    0.0353
+    0.0354
+    0.0337
+
+
+lnp =
+
+   -3.3052
+   -3.4127
+   -3.4390
+   -3.4670
+   -3.5472
+   -3.3574
+   -3.3143
+   -3.3077
+   -3.5421
+   -3.6449
+   -3.4610
+   -3.3389
+   -3.7661
+   -3.3486
+   -3.4277
+   -3.6244
+   -3.3761
+   -3.3071
+   -3.3883
+   -3.5381
+   -3.3037
+   -3.3935
+   -3.5901
+   -3.6021
+   -3.3893
+   -3.3468
+   -3.1688
+   -3.4141
+   -3.5005
+   -3.6530
+   -3.4738
+   -3.2776
+   -3.5625
+   -3.6343
+   -3.3106
+   -3.4936
+   -3.2329
+   -3.3349
+   -3.4862
+   -3.2839
+   -3.2792
+   -3.5590
+   -3.4210
+   -3.3455
+   -3.5068
+   -3.3796
+   -3.2062
+   -3.1773
+   -3.4222
+   -3.2803
+   -3.3875
+   -3.4841
+   -3.3635
+   -3.1873
+   -3.3731
+   -3.5548
+   -3.4070
+   -3.3371
+   -3.4519
+   -3.3799
+   -3.4208
+   -3.1441
+   -3.4239
+   -3.2300
+   -3.4083
+   -3.3896
+   -3.7971
+   -3.3444
+   -3.3416
+   -3.3915
+
