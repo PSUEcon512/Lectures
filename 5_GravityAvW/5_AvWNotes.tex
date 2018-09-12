@@ -1,0 +1,292 @@
+%
+% This is a borrowed LaTeX template file for lecture notes for CS267,
+% Applications of Parallel Computing, UCBerkeley EECS Department.
+% Now being used for CMU's 10725 Fall 2012 Optimization course
+% taught by Geoff Gordon and Ryan Tibshirani.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi. "pdflatex template.tex" should also work.
+%
+
+\documentclass[twoside]{article}
+
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% ADD PACKAGES here:
+%
+
+\usepackage{amsmath,amsfonts,graphicx, url}
+\usepackage{soul}
+%\usepackage{versions}
+
+%\includeversion{extra}
+%\excludeversion{extra}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+\newcommand{\ind}[1]{{\bf 1  }[ #1 ] }
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf ECON 512: Empirical Methods
+	\hfill Fall 2018} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Instructor: #3 \hfill Date: #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+
+%   {\bf Note}: {\it LaTeX template courtesy of UC Berkeley EECS dept.}
+%
+%   {\bf Disclaimer}: {\it These notes have not been subjected to the
+%   usual scrutiny reserved for formal publications.  They may be distributed
+%   outside this class only with the permission of the Instructor.}
+%   \vspace*{4mm}
+}
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\newcommand\E{\mathbb{E}}
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\lecture{5}{Application: Gravity with Gravitas}{Paul Grieco}{September 12/19}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+These lecture notes are for my personal use. 
+If you are reading them, I decided to distribute them as an experiment. 
+There are typos and probably outright errors, if you find them please accept my apologies and report them to me. 
+
+Up to now, we have focused on a few basic tools of numerical analysis namely methods for solving linear and nonlinear equations. This week, we'll get a chance to see how some of these tools can be used in economic analysis. The paper we will use is: 
+
+\begin{quote}
+Anderson, James and van Wincoop, Eric, Gravity with Gravitas: A Solution to the Border Puzzle, {\it American Economic Review}, 2003, 93(1): 170-192.  
+\end{quote}
+It is available in the lecture notes repository. While it's been around a while, it does a nice job of illustrating the value added of being able to numerically solve systems of equations.
+
+\section{Motivation: Gravity Equation and the Border Puzzle}
+
+A ``gravity equation'' in trade relates bilateral trade flows to GDP, distance and factors which proxy for trade barriers. A standard gravity equation might look like: 
+
+\begin{equation} \label{eq:McCallumGravity}
+ \ln x_{ij} = \alpha_1 + \alpha_2 \ln y_i + \alpha_3 \ln y_j + \alpha_4 \ln d_{ij} + \alpha_5 \delta_{ij} + \epsilon_{ij} 
+\end{equation}
+
+Where, 
+\begin{itemize}
+\item $x_{ij}$ is exports from $i$ to $j$, these may be countries or "regions". 
+\item $y_i, y_j$ are GDP for regions $i$ and $j$ respectively. 
+\item $d_{ij}$ is a measure of distance between $i$ and $j$. 
+\item $\delta_{ij}$ are proxies for trade frictions between $i$ and $j$. 
+\end{itemize}
+
+The intuition for for this regression comes not directly from economic theory, but from the physics law of gravity, hence its name. That said, the regression is extremely good at fitting observed trade patterns. 
+
+A paper by McCallum (1995, \emph{AER}), looked at interstate/provincial trade between the United States and Canada. The $\delta_{ij}$ was whether the trade had to cross the US-Canada border. 
+\begin{itemize}
+\item In McCallums case, this regression fits the data well in the sense that $R^2$ is around .7 to .8. 
+\item This paper found a substantial ``border effect.'' Trade between Canadian provinces was 22 times higher (2200\%) than trade between Canadian provinces and US states after controlling for size and distance. 
+\item This is despite the fact that the US and Canada are in a free trade agreement, share the same language (mostly) and were (at that time, at least) close allies, so where is this big trade barrier coming from? 
+\item The ``border puzzle'' became one of the great puzzles of international economics, according to Obsfeld and Rogoff (2001).
+\item Similar studies found similarly high border effects elsewhere (see footnote 3 for a list). 
+\end{itemize}
+
+\section{Explaining the Border Puzzle with Theory}
+
+Anderson and van Wincoop offer a succinct explanation for the border puzzle:
+\begin{enumerate}
+\item The empirical model McCallum used is not supported by trade theory. 
+\item When you work through the theory, you would find that trade flows are determined not by absolute trade costs but by trade costs \emph{relative} to trade costs with all other partners. In other words, outside options matter, and we need a general equilibrium model to account for them. 
+\item Anderson and van Wincoop work through this theory and find that a consistent gravity equation would include ``multilateral resistance'' terms that account for the average trade costs between, say, Manitoba, and the rest of the world. 
+This shows that the traditional gravity model equations suffer from endogeneity due to omitted variables. 
+\item Moreover, the Anderson and van Wincoop model can be used to perform general equilibrium counterfactual analysis to see how flows change when the border is ``eliminated'' that will account for price changes. 
+\end{enumerate}
+
+However, Anderson and van Wincoop's model cannot be estimated with OLS.\footnote{There is an ``easy'' solution, pursued by Helliwell. Since multilateral resitance is due to average trade costs in region $i$ it can be controlled for with region fixed effects. Anderson van Wincoop point out that while this gives consistent estimates of trade costs, it can't be used to do counterfactual analysis since the resistence terms are a function of trade costs, and will change when barriers are removed.}   
+\begin{itemize}
+\item Trade costs between New York and Ohio will affect the size of trade between New York and Ontario due to multilateral resistance. 
+\item But trade costs are exactly what we are trying to estimate!
+\item For a given set of trade cost parameters, they show how to calculate multilateral resistance by solving a system of nonlinear equations. 
+\item Then they can embed this solution into a nonlinear least squares estimation of trade costs. 
+\end{itemize}
+
+\section{Deriving Gravity from a CES Model of Trade}
+
+Assumptions: 
+\begin{itemize}
+\item Each region produces only one good. 
+\item The supply of goods from each region is a fixed endowment.  
+\item Goods are differentiated by origin, all goods are substitutable according to a single, constant elasticity of substitution.  Consumers in region $j$ maximize their utility: 
+$$ \left( \sum_i \beta_i^{(1-\sigma)/\sigma} c_{ij}^{(\sigma -1)/\sigma} \right)^{\sigma / (\sigma - 1)} $$
+subject to the budget constraint:
+$$ \sum_i p_{ij} c_{ij} = y_j $$
+\begin{itemize}
+  \item $\beta_i$ is an exogenous preference parameter, $\sigma$ is the elasticity of substitution. 
+  \item $y_j$ is $j$'s income (exogenous).   
+  \item $c_{ij}$ is units consumption of $i$'s product by $j$. 
+  \item $p_{ij}$ is the price of a unit of consumption of $i$'s product in country $j$. 
+\end{itemize}
+\item Prices differ across regions due to trade costs. If $p_i$ is the exporter supply price, then people in region $j$ must pay 
+$$ p_{ij} = p_i t_{ij} $$
+where $t_{ij}$ is the trade cost factor (exogenous). You can think of this as perfect competition in the transport market where the importer pays trade costs to the exporter. 
+\item Therefore, the value of trade flows is  $x_{ij} = p_{ij}c_{ij}$ and total income is $y_i = \sum_j x_{ij}$. 
+\end{itemize}
+
+Optimal behavior of consumers (taking prices as given) gives rise to nominal demand (in dollars): 
+$$ x_{ij} = \left( \frac{ \beta_i p_i t_{ij} }{ P_j } \right)^{1 - \sigma} y_j $$
+Where $P_j$ is just the CES price index:
+$$ P_j = \left[ \sum_i (\beta_i p_i t_{ij} )^{1-\sigma} \right]^{1/(1-\sigma)} $$
+The key thing to notice is that the price index in country $j$, and hence flows $x_{ij}$ depends on \emph{all} of $j$'s trading relationships, not just the barriers between $i$ and $j$. 
+
+By imposing the market clearing condition, $y_i = \sum_j x_{ij}$, and assuming that trade costs are symmetric, 
+$t_{ij} = t_{ji}$ it is possible to solve for ``scaled'' supply prices, $\beta_i p_i$, then demand can be written,
+
+$$ x_{ij} = \frac{y_i y_j}{y^W} \left( \frac{t_{ij}}{P_i P_j} \right)^{1-\sigma} $$  
+
+where $y^W$ is world income, using the same substitution we get a system of equations for the price indices: 
+
+\begin{equation} \label{eq:priceSystem}
+ P_j^{1-\sigma} = \sum_i P_i^{\sigma - 1} \theta_i t_{ij}^{1-\sigma}
+\end{equation} 
+
+where $\theta_i = y_i / y^W$, and hence, data. Therefore, given trade cost values, this represents a system of equations that can be solved for price indices in every country, which can then be used to compute implied trade flows. 
+
+Now parameterize trade costs as
+$$ t_{ij} = b_{ij}d_{ij}^\rho $$
+where $b_{ij}$ is a "border effect" that is 1 if the two regions are in the same country and a parameter to be estimated otherwise. Distance between regions is $d_{ij}$ with $\rho$ a distance cost parameter. Taking logs we get the theoretically founded gravity equation: 
+
+$$ \ln x_{ij} = k + \ln y_i +  \ln y_j + (1 - \sigma) \rho \ln d_{ij} + (1 - \sigma) \ln b_{ij} - (1 - \sigma) \ln P_i - (1-\sigma) P_j $$
+
+The two price indices are the omitted variables from the ``traditional'' gravity equation, \eqref{eq:McCallumGravity}. We can see from \eqref{eq:priceSystem} that they are clearly correlated with the trade cost variables, and hence introducing endogeneity bias to OLS estimation of \eqref{eq:McCallumGravity}.  The other difference is unitary income elasticities, although this can be relaxed by introducing a non-traded good. 
+
+\section{Estimation}
+
+Estimate the gravity equation, we'll move the GDP variables to the left hand side and define, 
+
+$$ \ln z_{ij} \equiv \ln \left( \frac{x_{ij}}{y_iy_j} \right) $$
+
+We'll (conveniently) assume that the $z_{ij}$ we observe is contaminated with measurement error that is uncorrelated with all the explanatory variables. Then the gravity model implies: 
+
+$$ \ln z_{ij} = \underbrace{k + a_1 \ln d_{ij} + a_1 (1 - \delta_{ij}) - \ln P_i^{1 - \sigma} - \ln P_j^{1 - \sigma}}_{h_{ij}(\cdot)} + \varepsilon_{ij}$$
+
+Where $a_1 = (1 - \sigma)\rho$ and $a_2 = (1 - \sigma) \ln b$. 
+Assume we know $\sigma$ (``the literature'' says it is 5), then we can estimate this using OLS if we just knew $P$ for all regions. Instead, we can solve for $P$ using the $N$ equations: 
+\begin{equation} \label{eq:constraints}
+ P_j^{1-\sigma} = \sum_i P_i^{\sigma - 1} \theta_i e^{a_1 \ln d_{ij} + a_1 (1 - \delta_{ij})} 
+\end{equation}
+Then plug the result in and compute the implied $\varepsilon$, which is needed for a least squares objective function. We can think of this as a nonlinear least squares problem arising from: 
+
+$$ \ln z = h(d, \delta, \theta; k, a_1, a_2) + \varepsilon $$
+
+Where this equation is a vector of region pairs and $h(\cdot)$ is the stacked vector of $h_{ij}$ which is of course a function of the full vector of data inputs.  
+
+The problem can also be expressed as a constrained optimization: 
+\begin{equation} \label{eq:opt}
+ \min_{k, a_1, a_2} \sum_i \sum_{j \neq i} \left[ \ln z_{ij} - k - a_1 (1 - \delta_{ij}) + \ln P_i^{1 - \sigma} + \ln P_j^{1 - \sigma} \right]^2 
+ \end{equation}
+subject to \eqref{eq:constraints} for all $j$. 
+
+While we could implement this directly. We're instead going to adopt the following algorithm to showcase nonlinear equation solving: 
+
+\begin{enumerate}
+
+\item Guess a value for $P^{(0)}$, set $t = 0$.
+\item While $| P^{(t)} - P^{(t-1)}| > \epsilon $ 
+\begin{enumerate} 
+   \item Increment $t$. 
+   \item Solve the least squares problem \eqref{eq:opt} for $(k, a_1, a_2)$. 
+   \item Given $(k, a_1, a_2)$, solve the nonlinear equations \eqref{eq:constraints} for $P^{(t)}$ using Broyden's method.  
+\end{enumerate}
+\item Return estimates $(k, a_1, a_2)$.
+\end{enumerate}
+
+This will terminate at a solution to the least squares problem when holding $P$ fixed that satisfies the constraints. 
+
+Later we will consider alternative approaches: 
+\begin{itemize}
+\item Nested fixed point would explicitly solve for $P$ before computing the objective function. This would directly take into account that $\partial h / \partial a$ includes a $\partial P / \partial a$ term. 
+\item Direct constrained optimization would utilize a Lagrangian. 
+\end{itemize}
+
+\section{Now let's go through the code...}
+ \begin{itemize}
+ \item Some quick examples of data cleaning. 
+ \item Makes use of the Comp Econ toolbox of Miranda and Fackler. 
+ \item Uses MATLAB optimization toolbox command { \tt lsqnonlin }
+ \item Estimates trade costs for a 70 region model in a few seconds. 
+ \end{itemize}
+ 
+\end{document}
