@@ -1,4 +1,4 @@
-%% Class 4: Quasi-Newton Methods for solving Nonlinear Equations
+%% Class 4: Quasi-Newton Methods 
 %
 % * Last week we introduced some methods for solving nonlinear equations, the
 % workhorse method was Newton's method, which relied on iteratively
@@ -26,18 +26,18 @@
 % $$f'(x^{(k)}) \approx \frac{ f(x^{(k)}) - f(x^{(k-1)}) }{ x^{(k)} -
 % x^{(k-1)}}$$
 %
-% No the secant method iteration just replaces the derivative in Newtons
+% The secant method iteration just replaces the derivative in Newtons
 % method with this secant approximation: 
 %
 % $$x^{(k+1)} \leftarrow x^{(k)} - \frac{ x^{(k)} - x^{(k-1)} }{ f(x^{(k)})
-% - f(x^{(k-1)}) }$$
+% - f(x^{(k-1)}) } f(x^{(k)})$$
 %
 % This illustrates the main concept of quasi-newton methods: use previously
 % computed information to efficiently approximate the derivative
 % information of the current iterate. 
 %
-% Formally, the secant method requires 2 initial guesses. Although usually
-% we just compute the derivative for the first iteration. (e.g., use $x$ and $x+h$ as the initial guesses).  
+% Formally, the secant method requires 2 initial guesses. Although often
+% we just compute the derivative for the first iteration.   
 
 %% 
 % Let's recall our univariate function:
@@ -136,7 +136,7 @@ end
 % iterations to converge, however each iteration was more computationally
 % intensive since 
 % 
-% # Had to compute numerical Jacobean (or supply analyticl
+% # Had to compute numerical Jacobian (or supply analytic Jacobian).
 % # Had to solve a linear equation as part of iteration. 
 
 %% What's going wrong? 
@@ -192,3 +192,9 @@ end
 % closer to a _linear_ problem you have, the easier it will be to solve
 % with Newton or quasi-Newton methods, since both follow the principle of
 % successive linearization. 
+%
+
+%% Gravity with Gravitas
+%
+% This class is short, but next class is our first applicaiton, so I'll use
+% some of the time to set it up. 
