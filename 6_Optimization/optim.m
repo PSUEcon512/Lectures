@@ -29,7 +29,7 @@
 % at least one store in a county). 
 %
 % * This is a finite set of options: $\{0,1\}$ for each county. 
-% * But that is $2^{2065} = 10^{600}$ different options. 
+% * But that is $2^{2065} \approx 10^{600}$ different options. 
 % * Jia uses the structure of the model to eliminate the vast majority of
 %   these options, but must do grid search to finish the optimization. 
 %
@@ -153,7 +153,7 @@ f(4)
 % often useful to include expansion steps so your simplex doesn't shrink
 % pre-maturely. 
 %
-% MATLAB's native implementation of Nealder-Mead is |fminsearch|$, the full algorithm for this implementaiton is
+% MATLAB's native implementation of Nealder-Mead is |fminsearch|, the full algorithm for this implementaiton is
 % described
 % <https://www.mathworks.com/help/matlab/math/optimizing-nonlinear-functions.html#bsgpq6p-11 here>.
 %
@@ -271,4 +271,6 @@ f(x)
 % * Flexibility in the magnitude of the step is often beneficial. 
 % * Steepest descent methods make sure we are progressing towards a max or
 % min, not just to a critical point. 
+%
+% We'll cover these methods next week.
 
