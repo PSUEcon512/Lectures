@@ -40,7 +40,7 @@
 [X1 X2] = ndgrid(0:.2:1, 0:.2:1)
 %
 %% 
-% Then we can compute the maximum of $(x_1-.5)^2 - (x_2+.25)^2 - x_1: 
+% Then we can approximate the maximum of $- (x_1-.45)^2 - (x_2+.55)^2$: 
 Y = - (X1-.45).^2 - (X2-.55).^2 
 
 [val, idx] = max(Y(:))
@@ -48,10 +48,14 @@ Y = - (X1-.45).^2 - (X2-.55).^2
 [X1(idx) X2(idx)]
 %%
 % While grid search is primitive, and rarely where we'd want to stop in
-% approximating an optimum. It's usually a good place to start ot make sure
+% approximating an optimum. It's often a good place to start to make sure
 % you understand how your function behaves. 
 %
-% It also gives us a chance to ilustrate the curse of dimensionality. While
+% And of course, once you do one you may as well plot it (given dimensions): 
+surf(X1, X2, Y)
+
+%% 
+% This also gives us a chance to ilustrate the curse of dimensionality. While
 % it is usually feasible for 2 or 3 dimensions, constructing a "reasonably
 % dense" grid becomes impractical as the number of dimensions go up
 % (consider Jia, above). 
@@ -208,27 +212,63 @@ x = fminsearch(fun,x0,options)
 % rule.)
 
 %% 
-% Let's do a quick example where we want to solve, 
+% Let's do a quick example where we want to minimize, 
 %
-% $$f(x,y)=(x-y)^4+2x^2+y^2-x+2y$$
+% $$f(x)=(x_1-x_2)^4+2x_1^2+x_2^2-x_1+2x_2$$
 %
-% The Gradient is, 
+% The Gradient is, (swtiching to Judd's notation so you see both).  
 %
-% $$\nabla f(x,y) = \begin{array}{c} 4(x-y)3+4x-1 \\ -4(x-y)3+2y+2  \end{array} $$
-
+% $$\nabla f(x) = \left( \begin{array}{c} 4(x_1-x_2)^3+4x_1-1 \\ -4(x_1-x_2)^3+2x_2+2  \end{array} \right) $$
+%
+% The Hessian is, 
+%
+% $$ H(x) = \left( \begin{array}{cc} 12(x_1 - x_2)^2 + 4 & -12(x_1 - x_2)^2 \\  -12(x_1 - x_2)^2 & 12(x_1 - x_2)^2 + 2 \end{array} \right) $$
+%
+% So the Newton-Raphson Iteration rule is: 
+%
+% $$ x^{(k+1)} \leftarrow x^{(k)} - [H(x^{(k)})]^{-1} \nabla f(x^{(k)}) $$
+%
+% Implemented in MATLAB, this looks like: 
 n=0;            %initialize iteration counter 
-eps=1;          %initialize error 
+focerr=1;          %initialize error 
 x=[1;1];        %set starting value
 
 %Computation loop 
-while eps>1e-10&n<100 
-    gradf=[4*(x(1)-x(2))^3+4*x(1)-1;-4*(x(1)-x(2))^3+2*x(2)+2];  %gradf(x) 
-    eps=abs(gradf(1))+abs(gradf(2));                             %error 
-    Hf=[12*(x(1)-x(2))^2+4,-12*(x(1)-x(2))^2;...                 %Hessean 
-            -12*(x(1)-x(2))^2,12*(x(1)-x(2))^2+2]; 
-    y=x-Hf\gradf;                                                %iterate 
-    x=y;                                                         %update x 
-    n=n+1;                                                       %counter+1 
+while focerr>1e-10&n<100 
+    %Compute Gradient
+    gradf=[4*(x(1)-x(2))^3+4*x(1)-1;...
+          -4*(x(1)-x(2))^3+2*x(2)+2];                            
+    
+    %Compute Hessian
+    Hf=     [12*(x(1)-x(2))^2+4,  -12*(x(1)-x(2))^2;...           
+            -12*(x(1)-x(2))^2,    12*(x(1)-x(2))^2+2]; 
+    
+    %Perform Iteration
+    y=x-Hf\gradf; 
+    x=y;                                                          
+    n=n+1; 
+    
+    %Calculate FOC Error
+    focerr= norm(gradf);                            
+                                                          
 end 
-n,x,eps,        %display end values
+n,x,focerr,        %display end values
+
+%% 
+% Notice this really is just rootfinding for the FOCs we never even compute
+% the objective function during the iterations.  
+f = @(x) (x(1) - x(2))^4 + 2*x(1)^2 + x(2)^2 - x(1) + 2*x(2);
+f(x)
+%%
+% We didn't even explicitly say whether we were minimizing or maximizing,
+% just looking for a local critical point. 
+%
+% While it is the theoretical foundation for many derivative based
+% optimization algorithms, Newton-Raphson itself is rarely implemented in
+% practice. 
+%
+% * Computing the Hessian is costly, and approximations often work well. 
+% * Flexibility in the magnitude of the step is often beneficial. 
+% * Steepest descent methods make sure we are progressing towards a max or
+% min, not just to a critical point. 
 
