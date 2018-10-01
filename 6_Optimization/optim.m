@@ -21,8 +21,9 @@
 %
 % If $X$ contains a finite number of elemets, we could simply try all of the 
 % possible values of $X$ and choose the maximum
-%  * Guarenteed to find the maximum. 
-%  * But may be very computationally expensive. 
+%
+% * Guarenteed to find the maximum. 
+% * But may be very computationally expensive. 
 %
 % For example, Jia (2008, _Econometrica_) considers how Wal-Mart choses to
 % set up a network of stores in 2065 US Counties (assuming entry is putting
@@ -36,7 +37,7 @@
 % If $X$ is not finite, we can approximate it with a finite set and still
 % do a grid search. 
 %
-% * Suppose $X$ is [0,1]^2, we can do a grid search on 
+% * Suppose $X$ is $[0,1]^2$, we can do a grid search on 
 [X1 X2] = ndgrid(0:.2:1, 0:.2:1)
 %
 %% 
@@ -64,11 +65,12 @@ surf(X1, X2, Y)
 %
 % Assume we have a continuous, univariate function $f : R \rightarrow R$.
 % We wish to solve: 
-%  \max_{x \in [a,b]} f(x)
+%
+% $$ \max_{x \in [a,b]} f(x) $$
 %
 % Bracketing suggests: 
 %
-% # Picking two points $x_1 < x_2$ in the interior of [a, b] to compute the
+% # Picking two points $x_1 < x_2$ in the interior of $[a, b]$ to compute the
 % funciton. 
 % # If $b-a < \epsilon$, then the bracket is small and return the maximum
 % of $\{f(a), f(x_1), f(x_2), f(b)\}$.
@@ -253,6 +255,8 @@ while focerr>1e-10&n<100
                                                           
 end 
 n,x,focerr,        %display end values
+
+
 
 %% 
 % Notice this really is just rootfinding for the FOCs we never even compute
