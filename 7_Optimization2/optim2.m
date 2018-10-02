@@ -1,8 +1,8 @@
 %% Lecture 6 - Direction-Set and Quasi-Newton Optimization Methods
 %
 % Last week we examined optimization algorithms, ending with Newton's
-% Method. We'll pick up there with quasi-Newton methods, which generally 
-% replace the Hessian (or inverse Hessian) in the Newton Step with some approximiation. 
+% Method. This week we'll go over a series of methods inspired by Newton's
+% method which are commonly implemented in practice. 
 %
 
 %% Stopping Criteria for Newton and Quasi-Newton Methods
@@ -172,7 +172,7 @@ options = optimoptions('fminunc','Algorithm','quasi-newton',...
 fminunc('qfunc', [1, 1], options);
 
 %%
-% That's everything I have for determining the direction, now let's see
+% That's (almost) everything I have for determining the direction, now let's see
 % what the "step-size" column is all about...
 
 %% Line Search
@@ -206,3 +206,101 @@ fminunc('qfunc', [1, 1], options);
 % While |fminunc| has limited flexibility in line search options, the
 % Miranda and Fackler package |qnewton| is easier to customize, but I've
 % found the MATLAB functions to be more robust. 
+
+%% Conjugate Gradient Iterations
+%
+% BFGS is a workhorse for "small" or "medium" size problems which are
+% roughly problems up to 100 variables. However even though they only
+% approximate a Hessian, they still need to store it.  For problems with
+% 1000+ variables, this will be costly, unless we are able to exploit
+% sparsity. 
+%
+% Like stepest descent, conjugate gradient methods work with ONLY gradient
+% information. Keeping memory needs light. 
+%
+% They use previous iterates help deal with the curvature of the problem. 
+%
+% Consider a quadratic function: 
+% 
+% $$ f(x) = \frac{1}{2}x^T A x + b^T x + c $$
+%
+% If we optimize along one direction $u$ (in steepest descent (u = -\nabla
+% f$), then we will solve: 
+% $$ (Ax + b)^T u = 0  $$
+%
+% The problem would be solved if this holds for any $u$. 
+% Next we choose a new direction $v$, however we don't want to violate the
+% conditions we've already solved. If $v$ is *conjugate* to $u$ with respect to $A$:
+%
+% $$ v^T A u = 0 $$
+%
+% We know that maximizing along $v$ won't violate the conditions we
+% satisfied for $u$. 
+%
+% Note that a set of conjugate directions form a basis, if the problem were
+% actually quadratic in $R^N$, this algorithm would solve the problem in
+% $N$ steps. Of course, for us that quadratic intuition is just an
+% approximation. 
+% 
+% Usually, congugate-gradient methods are combined with steepest descent,
+% that is we will ``deflect'' the steepest descent direction (the
+% gradient) such that it is conjugate with the previous iterate, this leads
+% to the updating rule: 
+%
+% $$ s^{(k+1)} = -\nabla f(x^{(k+1)}) + \frac{||\nabla f(x^{(k+1)})||^2}{||\nabla f(x^{(k)})||^2} $$
+% 
+% Some notes: 
+%
+% * In practice, since the problem is not quadratic, many implementations
+% will "reset" by using a standard steepest descent step every $n$ (number
+% of dimensions) iterations. 
+% * KNITRO makes used of conjugate-gradient iterations as a sort of
+% "sub-iteration" in the context of a BFGS, L-BFGS or full newton search. 
+% * Here is an example of how to call KNITRO, but it will only work if you
+% have a license (PSU lab computers and the cluster do, your laptop
+% probably doesn't). 
+% * It will not use CG iterations because this problem is too small. 
+
+[sol] = knitromatlab(@(x) qfunc(x), [1, 1])
+
+%% Limited Memory BFGS (L-BFGS)
+%
+% What if we want to use a quasi-newton method, but our problem is too
+% large? L-BFGS avoids storing the hessian and instead approximates it from
+% the past iteration information. It specifically stores the last $m$ values of: 
+%
+% $$ s_j = x^{(j)} - x^{(j-1)} $$
+% $$ y_j = \nabla f(x^{(j)}) - \nabla f (x^{(j-1)})$$
+%
+% It should be clear that this is just the secant information from the last $m$ iterations.  
+% Then an approximation of the hessian using this information can be
+% written recursively: 
+%
+% $$ H_j^{-1} \approx (I - \frac{s_j y_j^T}{y_j^T s_j}) H^{-1}_{j-1} (I
+% -\frac{y_j s_j^T}{y_j^T s_j}) + \frac{s_j s_j^T}{y_j^Ts_j} = B$$
+%
+% Where we start with $H_{k-m}^{-1} = I$.
+%
+% Of course, we don't want to actually construct an approximation for
+% $H^{-1}$, but we don't have to, we can compute the next step as: 
+%
+% $$ s_{j+1} = B \nabla f(x^{(j)}) $$
+%
+% Which can be computed via a series of vector multiplications. This means
+% the storage and cost of iteration will be $O(mn)$ instead of $O(n^2)$,
+% useful if $m \ll n$. 
+%
+% Final Thoughts: 
+%
+% * I've used L-BFGS mostly on large scaled constrained problems, a big
+% decision is just how large to make $m$. In principle larger is better,
+% but each iteration will be slower. 
+% * I would never try to code this up myself, MATLAB and KNITRO (although
+% MATLAB for |fmincon|, only, not |fminunc|). 
+% * For both BFGS and L-BFGS, the Hessian approximation is path-dependent.
+% This means if your algorithm converges, but not to a local minium (tolX),
+% if you re-start it, it may be able to continue progressing to a local min. 
+% * All of these Hessian approximations are going to be bad for inference.
+% If you are computing standard errors, either compute the full finite
+% difference Hessian yourself (or make sure that is what your solver
+% returns), or use the outer-product approximation. 
