@@ -39,7 +39,7 @@
 % algorithm'' which incorporates both a Hessian approximation and a line
 % search: 
 %
-% *Initialization: Choose initial guess $x^{(0)}$ and stopping parameters
+% *Initialization:* Choose initial guess $x^{(0)}$ and stopping parameters
 % $\delta$ and $\varepsilon > 0$. 
 %
 % # Compute search direction $s^k$. 
