@@ -1,6 +1,6 @@
 %% Lecture 8 - Numerical Integration
 %
-% For the next two weeks, we'll consider how to evaluaate the definite integral of a
+% For the next two weeks, we'll consider how to evaluate the definite integral of a
 % real valued function over some interval $I \in R^d$:
 %
 % $$ \int_{x \in I} f(x) w(x) dx $$
@@ -97,6 +97,10 @@ Int_trap(@(x) exp(x), 0, 1, 32) - (exp(1) - 1)
 % $$ \int_a^b f(x) dx = \frac{(b - a)}{6} [f(a) + 4f\left(\frac{a+b}{2} \right) + f(b)] - 
 % \frac{(b-a)^5}{2880}f''''(\xi) $$
 %
+% Exactly why this is the formula for the area under a parabola may not be immediately obvious, but it
+% is just some basic calculus. If you don't belive me this
+% <https://www.youtube.com/watch?v=7MoRzPObRf0 youtube video> derives it. 
+%
 % We can then create a composite version of simpsons rule the only
 % complication is that now we will use half size intervals to account for
 % the midpoints. 
@@ -173,6 +177,11 @@ MatI - ( exp(10) - 1)
 % polynomials of order-n. The hope is that this will prove to be a good
 % approximation for other smooth functions. 
 %
+% They will be less effective for non-smooth functions, for which
+% simulation is an option, or perhaps Newton-Coates methods for functions
+% with a small number of kinks or discontinuities (breaking up the function
+% will limit the error caused by the kink. 
+%
 % We can pull it off by solving the following set of moment conditions: 
 % 
 % $$ \int_I x^k w(x) dx = \sum_{i = 1}^n w_i x_i^k $$
@@ -207,7 +216,13 @@ x = wx(4:6);
 %
 % $$ u_{it} = -1 + x_i + \varepsilon_{it} $$
 %
-% where $z_i \sim N(0,1)$ and $\varepsilon_{it} \sim T1EV$:
+% where $z_i \sim N(0,1)$ and $\varepsilon_{it} \sim T1EV$.
+%
+% Then my integral is:
+% 
+% $$ \int \frac{\exp(-1 + x)}{1 + \exp(-1 + x)} \phi(x) dx $$
+%
+% And using the 3 quadrature points we can approximate it with: 
 f = exp(-1+x)./(1 + exp(-1+x))
 Ef = w*f'
 
@@ -230,5 +245,47 @@ addpath('../CEtools/');
 
 %%
 % They also have functions for lognormal, beta, gamma, and uniform
-% distributions. Judd prints several of the quadrature points in his book,
-% while you can find more in the <https://dlmf.nist.gov/3.5#v Digital Library of Mathematical Functions>. 
+% distributions. Judd prints several of the quadrature points and weights in his book,
+% together with change of variables formulas to help you apply them. 
+%
+% * Gauss-Chebyshev: Definite integrals on $[-1, 1]$ with weight function $w(x) = (1-x^2)^{1/2}$. Change of variables to unweighted definite integral on $[a,b]$. 
+% * Gauss-Legendre: Definite integrals on $[-1, 1]$ with weight function $w(x) = 1$. Change of variables to unweighted definite integral on $[a,b]$. 
+% * Gauss-Hermite: Indefinite integrals on $(-\infty, \infty)$ with weight
+% funciton $w(x) = e^{-x^2}$. Change of variables to indefinite integrals
+% with normal pdf weight function. 
+% * Gauss-Laguerre: Indefinite integraols on $[0, \infty)$, with weight
+% function $w(x) = e^{-x}$. Directly useful for continuous discounting.
+%
+% You can find more in the <https://dlmf.nist.gov/3.5#v Digital Library of Mathematical Functions>. 
+
+
+%% Extension to Multivariate Integrals
+%
+% Of course, we're likely to have multiple dimensions we want to integrate
+% over. Conceptually, the quadrature rules we discussed extend almost
+% trivially. In practice, we run into the curse of dimensionality. 
+%
+% Suppose we want to integrate a function over 2 dimensions, we can just apply single dimensional quadrature to both dimensions:  
+%
+% $$ \int_{a}^{b} \int_c^d f(x_1,x_2) dx_2 dx_1 \approx \int_{a}^{b} \sum_j w_j f(x_1, x_2^j) dx_1 \approx  \sum_i \sum_j w_i w_j f(x_1^i, x_2^j)$$
+%
+% So we have the so-called ``tensor product rules''. They would work great
+% except that they are very expensive. For example, if you want to use 7
+% point quadrature over 5 dimensions you end up having to calculate the
+% function $7^6 = 117,649$ times. 
+%
+% Another option is to try to use <http://sparse-grids.de/ sparse grids>, which are also 
+% known as Smolyak points. Heiss and Winschel (2008, _Journal of
+% Econometrics_) introduces these methods to economics. I've tried it, but
+% wasn't very successful. The issue is that, like higher order polynomial
+% approximations some of the weights can be negative. For me, in a 200
+% product discrete choice model with 5 dimensions of heterogeneity, 
+% I found it was not uncommon for a market
+% share approximation to be negative. Maybe there is a creative way around
+% this, or maybe it won't be an issue for your application.
+%
+% The other approach to high dimensionality is to turn to simulation
+% methods, which we will discuss next week. 
+%
+% A second reason to consider simulation is to calculate non-smooth
+% integrals. 
