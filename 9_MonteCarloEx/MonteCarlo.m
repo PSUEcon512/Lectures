@@ -91,10 +91,11 @@ rng(seed);
 Y = rand(2,2)
 Z = rand(2, 2)
 
-%%
-%The seed lets me "reset" the generator to its initial state so I get the
-%same random sequence again. This is important so that my results are
-%reproduceable. 
+%% 
+%
+% Setting and saving the seed lets me "reset" the generator to its initial state so I get the
+% same "random" sequence again. This is important so that my results are
+% reproduceable. 
 rng(seed);
 rand(2,2)
 
@@ -143,10 +144,10 @@ U = chol(Sigma) %Annoyingly, MATLAB returns the upper matrix by default, just be
 U'*U
 
 %%
-% Now we can draw 500 bivariate normal by first draing standard normals and
+% Now we can draw 500 bivariate normal by first drawing standard normals and
 % then using $L$: 
 Z = randn(2, 2500);
-biNorm = Mu + U' * Z;
+biNorm = repmat(Mu, 1, 2500) + U' * Z;
 scatter(biNorm(1,:), biNorm(2,:));
 
 %% 
@@ -237,11 +238,82 @@ scatter(hNorm(1,:), hNorm(2,:), 'k');
 % We can convert these from $N(0,1)$ to $N(\mu, \Sigma)$ just as we did for
 % pseudo-MC draws. 
 
-hbiNorm = Mu + U' * hNorm;
+hbiNorm = repmat(Mu,1,500) + U' * hNorm;
 scatter(hbiNorm(1,:), hbiNorm(2,:));
 
 
 %% Using Numerical Integration in Estimation
-
-
+%
+% Let's look at an application from Roberts and Tybout (1997, AER). They
+% have data from 650 manufacturing plants in Colombia and want to estimate
+% a model of plant exporting that accounts for persistence in exporting
+% behavior and unobserved plant heterogeneity. 
+%
+% For the years 1984-1989 the long run profit from exporting is modeled as a
+% function of plant characteristics and lagged values of the export dummy.
+% The idea is that long run profits from exporting can be modeled as,
+% 
+% $$ a_{it}=\mu _{0}+\gamma _{1}Y_{it-1}+\gamma_{2}{Y}_{it-2}+\gamma_{3}{Y}_{it-3}+\sum_{t=85}^{89}\mu_{t}D_{t}+\beta Z_{it}+\alpha _{i} $$
+%
+% Where $Y_{it}$ is an export summy, $D_t$ are year dummies $Z_{it}$ are
+% observable plant charachteristics, and $\alpha_i$ is a plant effect that is constant over time.
+% 
+% If we add a standard normal shock to $a_it$ to determine the export
+% decision we get that firm $i$ will export in year $t$ with probability: 
+%
+% $$ \mbox{Pr}(Y_{it} = 1) = \mbox{Pr}(a_{it} + \varepsilon_{it}  \geq 0) =
+% \Phi(a_{it}) $$
+%
+% However, this model suffers from an initial conditions problem. In the
+% first year (1984) the lagged values will be correllated with the plant
+% effect $\alpha_i$, but this is not modeled. We'll deal with this with a
+% correction proposed by Heckman (1981). For years the initial condition
+% years we'll propose a seperate model for long run profits that does not
+% include lagged years (which we don't observe). 
+%
+% $$ b_{it}=\lambda _{0}+\sum_{t=82}^{83}\lambda _{t}D_{t}+\lambda
+%  Z_{it}^{P}+\alpha _{i}^{P} $$
+%
+% As above, we'll assume a normal chock to long-run profits determines the
+% exporting decision, $\mbox{Pr}(Y_{it} = 1) = \Phi(b_{it})$.
+% There are no lagged dependent variables here so no initial conditions problem. 
+% Moreover, we will allow
+% $\alpha_i$ and $\alpha_i^P$ to be correlated, which will control for the correlation in the
+% equation for $a_{it}$. In fact, we'll assume they
+% are jointly normal with variance matrix: 
+%
+% $$ \Omega = \left( \begin{array}{cc} \omega_{11} &  \omega_{12} \\
+%                                   \omega_{12} & \omega_{22} \end{array}
+%                                   \right) $$
+%
+% To build the likelihood, start with the likelihood of a single plant $i$,
+% conditional on $(\alpha_i^P, \alpha_i)$, 
+%
+% $$ L(\mu, \gamma, \beta, \lambda| \alpha_i^P, \alpha_i ) = \left(
+%  \Pi _{t=81}^{83}\left[ \Phi (b_{it})^{Y_{it}}(1-\Phi (b_{it}))^{(1-Y_{it})}
+%  \right] \right)  \cdot \left( \Pi _{t=84}^{89}\left[ \Phi (a_{it})^{Y_{it}}(1-\Phi
+%  (a_{it}))^{(1-Y_{it})}\right] \right). $$
+%
+% Of course, we don't observe $(\alpha_i^P, \alpha_i)$, so they will have
+% to be integrated out. We assume shocks are independent across plants so the full data likelihood is, 
+%
+% $$ L(\mu ,\gamma ,\beta ,\lambda ,\Omega )=\Pi _{i=1}^{650}\int_{-\infty}^{\infty }\int_{-\infty }^{\infty }L_{i}(\mu ,\gamma ,\beta ,\lambda|\alpha _{i},\alpha _{i}^{P})
+%   \phi (\alpha ,\alpha ^{P}|\Omega )d\alpha d\alpha ^{P} $$
+%
+% So we need to use numerical integration to optimize this. It seems like a good candidate for Gaussian Quadrature, so let's use that. Here is the likelihood function: 
+%
+% <include> llk.m </include>
+%
+% Some things I might make an assignment out of: 
+%
+% * Notice that the code parameterizes the Cholesky root, then creates the
+% varience-covariance to pass to qnwnorm. Mildly inefficient. 
+% * Might be a good idea to avoid calling qnwnorm every funciton eval.
+% Because this is optimized via Nelder-Mead and requires a lot of
+% evaluations, every bit matters. 
+% * If we do the two above, we could easily alter this code to use other integration schemes. How? 
+% * I've included two files to optimize this, |ex6mod.m| just calls
+% Nelder-Mead once, |ex6.m| loops. Why?
+% * If you play with this, don't forget to add the |CETools| library to
+% your path. 
 

@@ -39,7 +39,7 @@ b0 = glmfit(double(A(indb,Xb)),double(A(indb,'dexp')),'binomial',...
     'link','probit','constant','off');
 w0 = [1 0.5 1]';            % Starting value of Omega matrix
 
-opt = optimset('Display','iter','MaxIter',2e5,'MaxFunEvals',5e5);
+opt = optimset('Display','final','MaxIter',2e5,'MaxFunEvals',5e5);
 
 %% Maximum likelihood estimation
 

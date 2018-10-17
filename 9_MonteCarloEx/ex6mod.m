@@ -1,6 +1,6 @@
-% Empirical methods, Exercise 6
+% Empirical methods, Roberts-Tybout 97 Exercise
 % based on a program by Huihui Li
-% November 2011
+
 
 clear
 clc
@@ -43,7 +43,7 @@ b0 = glmfit(double(A(indb,Xb)),double(A(indb,'dexp')),'binomial',...
     'link','probit','constant','off')
 w0 = [1.1 5 3]'            % Starting value of Omega matrix
 
-optnm = optimset('Display','iter','MaxIter',2e5,'MaxFunEvals',5e5);
+optnm = optimset('Display','final','MaxIter',2e5,'MaxFunEvals',5e5);
 optnewton = optimset('LargeScale','off','Display','iter','TolFun',1e-5,...
                      'TolX',1e-5,'MaxFunEvals',1e7,'MaxIter',1e5);
         
@@ -52,14 +52,16 @@ optnewton = optimset('LargeScale','off','Display','iter','TolFun',1e-5,...
 % Optimization with 5 quadrature points
 
 p0 = [a0;b0;w0];
-[pe,fv_new,exitflag,output] = fminsearch(@(p)llk(X,p,[5 5]),p0,optnm)
+[pe,fv_new,exitflag,output] = fminsearch(@(p)llk(X,p,[5 5]),p0,optnm);
 b = pe;
-
+fv = fv_new;
 % Optimization with 10 quadrature points
 
-p0 = [a0;b0;w0];
-[pe,fv_new,exitflag,output] = fminsearch(@(p)llk(X,p,[10 10]),b,optnm)
+%p0 = [a0;b0;w0];
+p0 = b; %Start with estimate from 5 point. 
+[pe,fv_new,exitflag,output] = fminsearch(@(p)llk(X,p,[10 10]),b,optnm);
 b = [b pe];
+fv = [fv fv_new];
 
 
 %  Optimization with Fminunc using bfgs - 5 quadrature points
