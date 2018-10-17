@@ -4,4 +4,4 @@
 *.m~
 */html/
 *.out
-
+*.DS_Store
