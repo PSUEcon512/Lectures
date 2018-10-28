@@ -1,0 +1,52 @@
+Draws are already included as a structure in sample.mat
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+    0       1    5.849354e+00    0.000e+00    9.871e+00
+    1       4    2.644703e+00    0.000e+00    7.821e+00    1.680e+00
+    2       6    1.954565e+00    0.000e+00    3.361e+00    4.685e-01
+    3       7    9.450284e-01    0.000e+00    1.781e+00    4.984e-01
+    4      11    5.461254e-01    0.000e+00    1.716e+00    7.597e-01
+    5      12    4.046303e-01    0.000e+00    7.800e-01    4.163e-01
+    6      13    3.544384e-01    0.000e+00    2.148e-01    8.834e-02
+    7      14    3.428190e-01    0.000e+00    1.965e-01    6.459e-02
+    8      15    3.292006e-01    0.000e+00    2.411e-01    1.141e-01
+    9      16    3.125335e-01    0.000e+00    1.937e-01    1.564e-01
+   10      17    3.027600e-01    0.000e+00    9.200e-02    9.495e-02
+   11      18    2.936157e-01    0.000e+00    9.055e-02    1.920e-01
+   12      19    2.912635e-01    0.000e+00    3.027e-02    5.956e-02
+   13      20    2.901029e-01    0.000e+00    1.999e-02    5.088e-02
+   14      21    2.891875e-01    0.000e+00    1.919e-02    7.493e-02
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel_function>distributed_execution', '/Applications/MATLAB_R2018b.app/toolbox/matlab/lang/parallel_function.p', 829)" style="font-weight:bold">parallel_function>distributed_execution</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2018b.app/toolbox/matlab/lang/parallel_function.p',829,0)">line 829</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('parallel_function', '/Applications/MATLAB_R2018b.app/toolbox/matlab/lang/parallel_function.p', 590)" style="font-weight:bold">parallel_function</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2018b.app/toolbox/matlab/lang/parallel_function.p',590,0)">line 590</a>)
+        R = distributed_execution(...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solveAllShares', '/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/solveAllShares.m', 19)" style="font-weight:bold">solveAllShares</a> (<a href="matlab: opentoline('/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/solveAllShares.m',19,0)">line 19</a>)
+    parfor i =1:max(dtable.mktid),
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solveRCBLPpar/evalSingle', '/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/solveRCBLPpar.m', 69)" style="font-weight:bold">solveRCBLPpar/evalSingle</a> (<a href="matlab: opentoline('/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/solveRCBLPpar.m',69,0)">line 69</a>)
+        [delta,Jac]=solveAllShares(dtable,draws,p,method);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solveRCBLPpar>@(x)evalSingle(x)', '/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/solveRCBLPpar.m', 24)" style="font-weight:bold">solveRCBLPpar>@(x)evalSingle(x)</a> (<a href="matlab: opentoline('/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/solveRCBLPpar.m',24,0)">line 24</a>)
+f = @(x)evalSingle(x);
+
+In barrier
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fmincon', '/Applications/MATLAB_R2018b.app/toolbox/shared/optimlib/fmincon.p', 813)" style="font-weight:bold">fmincon</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2018b.app/toolbox/shared/optimlib/fmincon.p',813,0)">line 813</a>)
+    [X,FVAL,EXITFLAG,OUTPUT,LAMBDA,GRAD,HESSIAN] =
+    barrier(funfcn,X,A,B,Aeq,Beq,l,u,confcn,options.HessFcn, ...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solveRCBLPpar/get_results', '/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/solveRCBLPpar.m', 49)" style="font-weight:bold">solveRCBLPpar/get_results</a> (<a href="matlab: opentoline('/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/solveRCBLPpar.m',49,0)">line 49</a>)
+            [that]=fmincon(f,x0,[],[],[],[],lb,ub,[],ops);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('solveRCBLPpar', '/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/solveRCBLPpar.m', 33)" style="font-weight:bold">solveRCBLPpar</a> (<a href="matlab: opentoline('/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/solveRCBLPpar.m',33,0)">line 33</a>)
+[results1]=get_results(dtable,theta0);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('example', '/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/example.m', 32)" style="font-weight:bold">example</a> (<a href="matlab: opentoline('/Users/plgrie/PSUEcon512/Lectures/11_BLP/blp-conlon/example.m',32,0)">line 32</a>)
+results = solveRCBLPpar(dtable,draws,startval,'correlated_normal');
+} 
+
+
+
+exit
