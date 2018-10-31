@@ -177,7 +177,17 @@
 % * Also ALL of the parameters enter this optimization non-linearly, as
 % opposed to just $\theta_2$ in the method we will use. 
 %
-% Instead, we use the following approach. 
+% Instead, we use the following approach. We assume we have instruments
+% which are uncorrelated with the structural error such that 
+%
+% $$ E[Z\xi(\theta^*)] = 0 $$
+%
+% Where $\xi(\theta^*)$ is the implied structural error computed for the
+% true value of $\theta$. (I.e., $\xi$ is the true structural error.)  The
+% important thing is this is a linear moment condition, thought
+% $xi(\theta^*)$ must be computed nonlinearly. 
+%
+% This leads to the following method:
 %
 % # Fix $\theta_2$, there is a 1-to-1 mapping from shares to mean
 % utilities, so solve the non-linear equation $S - s(x, p, \delta;
@@ -185,10 +195,11 @@
 % # Now we have the equation, $\delta_{jt}(\theta_2) = x_{jt}\beta - \alpha p_jt +
 % \xi_{jt}$, a linear IV regression can be used to determine
 % $\xi_{jt}(\theta_2)$. 
-% # Search over $\theta_2$ to minimize the GMM objective $\xi(\theta_2)'Z
-% \Omega Z' \xi(\theta_2)$, where $Z$ is a matrix of instruments and
-% $\Omega$ is a (consistent estimate of) the variance covariance matrix of
-% the moments. 
+% # Search over $\theta_2$ to minimize the GMM objective: 
+%
+% $$ \min_{\theta_2} \xi(\theta_2)'Z\Omega Z' \xi(\theta_2) $$
+%
+%
 %
 %% Computing Market Shares:
 %
@@ -257,3 +268,59 @@
 % vector with respect to parameters, we'll see later where this is useful.
 
 %% IV regression of mean utilities to recover unobserved quality:
+%
+% Now for a given $\theta_2$ we know how to determine $\delta(\theta_2)$,
+% the beauty of this is that now we can recover $\xi(\theta_2)$ as the
+% residual of a linear IV regression: 
+%
+% $$ \delta_{jt}(\theta_2) = x_{jt} \beta - \alpha p_{jt} + \xi_{jt}(\theta_2) $$
+%
+% Where the instrument set $z_{jt} = (x_{jt}, \tilde{z}_{jt})$ where
+% $\tilde{z}_{jt}$ is a vector of valid instruments.  Note that we need
+% enough instruments to identify ALL parameters in the model:
+%
+% * The $x_{jt}$ instruments provide moments to identify the $\beta$
+% coefficients. 
+% * One valid instrument for price will identify $\alpha$. 
+% * If this IV regression is just identified, our GMM objective function
+% will be 0, what is left to identify $\theta_2 = (\Pi, \Sigma)$? Need
+% additional instruments to identify these parameters. 
+%
+% Since this is a computational course, we'll just assume such instruments
+% exist. Finding them is a big part of doing reasonable empirical work. 
+%
+% Conlon's IV regression is quite straightforward, just need to call |[beta,resid]=ivregression(delta,X,Z,W);|: 
+%
+% <include> blp-conlon/ivregression.m </include>
+%
+% You could save yourself solving a linear equation every iteration by
+% computing the projection matrix and turning this into a matrix
+% multiplication, but this isn't the time sink of the algorithm (solving
+% for delta is) and this is a bit more intuitive. 
+%
+
+%% Compute GMM Objective:
+%
+% Now we've got everything we need to compute the GMM Objective function,
+% which is just a matrix multiplicaiton. 
+
+
+%%
+%   function [fval,g]=evalSingle(theta)
+%     % this extracts the parameters for your specification
+%     p = get_params(theta,draws);
+%     [delta,Jac]=solveAllShares(dtable,draws,p,method);
+%     dtable.delta=delta;
+%     [beta,resid]=ivregression(delta,X,Z,W);
+%     fval=(resid'*Z)*W*(resid'*Z)';
+%     g=-2*(Jac'*Z)*W*(resid'*Z)';
+%   end
+
+
+%%
+% Where are |X|, |Z|, |W|, |draws|, and |dtable| coming from? 
+%
+% Conlon is using nested functions, so when we look at
+% |solveRCBLPpar(dtable,draws,theta0,extract_fun)| you will see that this
+% function is defined inside, and so |evalSingle| inherits its scope. It is
+% a nice trick to keep things clean. 

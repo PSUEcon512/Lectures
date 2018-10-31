@@ -2,7 +2,7 @@
 %
 % This week, we'll finish numerical integration with Monte Carlo methods.
 % And also review a quick application where we use numerical integration to
-% estimate a bivariate probit. 
+% estimate a nonlinear model with unobserved heterogeneity. 
 %
 %% Monte Carlo Integration: Basic Idea
 % Use these when: 
@@ -73,7 +73,7 @@ scatter(X1, X2);
 %% 
 % Looks pretty random to me. And in fact this is very close to the <https://en.wikipedia.org/wiki/RANDU RANDU> LCG commonly
 % used in the 1960 and 70s, which turns out to be one of the *"worst RNGs
-% ever deisgned".* I've helped it out slightly by setting c=1 instead of
+% ever deisgned"* (Donald Knuth). I've helped it out slightly by setting c=1 instead of
 % c=0, but it's still not something I would recommend even though it "looks"
 % random from this plot. 
 % 
@@ -116,11 +116,14 @@ rand(2,2)
 % is distributed according to $F$. If $F$ needs to be approximated, we can
 % do that, although things get harder if $F$ does not have a closed form and is multi-dimensional.
 % For that we'll talk about MCMC methods later in the course. 
-
+%
 % So if we want a normal random variable, we can just draw a uniform run
 % it thorugh the inverse normal cdf:
 normY = norminv(Y)
 %%
+% An alternative for the normal distribution is the Box-Muller method (see
+% Judd, p 290). 
+% 
 % But we can also just draw standard normal random variables directly: 
 normZ = randn(2,2)
 
@@ -152,7 +155,12 @@ scatter(biNorm(1,:), biNorm(2,:));
 
 %% 
 % It is also possible to directly parameterize the Cholesky
-% decompositition, which is convenient if you need to derive the derivatives of your estimator.  
+% decompositition, which is convenient for two reasons: 
+%  
+% # It automatically imposes that your variance-covariance matrix is
+% positive definite. 
+% # It makes the derivatives of your estimator much easier to derive, and removes a source of nonlinearity.  
+%
 % Just be aware when you do so that those parameters are
 % not interpretable as variances and covariances. 
 %
