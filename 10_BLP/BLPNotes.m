@@ -242,7 +242,7 @@
 %
 % BLP note that this problem can be solved using using a contraction:
 % 
-% $$ \delta_{\cdot t}^h+1 = \delta_{\cdot t}^h+1 + \log S_{\cdot t} - \log
+% $$ \delta_{\cdot t}^{h+1} = \delta_{\cdot t}^{h} + \log S_{\cdot t} - \log
 % s_{\cdot t}(x_{\cdot t}, p_{\cdot t}, \delta_{\cdot t}^h; \theta_2) $$
 %
 % If we have a good start point for $\delta$, it can also be solved using
