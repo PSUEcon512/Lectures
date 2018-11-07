@@ -6,7 +6,9 @@ function [ delta,Jac ] = solveAllShares(dtable,draws,params,method)
 
 % newton's method or fixed-point iteration
 if(strcmp(method,'newton')),    
-    parfor i =1:max(dtable.mktid),
+    %parfor i =1:max(dtable.mktid),  %Dropping parallel so I can add
+    %breakpoints for teaching...
+    for i =1:max(dtable.mktid),
         mkt_i    = dtable(dtable.mktid==i,:);
         dhat=solveNewton(mkt_i.delta,params,draws,mkt_i);
         % this returns the Jacobian once after convergence (for the
@@ -16,7 +18,9 @@ if(strcmp(method,'newton')),
     end
 
 elseif(strcmp(method,'fixed-point')),
-    parfor i =1:max(dtable.mktid),
+    %parfor i =1:max(dtable.mktid),  %Dropping parallel so I can add
+    %breakpoints for teaching...
+    for i =1:max(dtable.mktid),
         mkt_i    = dtable(dtable.mktid==i,:);
         % don't start with bad values!
         if sum(~isfinite(mkt_i.delta)) > 0

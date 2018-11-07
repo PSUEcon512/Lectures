@@ -1,4 +1,4 @@
-%% Lecture 11: Differentiated Products Demand with Random Coefficients
+%% Lectures 10 & 11: Differentiated Products Demand with Random Coefficients (BLP)
 %
 % The differentiated products demand system is a workhorse model for
 % product competition in IO. Developed in Berry, Levinsohn, and Pakes (1995, Ema), 
@@ -320,7 +320,71 @@
 %%
 % Where are |X|, |Z|, |W|, |draws|, and |dtable| coming from? 
 %
-% Conlon is using nested functions, so when we look at
-% |solveRCBLPpar(dtable,draws,theta0,extract_fun)| you will see that this
-% function is defined inside, and so |evalSingle| inherits its scope. It is
+% This code is using nested functions, so when we look at
+% |solveRCBLPpar(dtable,draws,theta0,extract_fun)| you will see that |evalSingle|
+% is defined inside, and so  inherits its scope. It is
 % a nice trick to keep things clean. 
+
+%% Optimization and Two-Step GMM
+%
+% Once we have the objective function (and its Jacobian), we just need to
+% use an optimizer to solve it. 
+%
+% * The code is set up to use either |fmincon|
+% or |knitromatlab|. 
+% * I have removed |knitromatlab| since the podium machine
+% doesn't have license access.
+% * Notice: As we discussed in the theory portion, optimization is only
+% over nonlinear parameters, so we use those to recover the nonlinear
+% parameters post-Optimization. 
+
+
+%%    
+%   function [res]=get_results(tableA,x0)
+%    % function handle f is mapped to evalsingle below for a (X,Z,W) 
+%    if 0 %KNTRO license currently down, %exist('knitromatlab'),
+%        [that]=knitromatlab(f,x0,[],[],[],[],lb,ub,[],[],ops);
+%     else,
+%        [that]=fmincon(f,x0,[],[],[],[],lb,ub,[],ops);
+%     end
+%     %
+%     % After optimization recover the linear parameters and objective 
+%     thetahat =get_params(that,draws);
+%     delta=solveAllShares(tableA,draws,thetahat,method);
+%     dtable.delta=delta;
+%     [beta,resid]=ivregression(delta,X,Z,W);
+%     fval=(resid'*Z)*W*(resid'*Z)';
+%     %
+%     % Put the results into structure
+%     [~,SEest]=getCovariance(that,dtable,draws);
+%     res.fval = fval; res.beta=beta; res.theta = that; 
+%     res.delta=delta; res.resid = resid; res.SE=full(SEest);
+%   end
+
+%%
+% Finally, since we have an overidentified GMM problem, we need to use the
+% optimal weight matrix. Once we have a pilot estimate we can construct the
+% optimal weight matrix
+%
+% $$ \hat{W}_{opt} = (Z'\hat{\xi}\hat{\xi}'Z)^{-1} $$
+%
+% and optimize a second time. Any weight matrix is consistnent for the
+% first stage, in practice we use $W_0 = (Z'Z)^{-1}$.
+%
+% The two-step procedure is the heart of |solveRCBLPpar| (par for parallel,
+% though I have disabled that portion of the code). It is quite
+% anti-climactic:
+
+%%
+%   tic
+%   % first step
+%   [results1]=get_results(dtable,theta0);
+%   print_results(results1);
+%   % update weight matrix and produce second-step
+%   [W,~]=getCovariance(results1.theta,dtable,draws);
+%   [results2]=get_results(dtable,results1.theta);
+%   print_results(results2);
+%   toc
+
+%%
+% And that's it! Now we are ready to take a stroll through the code. 
