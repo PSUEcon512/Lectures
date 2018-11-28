@@ -1,0 +1,451 @@
+%
+% This is a borrowed LaTeX template file for lecture notes for CS267,
+% Applications of Parallel Computing, UCBerkeley EECS Department.
+% Now being used for CMU's 10725 Fall 2012 Optimization course
+% taught by Geoff Gordon and Ryan Tibshirani.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi. "pdflatex template.tex" should also work.
+%
+
+\documentclass[twoside]{article}
+
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% ADD PACKAGES here:
+%
+
+\usepackage{amsmath,amsfonts,graphicx, url}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf ECON 512: Empirical Methods
+	\hfill Fall 2018} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Instructor: #3 \hfill Date: #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+
+%   {\bf Note}: {\it LaTeX template courtesy of UC Berkeley EECS dept.}
+%
+%   {\bf Disclaimer}: {\it These notes have not been subjected to the
+%   usual scrutiny reserved for formal publications.  They may be distributed
+%   outside this class only with the permission of the Instructor.}
+%   \vspace*{4mm}
+}
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\newcommand\E{\mathbb{E}}
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\lecture{1}{Constrained Optimization}{Paul Grieco}{Nov 28/Dec 5}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+These lecture notes are for my personal use. 
+If you are reading them, I decided to distribute them as an experiment. 
+There are typos and probably outright errors, if you find them please accept my apologies and report them to me. 
+
+\section{Background} % Don't be this informal in your notes!
+
+This week we will look at the estimation of structural models via constrained optimization. This is an alternative to nested fixed point estimation (NFXP), 
+which you have used earlier in this course. I have found that sometimes it is able to realize significant speedup over NFXP, sometimes it does not.  
+I use this technique in the paper ``Borders, Geography, and Oligopoly: Evidence from the Wind Turbine Industry'' (2015, Review of Economics and Statistics). 
+
+Some sources are:
+\begin{itemize}
+\item KNITRO user manual, for how to use the optimization package KNITRO. 
+\item Judd and Su (2010, Econometrica), example using Rust model (with code!)
+\item Dube, Fox, and Su (2012, Econometrica), example using BLP (with code!). 
+\item Ortega and Rheinbold, {\it Iterative Solutions to Nonlinear Equations of Several Variables}, Chapters 7 and 8, for the math.
+\end{itemize}
+
+Where might this show up in Economics: 
+\begin{itemize}
+\item Utility optimization with budget constraints. 
+\item Principal-agent problems and mechanism design more generally.
+\item Structural estimation with equilibrium constraints (agent optimality conditions). 
+\item Structural estimation employing numerical inversions (BLP).  
+\item Estimation with moment conditions (equalities and inequalities). 
+\end{itemize}
+
+% **** THIS ENDS THE EXAMPLES. DON'T DELETE THE FOLLOWING LINE:
+
+\section{Review: Unconstrained Optimization is Solving FOCs} \label{sec:unconstrained}
+
+Recall that we handled non-linear optimization problems of the form,
+$$ \min_x f(x) $$
+for $f: \mathbb{R}^N \rightarrow \mathbb{R}$,
+by essentially using iterative techniques to solve the system of equations,
+$$ \nabla f(x) = 0,$$
+or just the first order conditions of the optimization problem. One way to solve these is Newton's Method:=
+\begin{equation} \label{eq:newt}
+x^{k+1} = x^k - H(x^k)^{-1} \nabla f(x^k) 
+\end{equation}
+Where $H$ represents the Hessian of $f$, 
+$$ H(x^k) = \frac{\partial^2 f(x)}{\partial x \partial x'}.$$
+To numerically we just iterate \eqref{eq:newt} until some terminal condition is satisfied, i.e., 
+$$ \nabla f(x) < \varepsilon \approx 10^{-6}. $$
+If the problem is convex, then it has a unique minimum and we will find it. If it is not, than we hope it converges, and hope even 
+more it converges to the global minimum. (In practice, you need multi-start). 
+
+Since unconstrained optimization is really solving a system of equalities, constrained optimization shouldn't be much harder.
+
+\section{Lagrangian and Karush-Kuhn-Tucker (KKT) Conditions}
+
+So now we want to solve the constrained problem: 
+\begin{align*}
+\min_x & f(x) \\
+\mbox{subject to: } & C^E(x) = 0 \\
+& C^I(x) \leq 0 \\ 
+\end{align*}
+
+Good news: If you can write your problem in this form, and can supply appropriate derivatives, constrained optimization packages (e.g., KNITRO, fmincon)
+can be applied to your problem.
+
+What will these programs do? Write the Lagrangian: 
+$$ \mathcal{L}(x, \mu, \lambda) = f(x) + \mu' C^E(x) + \lambda' C^I(x) $$
+Where,
+\begin{itemize} 
+\item $\mu$ is an $\ell \times 1$ vector of Lagrange multipliers for the $\ell$ equality constraints. 
+\item $\lambda$ is a $m \times 1$ vector of Lagrange multipliers for the $m$ inequality constraints. 
+\end{itemize}
+Then the KKT conditions are:
+\begin{enumerate}
+\item Stationarity (the FOC of Lagrangian) wrt $x$: 
+$$ \nabla_x \mathcal{L} = \nabla f(x) + \mu' J^E(x) + \lambda' J^I(x) = 0 $$
+where $J_E(x) = \left[ \frac{\partial C^E(x)}{\partial x} \right]$ and $J^I(x) = \left[ \frac{\partial C^I(x)}{\partial x} \right]$
+\item Primal Feasibility:
+$$C^E(x) = 0, C^I(x) \leq 0 $$
+\item Dual Feasibility: 
+$$\lambda \geq 0$$
+\item Complementary Slackness:
+$$ \forall i = 1, \ldots, m: \lambda_m C^I_m = 0 $$
+\end{enumerate}
+So again, we just need to solve this system of equations.  Notice life is {\it much} simpler if we don't have to deal with inequality constraints (often in economics, we don't). When we have inequalities, we'll just convert the problem into something similar with only equalities. 
+
+\section{Interior-Point (a.k.a. Barrier) Methods}
+
+Add $m$ ``slack'' variables to deal with the inequalities, as follows: 
+\begin{align*}
+\min_x & f(x) - \beta \sum_{m=1}^m \log s_i \\
+\mbox{subject to: } & C^E(x) = 0 \\
+& C^I(x) + s = 0 \\ 
+\end{align*}
+\begin{itemize}
+\item The added term is called a ``barrier function''. 
+\item It is basically a reward for keeping the constraints satisfied and away from binding. 
+\item We can approximate the solution to the original problem by solving a sequence of these barrier problems such that $\beta_k \rightarrow 0$ as $k\rightarrow \infty$. 
+\end{itemize}
+ 
+ So we can solve this problem, by considering the lagrangian
+ $$ \mathcal{L}(x, s, \mu, \lambda) = f(x) - \beta \sum_{m=1}^m \log s_i + \mu' C^E(x) + \lambda' (C^I(x) + s) $$
+ Which has only equalities and so the simpler set of KKT conditions: 
+ \begin{enumerate}
+\item Stationarity (the FOC of Lagrangian) wrt $x$: 
+$$ \nabla_x \mathcal{L} = \nabla f(x) + \mu' J^E(x) + \lambda' J^I(x) = 0 $$
+\item Slackness (derivative wrt $\log s$): 
+$$ -\beta e + S \lambda = 0 $$
+where $e$ is and $m \times 1$ vector of ones and $S$ is a diagonal matrix with the vector $s$ along the diagonal (n.b.,  $\frac{\partial s_i}{\partial \log s_i} = s_i$). 
+\item Primal Feasibility:
+$$C^E(x) = 0$$
+$$C^I(x) + s =  0 $$
+\end{enumerate}
+
+{\bf Notice a Trick:} if you want something to be positive (like our slackness variable), don't hope it is and take the logarithm, redefine the variable as $\log x$ and exponentiate it. 
+
+This is a set of equalities, so we can apply Newton's method just like in Section \ref{sec:unconstrained}.  Here a newton step is
+\begin{equation*}
+\begin{bmatrix} \Delta x \\ \Delta \log s \\ \Delta \mu \\ \Delta \lambda \end{bmatrix} = H^{-1} \nabla \mathcal{L} 
+\end{equation*}
+Where  $H$ and $\nabla \mathcal{L}$ are the Hessian and Jacobian of the Lagrangian respectively. The Jacobian we've already written down, the Hessian looks like a mess, but notice it is actually pretty sparse: 
+$$
+H(x, s, \mu, \lambda) = \begin{bmatrix} \nabla_{xx}^2 \mathcal{L} &  0 & {J^E}' & {J^I}' \\
+     0 & \Lambda & 0 & S \\
+     J^E & 0 & 0 & 0 \\
+     J^I & I & 0 & 0 \end{bmatrix}
+$$
+Where $\Lambda$ is the diagonal matrix of $\lambda$, $I$ is the identity, and everything else is already defined.  
+
+\begin{itemize}
+\item In practice we'll use BFGS to approximate $\nabla_{xx}^2 \mathcal{L}$, just like we approximated the hessian of the unconstrained problem. 
+\item It is usually straight forward to program the Jacobian of the constraint and supply it directly. 
+\item Even if you use BFGS, it is often helpful to program up the sparsity pattern in order to save memory, especially if $x$ is of high dimension. 
+\end{itemize}
+
+Now we know how to solve the barrier problem for a fixed $\beta > 0$, the true problem is $\beta = 0$. 
+\begin{itemize}
+\item We could just solve a bunch of these and let $\beta$ shrink until the solution ``didn't change much''. 
+\item But why waste time ``completely'' solving the barrier problems, most implementations lower $\beta$ once they are "close enough" to solving the barrier problem's solution conditions, essentially interspersing barrier and newton steps. 
+\item The most advanced solvers don't use interior-point methods to completely solve the problem, but "cross-over" to active set methods once they are confident which inequalities bind ($s = 0$) and which don't ($s > 0$). 
+\end{itemize}
+
+\section{Active Set Method}
+
+An older alternative to the Barrier method for constrained optimization is the Active-Set method, it turns out the two are complements. 
+
+\begin{itemize}
+\item Recall the issue with inequality constraints is translating them into a system of \emph{equalities} on which to apply (quasi-)Newton's method. 
+\item If we knew which constraints were binding, and which weren't we could ignore the binding (active) constraints and solve: 
+
+\begin{align*}
+\min_x & f(x) \\
+\mbox{subject to: } & C^E(x) = 0 \\
+& C_a^I(x) = 0 \\ 
+\end{align*}
+Where $C_a^I(x)$ are active constraints we expect to bind, and $C_i^I(x)$ are inactive constraints we expect are slack (and so ignore). 
+
+\item Once we did this, we'd want to check whether $\lambda_a > 0$ to make sure the active constraint is binding in the ``correct" direction. We'd also want to check that inactive constraints $C_i^I(x) < 0$. 
+\item Now we essentially have a ``guess and check'' algorithm. Pick the set of active constraints, solve problem. Swap out constraints for which $\lambda_a < 0$, swap in constraints such that $C_i^I(x) \geq 0$.
+\item Like with barrier methods, it is not useful to fully solve the active set problems, instead, you swap constraints in and out in conjunction with newton's method. (Here lies lots of engineering). 
+\end {itemize} 
+
+It's clear that active set methods work well when you have a good idea what constraints are binding. As a consequence, many implementations start with barrier methods and then ``crossover'' once it is easy to guess the active set. 
+
+\section{Implementing Constrained Optimization in MATLAB}
+
+There are many constrained optimization packages in many different programming languages. Since we focus on MATLAB I'll describe two: 
+\begin{itemize}
+\item {\bf fmincon} is MATLAB's native constrained optimization solver, part of the optimization toolbox.  If you have the student version of MATLAB, you have it. 
+\item {\bf KNITRO} is a proprietary optimization package that can be called from MATLAB.  It is available on the PSU cluster. But you must load the appropriate module (i.e., type {\tt module load knitro} at the bash prompt before starting MATLAB). The MATLAB command to call KNITRO is {\tt knitromatlab}.\footnote{As always, once you know a command, there is a wealth of information on how to use it in MATLAB's help files. Much more than I will cover here.}
+\end{itemize}
+
+Since it is everywhere I will focus on {\tt fmincon}, this should {\it not} be taken to mean that is the only command you need to know.  That said, they are all pretty similar in that you need to structure your problem as follows: 
+
+\begin{align*}
+\min_x & f(x) \\
+\mbox{subject to: } & C^E(x) = 0 \\
+& C^I(x) \leq 0 \\ 
+& A^I \cdot x \leq b^I \\
+& A^E \cdot x = b^E \\
+& \ell \leq x \leq u
+\end{align*}
+
+This is just saying that linear constraints and simple bounds will be handled separately from the nonlinear constraints. It's trivial to guess how the packages
+simplify your life if you provide them this additional structure. 
+
+The MATLAB call to solve this problem is something like 
+\begin{center}
+{\tt [x, fval, exitflag] = fmincon(fun,x0,A,b,Aeq,beq,lb,ub,nonlcon,options) }
+\end{center}
+Where: 
+\begin{enumerate}
+\item {\tt fun} is a function handle to your objective function. In most cases, you will write a function say,
+\begin{center} 
+{\tt function f = mylike(params, data)  \{ ... \} }
+\end{center}
+And then call it using a anonymous function along the lines of ``{\tt @(x) mylike(x, data).}''  This lets fmincon repeatedly call your function with whatever first argument it wants.   
+\item {\tt x0} is the starting point. 
+\item {\tt A, b, Aeq, beq} are the linear constraint information. 
+\item {\tt lb, ub} are vectors of lower and upper bounds. 
+\item {\tt nonlcon} is a function handle that returns both inequality and equality constraints. This function must return two output arguments e.g., 
+\begin{center}
+{\tt function [c, ceq] = myNonlcon(params, data)  \{ ... \} }
+\end{center}
+\item {\tt options} is a structure of option flags, there are many to work through, see the help file. 
+\end{enumerate}
+
+The upshot of all this is that once you write up your problem, the solver can take it from there, just like an unconstrained optimization problem. Of course, there are some details: 
+\begin{itemize}
+\item Buried in the options are things like stopping criteria, step size tolerance, iteration counts, that you will need to tune to your problem almost certainly. In my experience, not experimenting with these will keep your problem from performing well. 
+\item Notice that so far I didn't provide any derivative information, if I left it like this, then MATLAB would calculate numerical derivatives, which may be very slow.  Derivative information is provided by (1) returning gradient (and maybe hessian?) as additional output arguments to {\tt fun} and {\tt nonlcon} and (2) setting the appropriate flag in {\tt options}. E.g., 
+\begin{center}
+{\tt options = optimoptions('fmincon','SpecifyObjectiveGradient',true) }
+\end{center}
+
+\item {\tt fmincon } is not exactly Newton's method, it is actually a ``Newton based method'' even better, it actually implements several different algorithms.  The default may not be the best for your problem.  Have I mentioned the help file?  
+
+\item Of course, this stuff isn't magic. If you are playing around, there is nothing to stop you from writing your own Newton-based solver, or finding one online.  That said, it's nice to use professional code (until it refuses to converge). 
+
+\item Help pages: \url{https://www.mathworks.com/help/optim/ug/fmincon.html} for fmincon and \url{https://www.artelys.com/tools/knitro_doc/3_referenceManual/knitromatlabReference.html} for KNITRO
+
+\end{itemize}
+
+\section{Applications}
+
+To wrap up, lets consider how constrained optimization can be used in some structural estimation problem. 
+
+\subsection{Mixed Logit - Berry, Levinsohn, Pakes (1995)}
+
+This should be fresh in your mind. Recall that BLP solved this model with a nested-fixed point approach. That is, an outer-loop maximized $\theta$ while an inner loop solved for unobserved product qualities. We could write this as an unconstrained optimization problem that looks like: 
+
+$$ \min_\theta \xi(\theta)'Z W Z' \xi(\theta) $$
+
+Where $\xi(\theta)$ is a function that solves the share inverse, i.e., $s = \sigma(\xi, \theta)$, in practice BLP solve this function using a contraction mapping.  Maybe we could have solved it using Newton's method. At any rate, the problem is that while it's easy to calculate:\footnote{Were $\theta$ parameterizes the distribution of $(\alpha_i, \beta_i)$.} 
+
+$$\sigma_{jt}(\xi, \theta) = \int \frac{ x_{jt}\beta_i - \alpha_i p_{jt} + \xi_{jt}} {\sum_{k \in J_t} x_{kt}\beta_i - \alpha_i p_{kt} + \xi_{kt}} dF(i; \theta) $$  
+ 
+The inverse $\xi(\sigma) = \sigma^{-1}(s_j, \theta)$ must be solved numerically. Under nested fixed point this problem (of $J\cdot T$ equations and $J\cdot T$ unknowns) must be solved for each calculation of the objective function.  
+
+The {\bf exact same estimator} can be written as a constrained optimization problem: 
+\begin{align*}
+\min_{\theta, \xi}~ & \xi'Z W Z' \xi \\
+\mbox{s.t.: } & s - \sigma(\xi, \theta) = 0 \\
+\end{align*}
+
+This approach to BLP is explored by Dube, Fox, Su (2012). A few notes: 
+\begin{itemize}
+\item Notice that we have greatly increased the number of parameters, there is one $\xi$ dimension for every product in the dataset. We also have as many constraints as products. 
+\item That said, the constraints are fairly sparse (since substitution is only within-market) and also very diagonal dominant. 
+\item Moreover, it is very easy to calculate derivatives of the objective function, which is now just quadratic in $\xi$. 
+\item For a recent paper, I've implemented both a NFXP and Constrained optimization paper. In that context we eventually went with the NFXP, your milage may vary. 
+\end{itemize}
+
+\subsection{Dynamics - Rust (1987), Judd and Su (2010)}
+
+Rust's bus engine replacement problem is a seminal paper on structural estimation in dynamic models.  Without getting too bogged down, a dynamic optimization problem, given regularity conditions, can define it's value function as the fixed point of a contraction mapping. 
+
+$$ EV(x, d) = T_\theta(EV)(x, d) $$
+
+Rust discretizes the dynamic problem (so that the value function is a vector) and exploits the properties of the type-I extreme value distribution in order to write the contraction mapping operator as: 
+
+$$T_\theta(EV)(x, d) = \sum_{x'} \log \left[ \sum_{d'} \exp \left\{ u(x', d'; \theta) + \beta EV(x', d') \right\} \right] p(x'|x, d, \theta)$$
+
+In Rust's implementation, for a given $\theta$, one iterates this operator to solve for the vector of valuations for each state-decision $EV(x,d)$. Then uses this to derive choice probabilities in each state and compute the likelihood. The constrained optimization approach maximizes the likelihood and solves the value function jointly, 
+
+\begin{align*}
+\max_{\theta, EV}~ & \sum_{i=1}^N \sum_{t=2}^T \log P(d_t^i|x_t^i, \theta) + p(x_t^i|, x^i_{t-1}, d^i_{t-1}, \theta) \\
+\mbox{s.t.: } & EV -\sum_{x'} \log \left[ \sum_{d'} \exp \left\{ u(x', d'; \theta) + \beta EV(x', d') \right\} \right] p(x'|x, d, \theta) = 0. \\
+\end{align*}
+
+Where, 
+$$ P(d | x, \theta) = \frac{ u(x, d; \theta) + \beta EV(x, d) }{ \sum_e u(x, e; \theta) + \beta EV(x, e) } $$
+Which just enforces that agent's make optimal choices.  
+
+\subsection{Equilibrium - Co\c{s}ar, Grieco, Tintelnot (2015)}
+
+In this paper, we have data on the location of wind turbine projects and which of 11 companies built the project. 
+We do not observe transaction prices.  
+
+To deal with this, we assume that firms post take it or leave it prices and the project
+manager chooses the manufacturer that maximizes his valuation. We assume a logit-style demand system and derive the 
+following equilibrium condition on the probability manufacturer $j$ wins project $i$.   
+\begin{equation*}
+\rho_{ij}=\frac{\exp \left( d_{j}-c_{ij}-\frac{1}{1-\rho _{ij}}\right) }{%
+1+\sum_{k=1}^{|\mathcal{J}|}\exp \left( d_k-c_{ik}-\frac{1}{1-\rho _{ik}}\right)}\quad\quad \mbox{for $j\in\mathcal{J}$}.
+\label{eq:fixpt}
+\end{equation*}
+Where $\rho_{ij}$ is the probability that manufacturer $j$ wins product $i$.  Then, we can use equilibrium conditions to find the likelihood of the data, 
+\begin{equation*}
+L(\rho)=\prod_{\ell\in \{D, G\}}\prod_{i=1}^{N_{\ell}}\prod_{j=0}^{|\mathcal{J}_{\ell}|} \big(\rho^{\ell}_{ij}\big)^{y^{\ell}_{ij}},
+\label{eq:likelihood}
+\end{equation*}
+
+Once we parameterize demand and cost, we can use constrained optimization to estimate this problem as follows: 
+
+\begin{align*}
+& ~~~\max_{\xi, \beta,\;\rho} & & L(\rho) \label{eq:maxprob} \\
+&  \mbox{subject to: }
+& & \rho^{\ell}_{ij}=\frac{\exp \left(\xi_j-\beta _{d}\cdot \mbox{log}(\mbox{distance}_{ij})-\beta _{b}\cdot \mbox{border}_{ij}
+-\beta_{s}\cdot \mbox{state}_{ij}
+-\frac{1}{1-\rho^{\ell} _{ij}}\right) }{%
+1+\sum_{k=1}^{|\mathcal{J}_{\ell}|}\exp \left( \xi_k -\beta _{d}\cdot \mbox{log}(\mbox{distance}_{ik})-\;\beta _{b}\cdot \mbox{border}_{ik}
+-\beta_{s}\cdot \mbox{state}_{ij}
+-\frac{1}{1-\rho^{\ell} _{ik}}\right)} \notag \\
+& &&\sum\limits_{k=1}^{|\mathcal{J}_{\ell}|}\rho^{\ell}_{ik}+\rho^{\ell}_{i0} =1\quad\quad\quad\quad\mbox{for $\ell\in\{D,G\}$, $i\in\{1,...,N_{\ell}\}$, $j\in\mathcal{J}$.} \notag
+\end{align*}
+
+See the paper for details. 
+
+\section{A look at the code for the Wind Turbine example}
+
+Show students the code from one particular specification of the Wind Turbine Paper: 
+\begin{enumerate}
+\item Examine the master program. 
+\item Go over MPEC main: 
+\begin{itemize}
+ \item Set up sparsity pattern. 
+ \item Set up options for call. 
+ \item A little multi-start. 
+ \item Numerical derivative and standard errors.
+ \end{itemize}
+\item Go over likelihood function, not it's simplicity and lack of dependence on $\theta$. 
+\item Go over constraints, and their gradients. 
+\item Quick look at dummy objective, what is it used for. 
+\item Look at the diary file. 
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
