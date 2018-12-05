@@ -1,0 +1,1029 @@
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12303
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12303
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      61496
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    2.803634e+03   6.061e+00
+       1    2.551434e+03   3.934e-01   3.944e-01   5.649e+00        3
+       2    2.414027e+03   1.692e-01   3.621e-01   3.246e+00        3
+       3    2.344830e+03   9.195e-01   8.851e-02   3.497e+00        5
+       4    2.338293e+03   6.860e-02   5.093e-03   1.380e+00        6
+       5    2.338263e+03   1.396e-03   9.972e-04   1.222e-01        6
+       6    2.338191e+03   1.575e-03   2.101e-04   1.152e-01        7
+       7    2.338192e+03   9.531e-08   1.990e-04   1.687e-03        7
+       8    2.338189e+03   1.025e-04   2.803e-06   2.913e-02        7
+       9    2.338189e+03   6.429e-10   1.989e-06   1.176e-04        7
+      10    2.338189e+03   1.039e-08   2.380e-08   2.933e-04        7
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   2.33818926055875e+03
+Final feasibility error (abs / rel) =   1.04e-08 / 1.71e-09
+Final optimality error  (abs / rel) =   2.38e-08 / 2.42e-10
+# of iterations                     =         10 
+# of CG iterations                  =         58 
+# of function evaluations           =         11
+# of gradient evaluations           =         89
+Total program time (secs)           =     638.04224 (  3050.954 CPU time)
+Time spent in evaluations (secs)    =     632.00519
+
+===============================================================================
+
+Completed iteration 1
+
+Elapsed time is 643.333160 seconds.
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12303
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12303
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      61496
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    2.803634e+03   3.474e+00
+       1    2.551433e+03   3.934e-01   3.943e-01   5.518e+00        3
+       2    2.473903e+03   1.004e-01   1.007e-01   1.802e+00        3
+       3    2.381113e+03   2.847e-01   1.588e-01   2.921e+00        4
+       4    2.339901e+03   3.908e-01   2.353e-02   2.843e+00        5
+       5    2.338227e+03   1.685e-02   1.207e-03   7.268e-01        6
+       6    2.338265e+03   1.262e-04   9.940e-04   2.308e-02        6
+       7    2.338191e+03   1.569e-03   2.100e-04   1.146e-01        7
+       8    2.338192e+03   9.435e-08   1.990e-04   1.679e-03        7
+       9    2.338189e+03   1.025e-04   2.803e-06   2.913e-02        7
+      10    2.338189e+03   6.428e-10   1.989e-06   1.176e-04        7
+      11    2.338189e+03   1.039e-08   2.380e-08   2.933e-04        7
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   2.33818926055875e+03
+Final feasibility error (abs / rel) =   1.04e-08 / 2.99e-09
+Final optimality error  (abs / rel) =   2.38e-08 / 2.42e-10
+# of iterations                     =         11 
+# of CG iterations                  =         62 
+# of function evaluations           =         12
+# of gradient evaluations           =         96
+Total program time (secs)           =     682.56671 (  3276.563 CPU time)
+Time spent in evaluations (secs)    =     676.56561
+
+===============================================================================
+
+Completed iteration 2
+
+Elapsed time is 687.767391 seconds.
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12303
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12303
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      61496
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    2.803634e+03   3.081e+00
+       1    2.551431e+03   3.934e-01   3.943e-01   5.072e+00        3
+       2    2.473903e+03   1.004e-01   1.007e-01   1.802e+00        3
+       3    2.381113e+03   2.847e-01   1.588e-01   2.921e+00        4
+       4    2.339901e+03   3.908e-01   2.353e-02   2.843e+00        5
+       5    2.338227e+03   1.685e-02   1.207e-03   7.268e-01        6
+       6    2.338265e+03   1.262e-04   9.940e-04   2.308e-02        6
+       7    2.338191e+03   1.569e-03   2.100e-04   1.146e-01        7
+       8    2.338192e+03   9.435e-08   1.990e-04   1.679e-03        7
+       9    2.338189e+03   1.025e-04   2.803e-06   2.913e-02        7
+      10    2.338189e+03   6.428e-10   1.989e-06   1.176e-04        7
+      11    2.338189e+03   1.039e-08   2.380e-08   2.933e-04        7
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   2.33818926055875e+03
+Final feasibility error (abs / rel) =   1.04e-08 / 3.37e-09
+Final optimality error  (abs / rel) =   2.38e-08 / 2.42e-10
+# of iterations                     =         11 
+# of CG iterations                  =         62 
+# of function evaluations           =         12
+# of gradient evaluations           =         96
+Total program time (secs)           =     681.69000 (  3270.973 CPU time)
+Time spent in evaluations (secs)    =     675.70667
+
+===============================================================================
+
+Completed iteration 3
+
+Elapsed time is 686.861529 seconds.
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   4.348e-11   0.000e+00   2.355e-05        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   4.35e-11 / 4.35e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      40.06421 (   207.959 CPU time)
+Time spent in evaluations (secs)    =      35.36996
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   4.364e-11   0.000e+00   2.206e-05        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   4.36e-11 / 4.36e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      39.89671 (   205.850 CPU time)
+Time spent in evaluations (secs)    =      35.26967
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   3.918e-11   0.000e+00   3.180e-05        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   3.92e-11 / 3.92e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      39.89559 (   206.644 CPU time)
+Time spent in evaluations (secs)    =      35.21070
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   3.054e-11   0.000e+00   4.182e-05        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   3.05e-11 / 3.05e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      39.80385 (   206.053 CPU time)
+Time spent in evaluations (secs)    =      35.14061
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   4.747e-11   0.000e+00   1.269e-05        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   4.75e-11 / 4.75e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      40.00891 (   206.713 CPU time)
+Time spent in evaluations (secs)    =      35.34193
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   4.768e-11   0.000e+00   2.136e-05        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   4.77e-11 / 4.77e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      39.95876 (   206.720 CPU time)
+Time spent in evaluations (secs)    =      35.24152
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   1.653e-11   0.000e+00   4.549e-05        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   1.65e-11 / 1.65e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      40.02746 (   207.190 CPU time)
+Time spent in evaluations (secs)    =      35.31760
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   4.853e-11   0.000e+00   7.676e-06        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   4.85e-11 / 4.85e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      39.84373 (   205.460 CPU time)
+Time spent in evaluations (secs)    =      35.23909
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   4.723e-11   0.000e+00   8.151e-06        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   4.72e-11 / 4.72e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      39.96138 (   206.016 CPU time)
+Time spent in evaluations (secs)    =      35.23032
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   3.608e-11   0.000e+00   3.405e-05        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   3.61e-11 / 3.61e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      40.02755 (   206.852 CPU time)
+Time spent in evaluations (secs)    =      35.30469
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   4.895e-05
+       1    0.000000e+00   5.783e-05   0.000e+00   1.569e-05        0
+       2    0.000000e+00   5.306e-10   0.000e+00   6.536e-05        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   5.31e-10 / 5.31e-10
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          2 
+# of CG iterations                  =          0 
+# of function evaluations           =          3
+# of gradient evaluations           =          7
+Total program time (secs)           =      64.06515 (   325.138 CPU time)
+Time spent in evaluations (secs)    =      59.32151
+
+===============================================================================
+
+
+======================================
+  Academic Ziena License (NOT FOR COMMERCIAL USE)
+             KNITRO 9.0.1
+          Ziena Optimization
+======================================
+
+KNITRO presolve eliminated 0 variables and 0 constraints.
+
+bar_maxrefactor:      0
+blasoption:           0
+feastol_abs:          1e-06
+hessopt:              4
+honorbnds:            1
+maxit:                300
+opttol_abs:           1e-06
+outlev:               3
+outmode:              2
+par_concurrent_evals: 0
+KNITRO changing bar_switchrule from AUTO to 2.
+KNITRO changing algorithm from AUTO to 2.
+KNITRO changing bar_murule from AUTO to 1.
+KNITRO changing bar_initpt from AUTO to 3.
+KNITRO changing bar_penaltyrule from AUTO to 2.
+KNITRO changing bar_penaltycons from AUTO to 1.
+KNITRO changing linsolver from AUTO to 4.
+
+Problem Characteristics
+-----------------------
+Objective goal:  Minimize
+Number of variables:                 12291
+    bounded below:                       0
+    bounded above:                       0
+    bounded below and above:         12291
+    fixed:                               0
+    free:                                0
+Number of constraints:               12291
+    linear equalities:                   0
+    nonlinear equalities:            12291
+    linear inequalities:                 0
+    nonlinear inequalities:              0
+    range:                               0
+Number of nonzeros in Jacobian:      34423
+Number of nonzeros in Hessian:           0
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    0.000000e+00   1.000e-05
+       1    0.000000e+00   4.768e-11   0.000e+00   4.012e-05        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   4.77e-11 / 4.77e-11
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          2
+# of gradient evaluations           =          4
+Total program time (secs)           =      40.08226 (   207.779 CPU time)
+Time spent in evaluations (secs)    =      35.37941
+
+===============================================================================
+
