@@ -1,0 +1,256 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>The Runge phenomenon</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-01-28"><meta name="DC.source" content="RungeEx.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>The Runge phenomenon</h1><!--introduction--><p>From the teaching slides of Donna Calhoun, <a href="http://math.boisestate.edu/~calhoun/">http://math.boisestate.edu/~calhoun/</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Introduction</a></li></ul></div><h2>Introduction<a name="1"></a></h2><p>In this example, we will investigate the Runge Phenomenon and see how we might be able to fix it by choosing interpolating points wisely.</p><p>As a classic example of the Runge Phenomenon, we try to interpolate the function f(x) = 1/(1 + 25x^2) at equally spaced points.</p><pre class="codeinput">clear <span class="string">all</span>;
+close <span class="string">all</span>;
+</pre><pre class="codeinput">f = @(x) 1./(1 + 25*x.^2);
+</pre><p>Plot the original function f(x) at set of equally spaced points</p><pre class="codeinput">figure(1);
+clf;
+
+x = linspace(-1,1,500);
+y_true = f(x);
+plot(x,y_true,<span class="string">'r'</span>,<span class="string">'linewidth'</span>,2);
+hold <span class="string">on</span>;
+</pre><img vspace="5" hspace="5" src="RungeEx_01.png" alt=""> <p>
+Construct an interpolating polynomial of degree N at N+1 points.
+We will use <span class="var">polyfit</span> although the problem occurs
+with Lagrange polynomial interpolation or the Barycentric form as well.
+</p><pre class="codeinput"><span class="comment">% Equally spaced points</span>
+N = 10;    <span class="comment">% Degree of the polynomial we try to fit</span>
+xdata = linspace(-1,1,N+1)';
+ydata = f(xdata);
+
+p = polyfit(xdata,ydata,N);
+</pre><p>Plot the interpolating polynomial</p><pre class="codeinput">y_fit = polyval(p,x);
+
+poly_10 = plot(x,y_fit,<span class="string">'b'</span>,<span class="string">'linewidth'</span>,2);
+
+plot(xdata,ydata,<span class="string">'k.'</span>,<span class="string">'markersize'</span>,30);
+snapnow;
+</pre><img vspace="5" hspace="5" src="RungeEx_02.png" alt=""> <p>We see that a single interpolating polynomial does a particularly poor job of interpolating near the endpoints of the interval [-1,1].  Perhaps we should try increasing the order of accuracy.</p><pre class="codeinput">N = 20;  <span class="comment">% Increase the degree to 20 from 10.</span>
+xdata = linspace(-1,1,N+1)';
+ydata = f(xdata);
+
+<span class="comment">% Ignore the warning about the matrix being ill-conditioned.  If we used</span>
+<span class="comment">% the barycentric form, we do not have these ill-conditioning issues!</span>
+p = polyfit(xdata,ydata,N);
+</pre><p>Plot the interpolating polynomial</p><pre class="codeinput">y_fit = polyval(p,x);
+
+poly_20 = plot(x,y_fit,<span class="string">'g'</span>,<span class="string">'linewidth'</span>,2);
+
+plot(xdata,ydata,<span class="string">'k.'</span>,<span class="string">'markersize'</span>,30);
+
+axis([-1 1 -5 5]);
+snapnow;
+</pre><img vspace="5" hspace="5" src="RungeEx_03.png" alt=""> <p>Let's increase one more time to see that pattern</p><pre class="codeinput">N = 40;  <span class="comment">% Increase the degree to 40 from 20.</span>
+xdata = linspace(-1,1,N+1)';
+ydata = f(xdata);
+
+<span class="comment">% plot(xdata,ydata,'k.','markersize',30);</span>
+
+<span class="comment">% Ignore the warning about the matrix being ill-conditioned.  If we used</span>
+<span class="comment">% the barycentric form, we do not have these ill-conditioning issues!</span>
+p = polyfit(xdata,ydata,N);
+</pre><pre class="codeoutput">Warning: Polynomial is badly conditioned. Add points with distinct X values,
+reduce the degree of the polynomial, or try centering and scaling as described
+in HELP POLYFIT. 
+</pre><p>Plot the interpolating polynomial</p><pre class="codeinput">y_fit = polyval(p,x);
+
+poly_40 = plot(x,y_fit,<span class="string">'m'</span>,<span class="string">'linewidth'</span>,2);
+
+plot(xdata,ydata,<span class="string">'k.'</span>,<span class="string">'markersize'</span>,30);
+
+axis([-1 1 -10 10]);
+snapnow;
+</pre><img vspace="5" hspace="5" src="RungeEx_04.png" alt=""> <p>But are we doing at least a better job in the middle? Yes!</p><pre class="codeinput">axis([-1 1 0 1]);
+lh = legend([poly_10, poly_20, poly_40],{<span class="string">'N = 10'</span>,<span class="string">'N = 20'</span>,<span class="string">'N = 40'</span>});
+set(lh,<span class="string">'fontsize'</span>,18);
+snapnow;
+</pre><img vspace="5" hspace="5" src="RungeEx_05.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% The Runge phenomenon
+% From the teaching slides of Donna Calhoun, http://math.boisestate.edu/~calhoun/
+
+%% Introduction
+% In this example, we will investigate the Runge Phenomenon and see how we might 
+% be able to fix it by choosing interpolating points wisely.
+% 
+
+%% 
+% As a classic example of the Runge Phenomenon, we try to interpolate the
+% function f(x) = 1/(1 + 25x^2) at equally spaced points. 
+
+clear all;
+close all;
+
+%%
+f = @(x) 1./(1 + 25*x.^2);
+
+%% 
+% Plot the original function f(x) at set of equally spaced points
+%
+
+figure(1);
+clf;
+
+x = linspace(-1,1,500);
+y_true = f(x);
+plot(x,y_true,'r','linewidth',2);
+hold on;
+
+
+%%
+% <html>
+% Construct an interpolating polynomial of degree N at N+1 points. 
+% We will use <span class="var">polyfit</span> although the problem occurs
+% with Lagrange polynomial interpolation or the Barycentric form as well. 
+% </html>
+
+% Equally spaced points
+N = 10;    % Degree of the polynomial we try to fit
+xdata = linspace(-1,1,N+1)';
+ydata = f(xdata);
+
+p = polyfit(xdata,ydata,N);
+
+
+%%
+% Plot the interpolating polynomial
+
+y_fit = polyval(p,x);
+
+poly_10 = plot(x,y_fit,'b','linewidth',2);
+
+plot(xdata,ydata,'k.','markersize',30);
+snapnow;
+
+
+%%
+% We see that a single interpolating polynomial does a particularly poor
+% job of interpolating near the endpoints of the interval [-1,1].  Perhaps
+% we should try increasing the order of accuracy. 
+
+N = 20;  % Increase the degree to 20 from 10. 
+xdata = linspace(-1,1,N+1)';
+ydata = f(xdata);
+
+% Ignore the warning about the matrix being ill-conditioned.  If we used
+% the barycentric form, we do not have these ill-conditioning issues!
+p = polyfit(xdata,ydata,N);
+
+
+%%
+% Plot the interpolating polynomial
+
+y_fit = polyval(p,x);
+
+poly_20 = plot(x,y_fit,'g','linewidth',2);
+
+plot(xdata,ydata,'k.','markersize',30);
+
+axis([-1 1 -5 5]);
+snapnow;
+
+
+%%
+% Let's increase one more time to see that pattern
+
+N = 40;  % Increase the degree to 40 from 20. 
+xdata = linspace(-1,1,N+1)';
+ydata = f(xdata);
+
+% plot(xdata,ydata,'k.','markersize',30);
+
+% Ignore the warning about the matrix being ill-conditioned.  If we used
+% the barycentric form, we do not have these ill-conditioning issues!
+p = polyfit(xdata,ydata,N);
+
+
+%%
+% Plot the interpolating polynomial
+
+y_fit = polyval(p,x);
+
+poly_40 = plot(x,y_fit,'m','linewidth',2);
+
+plot(xdata,ydata,'k.','markersize',30);
+
+axis([-1 1 -10 10]);
+snapnow;
+
+%%
+% But are we doing at least a better job in the middle? Yes!
+
+axis([-1 1 0 1]);
+lh = legend([poly_10, poly_20, poly_40],{'N = 10','N = 20','N = 40'});
+set(lh,'fontsize',18);
+snapnow;
+
+
+##### SOURCE END #####
+--></body></html>

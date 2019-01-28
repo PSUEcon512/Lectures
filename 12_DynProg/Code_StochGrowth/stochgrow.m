@@ -30,7 +30,7 @@ vare=(1-ro^2)*varz;
 %stde=sqrt(vare);
 
 muk=((1-alpha)^(-1)*(log(alpha*beta)+vare/2));
-vark=(ro^2)*vare/((1-ro^2)*((1-alpha)^2));
+vark=(ro^2)*vare/((1-ro^2)*((1-alpha)^2))0;
 logk=muk-4*sqrt(vark):8*sqrt(vark)/(N-1):muk+4*sqrt(vark);
 
 % step 2: approximate the expected value of capital by using the grid points
