@@ -1,0 +1,10 @@
+function x = getX(W);
+global L M c alpha delta beta g CRIT;
+
+%fdW = W(2:L, :) - W(1:L-1, :);
+fdWb = W(:,:,2) - W(:,:,1); 
+fdWf = W(:,:,3) - W(:,:,2);
+x(1,:) = (-1 + sqrt(beta*alpha*(1-delta).*fdWf(1,:)))./alpha;
+x(L,:) = (-1 + sqrt(beta*alpha*delta*fdW(L-1,:)))./alpha;
+x(2:L-1,:) = (-1 + sqrt(beta*alpha*((1-delta)*fdW(2:L-1,:)+ delta*fdW(1:L-2,:))))./alpha;
+x = max(zeros(L,L), x.*(imag(x)==0));

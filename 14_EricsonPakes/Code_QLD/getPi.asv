@@ -1,0 +1,14 @@
+
+function [pi, p] = getPi(p0);
+
+global L M c alpha delta beta g;
+
+p2 = p0';
+[p, fval] = fsolve(@priceFOC, p0)
+
+[g1, g2] = meshgrid(g,g);
+
+ep1 = exp(p - g1);
+ep2 = exp(p' - g2);
+
+pi = M*(ep1./(1 + ep1 + ep2)).*(p - c)

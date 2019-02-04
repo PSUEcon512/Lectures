@@ -1,0 +1,92 @@
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+DogLeg terminated successfully.
+ 
+Value function iteration
+------------------------
+ 
+iter=10 tolV=12.5672
+iter=20 tolV=5.61596
+iter=30 tolV=2.52624
+iter=40 tolV=1.1446
+iter=50 tolV=0.520904
+iter=60 tolV=0.23783
+iter=70 tolV=0.108808
+iter=80 tolV=0.0498374
+iter=90 tolV=0.0228408
+iter=100 tolV=0.0104713
+iter=110 tolV=0.00480126
+iter=120 tolV=0.00220162
+iter=130 tolV=0.00100959
+iter=140 tolV=0.000462973
+iter=150 tolV=0.00021231
+iter=160 tolV=9.73612e-05
+Elapsed time is 0.084804 seconds.
+ 
+ i         V(i)         x(i)
+----------------------------
+ 1  69.57020469   1.31824380
+ 2  99.05892932   2.96836169
+ 3 148.10260847   3.71803018
+ 4 211.11110098   4.03508338
+ 5 270.39468556   3.66053756
+ 6 304.50961578   2.57364013
+ 7 316.26481141   1.41378235
+ 8 321.83508318   0.89367807
+ 9 325.11407419   0.62119129
+10 327.31301146   0.45577341
+11 328.91393576   0.34450084
+12 330.14557190   0.26413446
+13 331.13086519   0.20305256
+14 331.94222406   0.15483369
+15 332.62534572   0.11564448
+16 333.21065007   0.08303025
+17 333.71908727   0.05490407
+18 334.16222875   0.00000000
+ 
+Policy function iteration
+-------------------------
+ 
+iter=1 tolV=265.443
+iter=2 tolV=227.647
+iter=3 tolV=87.9234
+iter=4 tolV=3.1089
+iter=5 tolV=0.00813905
+iter=6 tolV=4.08472e-06
+Elapsed time is 0.013904 seconds.
+ 
+ i         V(i)         x(i)
+----------------------------
+ 1  69.57140546   1.31824380
+ 2  99.06013010   2.96836169
+ 3 148.10380925   3.71803018
+ 4 211.11230176   4.03508338
+ 5 270.39588634   3.66053756
+ 6 304.51081656   2.57364013
+ 7 316.26601219   1.41378234
+ 8 321.83628397   0.89367807
+ 9 325.11527498   0.62119128
+10 327.31421224   0.45577341
+11 328.91513655   0.34450085
+12 330.14677269   0.26413445
+13 331.13206597   0.20305251
+14 331.94342485   0.15483344
+15 332.62654650   0.11564392
+16 333.21185086   0.08302981
+17 333.72028806   0.05490418
+18 334.16342953   0.00000000

@@ -1,0 +1,463 @@
+%
+% This is a borrowed LaTeX template file for lecture notes for CS267,
+% Applications of Parallel Computing, UCBerkeley EECS Department.
+% Now being used for CMU's 10725 Fall 2012 Optimization course
+% taught by Geoff Gordon and Ryan Tibshirani.  When preparing 
+% LaTeX notes for this class, please use this template.
+%
+% To familiarize yourself with this template, the body contains
+% some examples of its use.  Look them over.  Then you can
+% run LaTeX on this file.  After you have LaTeXed this file then
+% you can look over the result either by printing it out with
+% dvips or using xdvi. "pdflatex template.tex" should also work.
+%
+
+\documentclass[twoside]{article}
+
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+%
+% ADD PACKAGES here:
+%
+
+\usepackage{amsmath,amsfonts,graphicx, url}
+\usepackage{soul}
+%\usepackage{versions}
+
+%\includeversion{extra}
+%\excludeversion{extra}
+
+%
+% The following commands set up the lecnum (lecture number)
+% counter and make various numbering schemes work relative
+% to the lecture number.
+%
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\thesection}{\thelecnum.\arabic{section}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+
+\newcommand{\ind}[1]{{\bf 1  }[ #1 ] }
+%
+% The following macro is used to generate the header.
+%
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf ECON 512: Empirical Methods
+	\hfill Spring 2019} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Instructor: #3 \hfill Date: #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+
+%   {\bf Note}: {\it LaTeX template courtesy of UC Berkeley EECS dept.}
+%
+%   {\bf Disclaimer}: {\it These notes have not been subjected to the
+%   usual scrutiny reserved for formal publications.  They may be distributed
+%   outside this class only with the permission of the Instructor.}
+%   \vspace*{4mm}
+}
+%
+% Convention for citations is authors' initials followed by the year.
+% For example, to cite a paper by Leighton and Maggs you would type
+% \cite{LM89}, and to cite a paper by Strassen you would type \cite{S69}.
+% (To avoid bibliography problems, for now we redefine the \cite command.)
+% Also commands that create a suitable format for the reference list.
+\renewcommand{\cite}[1]{[#1]}
+\def\beginrefs{\begin{list}%
+        {[\arabic{equation}]}{\usecounter{equation}
+         \setlength{\leftmargin}{2.0truecm}\setlength{\labelsep}{0.4truecm}%
+         \setlength{\labelwidth}{1.6truecm}}}
+\def\endrefs{\end{list}}
+\def\bibentry#1{\item[\hbox{[#1]}]}
+
+%Use this command for a figure; it puts a figure in wherever you want it.
+%usage: \fig{NUMBER}{SPACE-IN-INCHES}{CAPTION}
+\newcommand{\fig}[3]{
+			\vspace{#2}
+			\begin{center}
+			Figure \thelecnum.#1:~#3
+			\end{center}
+	}
+% Use these for theorems, lemmas, proofs, etc.
+\newtheorem{theorem}{Theorem}[lecnum]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{proof}{{\bf Proof:}}{\hfill\rule{2mm}{2mm}}
+
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\newcommand\E{\mathbb{E}}
+
+\begin{document}
+%FILL IN THE RIGHT INFO.
+%\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
+\lecture{4}{Ericson-Pakes Games}{Paul Grieco}{Feb 4/11}
+%\footnotetext{These notes are partially based on those of Nigel Mansell.}
+
+% **** YOUR NOTES GO HERE:
+
+% Some general latex examples and examples making use of the
+% macros follow.  
+%**** IN GENERAL, BE BRIEF. LONG SCRIBE NOTES, NO MATTER HOW WELL WRITTEN,
+%**** ARE NEVER READ BY ANYBODY.
+
+These lecture notes are for my personal use. 
+If you are reading them, I decided to distribute them as an experiment. 
+There are typos and probably outright errors, if you find them please accept my apologies and report them to me. 
+
+In these notes I will introduce the Ericson-Pakes Framework, which is a workhorse model for the empirical study of dynamic games. 
+It views the data generating process as the outcome of a Markov Perfect Equilibrium (MPE). Background material for these notes comes from, 
+\begin{itemize}
+\item Ericson \& Pakes (1995), ``Markov-Perfect Industry Dynamics: A Framework for Empirical Work'', {\it Review of Economic Studies}. 
+\item Pakes \& McGuire (1994), ``Computing Markov Perfect Equilibria: Numerical Implications of a Dynamic Differentiated Product Model, {\it RAND Journal of Economics}. 
+\item Doraszelski \& Pakes (2007), ``A Framework for Applied Dynamic Analysis in IO,'' \ul{Handbook of Industrial Organization}, Chapter 30. 
+\end{itemize}
+
+\section{Introducing Dynamic Games}
+
+Why do we need these?
+\begin{itemize}
+\item Similar firms, even in the same industry, often have different ``fates'' (Dunne, Roberts, Samuleson 1988)
+\begin{itemize}
+\item Gross entry and exit are both much larger than the net change in the number of firms. 
+\item We see observably similar firms where one is expanding and the other contracting. 
+\end{itemize}
+\item EP model give us hope to account for such heterogeneity while still making statements about market structure. 
+\item Markov assumption is empirically convenient: 
+\begin{itemize}
+\item Our data has a finite history. 
+\item Allows for the estimation of agent policies by conditioning on the set of state variables. 
+\item Counterfactual equilibrium can be computed and simulated. 
+\end{itemize} 
+\end{itemize}
+ 
+Key Assumptions (some relaxed by future work):
+\begin{itemize}
+\item State is publicly observed by all players. 
+\item Heterogeneity arises from privately observed shocks that are i.i.d. over agents and time.
+\item Solution concept is Markov Perfect Equilibrium: Strategies depend on current payoff-relevant state, not histories. (Collusion?). 
+\item Game is stationary. 
+\end{itemize}
+
+What are we adding from DP? 
+\begin{itemize}
+\item Stochastic endogenous transition matrix. 
+\item Continous choice with discrete state. 
+\item Multiple agents. 
+\end{itemize}
+ 
+ Challenges for this literature: 
+ \begin{itemize}
+ \item Curse of dimensionality. 
+ \item States unobserved by the econometrician. 
+ \item States unobserved by the players (asymmetric information). 
+ \item Multiple Equilibria. 
+ \item Dependence on functional forms. 
+ \end{itemize}
+ 
+\section{Basic Idea: Markov Perfect Equilibrium} 
+
+\begin{itemize}
+\item Time is discrete, and horizon is infinite. 
+\item $N$ firms are described by a state $\omega_i$ (cost, product quality, etc). 
+\item The total state is described by $\omega = (\omega_1, \ldots, \omega_N, \tilde{\omega})$
+where $\tilde{\omega}$ is some aggregate market state determined by nature. 
+\item Each period, firms choose an action from a feasible set $x_i \in X_i(\omega)$, the action profile is $(x_1, \ldots, x_N)$. 
+Market may be hit by an aggregate shock $\eta \in Y$. 
+\item State-to-State transitions are determined by a family of distributions: 
+$$\mathcal{P}_{\omega_i'} \equiv \{ \rho(\cdot | \omega_i, x_i, \eta) : \omega_i \in \Omega_i, x_i \in X_i, \eta \in Y \} $$ 
+\end{itemize}
+
+For now, let's ignore the industry aggregate state and shock. They are easy to put back in because they are exogenous. Then the state 
+is just $(\omega_1, \ldots, \omega_N)$ and we can write the value function of firm $i$ as, 
+
+$$V(\omega_i, \omega_{-i}) = \max_{x_i \in X_i(\omega)}  E[  \pi_i(\omega_i, \omega_{-i}, x_i, x_{-i}) + \beta V(\omega_i', \omega_{-i}') | \omega_i, \omega_{-i}, x_i] $$
+
+Where, 
+\begin{itemize}
+\item $\pi_i$ represents profits when firm of firm i \emph{given} opponents are following equilibrium strategy $x_{-i}^*$.
+\item Likewise, the expectation is itself an equilibrium object that assumes (a) opponents are following $x_{-i}^*$ (b) in future firm $i$ will follow $x_i^*$ (principle of optimality). 
+\item The key is that holding opponent strategies fixed, this is a single agent optimization problem, that we are able to solve. I.e., we know how to compute
+$i$'s best response to opponent strategy $\tilde{x}_{-i}(\cdot)$. 
+\end{itemize}
+ 
+ \begin{definition} A Markov perfect equilibrium (MPE) is a strategy profile $(x_1(\cdot), x_2(\cdot), \ldots, x_N(\cdot))$ such that 
+ \begin{itemize} 
+ \item Every agent's' strategy is 
+ optimal given its perceptions about future industry structure (the state), and 
+ \item Those perceptions are consistent with each player's equilibrium behavior (strategies). 
+ \end{itemize}
+ \end{definition}
+ 
+ These conditions map into two sets of necessary conditions for equilibrium: (a) the first order conditions of the Bellman equation and (b) the Bellman equation itself substituting in optimal strategies. 
+ 
+Computing an MPE amounts to solving this set of equations. We will focus on doing this by iterating best responses in hopes they converge.  However, the equilibrium problem is NOT a contraction map, so we have no guarantee. 
+
+\section{Aside: Estimation without Computing Equilibrium}
+
+An interesting feature of these models is they can be estimated \emph{without} having to be solved.  Bajari, Benkard, and Levin (2007) and others provide methodologies. They are covered in the IO sequence.  Here's a rough idea: 
+
+\begin{enumerate}
+\item The key is that with the Markov assumption, policy functions (conditional choice probabilities, or CCPs) can be (nonparameterically?) estimated from the data. They are just actions conditional on states, $P(x_i|\omega)$. State transitions can also be estimated, they are $P(\omega'|\omega, x)$. 
+
+\item Once policies and transitions are estimated, we can forward simulate firm actions to determine expected paths thorough the state space. Given parameters this means we can compute the expected value of following the estimated policy. 
+
+$$V_i(\omega, \sigma_i, \sigma_{-i}) = E \left[ \sum_{t = 0}^\infty \beta^t \pi_i(\omega_t, x_t) | \omega_0 = \omega \right] $$
+
+\item Agent optimization means the estimated policy maximizes the agents long-run utility, that is for any alternative policy $\tilde{\sigma}_i$, it must be true that, $\forall i, \omega$: 
+$$V_i(\omega, \sigma_i, \sigma_{-i}) \geq V_i(\omega, \tilde{\sigma}_i, \sigma_{-i})  $$
+
+So I estimate profit parameters by minimizing the objective:
+
+$$  \frac{1}{|\Omega | \times | \tilde{\sigma}_i | } \sum_{s, \tilde{\sigma}} \min \left\{ 0, V(\omega, \tilde{\sigma}_i, \sigma_{-i}) - V(\omega, \sigma_i, \sigma_{-i}) \right\} $$
+
+\end{enumerate}
+
+While this might looks complicated, if we let $\pi$ be linear in parameters it can actually boil down to a very simple problem. The key is you only need to do the forward simulation a single time, and it becomes a linear moment inequality problem. 
+
+Concluding thoughts: 
+\begin{itemize} 
+
+\item Usually there are many ``alternative policies'' and you can't include them all. Researcher must choose what to include. 
+
+\item Very large games will have very large state spaces, and you might not observe every state. Making it difficult to non-parametrically estimate the CCPs. 
+
+\item That said, this makes estimating several firm dynamic games feasible.  Even simple dynamic games models can take quite a while to compute. Repeatedly re-calculating equilibria to compute a likelihood or moments is a non-starter for now. 
+
+\item On the other hand, recovering structural parameters may be of limited interest if you can't compute counterfactuals. 
+
+\end{itemize}
+
+\section{Computation of Equilibrium Example: Quality Ladder Model}
+
+Consider a differentiated products industry where firms can invest in improving product quality. Each firms state is the quality of its product, there are $L$ quality levels:
+$$\Omega_i = \{ 1, \ldots, L \}$$
+
+The timing of the game is as follows: 
+\begin{enumerate}
+\item Firms start period with state $\omega = (\omega_1, \ldots, \omega_N)$.
+\item Firms simultaneously name prices, consumers purchase, profits realized. 
+\item Firms simultaneously invest in improving their quality. 
+\item State variable updated based on firm investments, proceed to next period.
+\end{enumerate}
+
+Note, the paper gives a version of this model that includes a discrete entry/exit decision of firms.  We won't cover that extension in class, as it mostly just adds notation and one additional state (``not operating'').
+
+\subsection{Pricing Game}
+
+Utility of firm $i$'s product for consumer $c$ is, 
+$$u_{ic} = g(\omega_i) - p_i + \varepsilon_{ic}$$
+where $g(\cdot)$ governs the extent of vertical differentiation in the market place and $\varepsilon_{ic} \sim T1EV$ represents horizontal differentiation. 
+
+In the code, 
+$$g(\omega_i) = 
+\begin{cases} 3\omega_i -4 & 1 \leq \omega_i \leq 5 \\
+12 + \log(2 - \exp(16 - 3*\omega_i)) & 6 \leq \omega_i \leq 18
+\end{cases} $$
+It is increasing, eventually concave, and very flat at high values of $\omega_i$ this flatness reduces the benefit of investment to make sure that the stationary distribution stays in the interior or the state space. 
+
+Consumers may choose to buy from any firm or an outside option with utility $u_{i0} = \varepsilon_{0c}$. So demand is: 
+
+$$D_i(p ; \omega) = \frac{ \exp( g(\omega_i) - p_i) }{ 1 + \sum_{j=1}^N  \exp( g(\omega_j) - p_j)} $$
+Firms choose the price of their good, $p_i$ to maximize flow profits: 
+$$\pi_i(\omega) = \max_{p_i} D_i(p_i, p_{-i}; \omega)(p_i - c) $$
+Note that price is fully flexible from period to period, so it has no dynamic implications (like labor in the capital growth model). 
+Using some logit-related algebra, we can show the first order condition for firm $i$ is: 
+$$ 1 - (1-D_i(p_i, p_{-i}; \omega))(p_i - c) = 0 $$ 
+This gives us $N$ equations to solve for the $N$ unknown prices to find the pricing equilibrium for state $\omega$. Doing so for every state gives us the
+flow profits for the game, $\pi_i(\omega)$ for every player, which we will henceforth treat as a known parameter.
+
+FYI, to derive the FOC, notice: 
+\begin{align*} 
+\frac{\partial{D_i}}{\partial p_i} (p_i - c) + D_i &= 0 \\
+-D_i (1 - D_i)(p_i - c) + D_i & = 0 \\
+-(1 - D_i)(p_i - c) + 1 & = 0 \\
+\end{align*}
+
+\subsection{Investment}
+
+Firms' quality levels evolve as follows:
+\begin{itemize}
+\item In each period, the firm chooses a level of investment $x_i$. 
+\begin{itemize}
+\item with probability $\frac{\alpha x}{1 + \alpha x}$, investment is successful and quality moves up one state. 
+\item otherwise, quality is unchanged by investment. 
+\end{itemize}
+\item With probability $\delta$ firms suffer a ``quality depreciation shock'' which reduces their quality by one state. 
+\end{itemize}
+
+We need the depreciation shock to keep the state in the interior of the state space, we can think of it as an improvement of the outside good. 
+$$
+\rho(\omega_i' | \omega_i, x_i) = \begin{cases}
+\frac{(1-\delta)\alpha x}{1 + \alpha x} & \omega_i' = \omega_i + 1 \\
+\frac{(1-\delta) + \delta \alpha x}{1 + \alpha x} & \omega_i' = \omega_i \\
+\frac{\delta}{1 + \alpha x} & \omega_i' = \omega_i - 1 \\
+0 & \mbox{otherwise}
+\end{cases}
+$$
+
+Notice that the transition matrix is a banded diagonal matrix. This sparsity will be very useful computationally. 
+Also notice that transition probabilities are smooth in $x$, so we will be able to use first order conditions. 
+
+Boundary Conditions: In state $L$, you can't go up, so if you invest then and are successful you simply stay at state $L$, same with state 1 and going down. 
+
+\subsection{Investment: Monopoly}
+
+To keep things simple, let's start with the monopoly problem, and then extend to a game. 
+The Bellman equation is: 
+
+$$ V(\omega_i) = \max_{x_i} \pi_i(\omega) - x_i + \beta \sum_{\omega' = 1}^L V(\omega') \rho(\omega_i' | \omega_i, x_i) $$
+
+The principle of optimality gives us the first order condition, 
+$$ -1 + \beta  \sum_{\omega' = 1}^L V(\omega') \frac{\partial \rho(\omega_i' | \omega_i, x_i)}{\partial x_i} = 0 $$
+Or simply that the marginal cost of investment should equal its (dynamic) benefits. Using the definition of $\rho$ we have, 
+\begin{align*}
+1 = \beta \bigg( & V(\omega_i + 1)  \frac{(1-\delta)\alpha(1+\alpha x) - (1-\delta) \alpha^2 x}{(1 + \alpha x)^2}\\
+& + V(\omega_i) \frac{\delta \alpha (1+\alpha x) - (1-\delta) \alpha - \delta \alpha^2 x}{(1 + \alpha x)^2} \\
+& +V(\omega_i - 1) \frac{\delta \alpha}{(1+\alpha x)^2} \bigg)
+\end{align*}
+
+This simplifies to the quadratic condition: 
+\begin{align*}
+(1 + \alpha x)^2 & = \alpha \beta \left[ (1 - \delta) V(\omega_i + 1) + (\delta - (1 - \delta)) V(\omega_i) - \delta V(\omega_i - 1) \right] \\
+& = \alpha \beta \left[ (1 - \delta) (V(\omega_i + 1) - V(\omega)) + \delta(V(\omega_i) - \delta V(\omega_i - 1)) \right]  \\
+\end{align*}
+
+So the optimal investment level is the positive solution to this equation is a closed form expression: 
+$$ x^*(\omega) = \max\left\{0, \frac{-1 + \sqrt{\alpha \beta \left[ (1 - \delta) (V(\omega_i + 1) - V(\omega)) + \delta(V(\omega_i) - \delta V(\omega_i - 1)) \right] } }{\alpha} \right\} $$
+
+We also know the Bellman equation must hold at the optimum so, 
+$$ V(\omega_i) = \pi(\omega_i) - x^*(\omega_i) + \beta \sum_{\omega' = \omega_i-1}^{\omega_i + 1} V(\omega') p(\omega' | \omega_i, x^*(\omega_i))$$
+
+This gives us $2L$ equations that are needed to solve for $2L$ unknowns, $(V(\cdot), x^*(\cdot))$. Even better, we know this problem to be a contraction. 
+In practice we have several options for how to solve this problem. 
+
+\subsubsection{Value Function Iteration (an old favorite)}
+
+Since the solution to the Bellman given $V(\cdot)$ has a closed form, this is particularly straightforward: 
+\begin{enumerate}
+\item Given $V^{r-1}$, use FOC to calculate $x^r(\cdot)$. 
+\item Substitute $x^j(\cdot)$ into Bellman to find $V^r$. 
+\item If $||V^j - V^{j-1}|| < \varepsilon_v$ and $||x^j - x^{j-1}|| < \varepsilon_x$, stop, otherwise go to 1. 
+\end{enumerate}
+
+\subsubsection{Policy Function Iteration}
+\begin{itemize}
+\item VFI uses optimal policy for one period, and otherwise ``re-uses'' the old policy. 
+\item PFI uses the optimal policy over the entire horizon, because bellman is linear in the policy function, this is easy to do. 
+\item Pro: Converges in many fewer iterations. 
+\item Con: Each iteration takes longer, because it involves a matrix inverse. 
+\end{itemize}
+Note we can write the Bellman equation in matrix notation: 
+$$ V = \pi - x + \beta P(x) V$$. 
+Where $V, \pi, x^*$ are all $K \times 1$ and $P(x)$ is $K \times K$ (banded diagonal). Now we just solve for $V$: 
+$$ V = (I - \beta P(x))^{-1}(\pi - x)$$
+This is the value of following policy function $x$ over the infinite horizon. 
+
+
+Algorithm:
+\begin{enumerate}
+\item Given $V^{j-1}$, use FOC to calculate $x^j(\cdot)$. 
+\item $V^j = (I - \beta P(x))^{-1}(\pi - x^j)$
+\item If $||V^j - V^{j-1}|| < \varepsilon_v$ and $||x^j - x^{j-1}|| < \varepsilon_x$, stop, otherwise go to 1. 
+\end{enumerate}
+
+\subsubsection{Newton's Method}
+
+One can attempt to solve this problem directly using a non-linear solver. E.g., trying to solve this 
+system of equations using fmincon, KNITRO, or another constrained optimization pakage. 
+We discussed this idea earlier.  In practice, you will need to program up derivative information (not too hard)
+and also have a very good start point (harder). 
+
+\subsubsection{Homotopy}
+
+Homotopy methods can be combined with Newton's method to relieve the need for a good start point. It can 
+be particularly useful when you want to solve the game with many different parameterizations or search for 
+multiple equilibria. Well talk about it more (if time) next week.
+
+\subsection{Investment: Duopoly}
+
+What changes when we go to multiple players and have a game: 
+\begin{itemize}
+\item Many more states, in in principle $L^N$ (but these are reduced via exchangeability). 
+\item Transition matrix depends on opponent strategies, expectations need to integrate over opponent strategies. 
+\item Equilibrium is NOT a contraction due to updating opponent strategy. 
+\item Existence can be proven under common conditions, but uniqueness is much harder and often doesn't hold. 
+\end{itemize}
+
+\subsubsection{Exchangability}
+
+Typically we assume that firms play a symmetric MPE, this means that a firms strategy depends only on its current state, but not its identity. 
+In other words, we look for equilibrium in exchangeable strategies. For two players, exchangeability means: 
+$$ x_1(\omega^i, \omega^j) = x_2(\omega^j, \omega^i)$$
+Or more generally, using game theoretic notation: 
+$$ f(\omega_i, \omega_{-i}) = f(\omega_i, \omega_{\pi(-i)})$$
+Where $\pi(\cdot)$ represents any permutation of opponents. 
+
+Using symmetry/exchangeability: 
+\begin{itemize}
+\item Reduces the number of variables we need to solve for, since all players have the same strategy. 
+\item Means we can simply permute player $i$'s strategy to find player $j$'s strategy, simplifying computation. 
+\end{itemize}
+
+\subsubsection{Bellman Equation and Optimal Policy Given Opponent's Strategy}
+
+Given Exchangability, the Bellman equation for the duopoly problem is: 
+$$V(\omega_1, \omega_2) = \max_{x \geq 0} \bigg\{ \pi(\omega) - x + \beta \sum_{\omega_1'} \sum_{\omega_2'} V(\omega_1', \omega_2') P(\omega_1'| \omega_1, \underbrace{x}_{\mbox{Choice}}) P(\omega_2'| \omega_2, \underbrace{x_2(\omega)}_{\mbox{Opp Strategy}}) \bigg\}$$
+
+However, if we integrate over opponent strategy, we can construct player 1's continuation value conditional on firm 2's strategy as:  
+$$ W(\omega_1'; \omega) = \sum_{\omega_2'} V(\omega_1', \omega_2') P(\omega_2' | \omega_2, x_2(\omega)) $$
+
+We can replace this in the Bellman to get: 
+$$V(\omega_1, \omega_2) = \max_{x \geq 0} \bigg\{ \pi(\omega) - x + \beta \sum_{\omega_1'} W(\omega_1'; \omega) P(\omega_1'| \omega_1, x)  \bigg\}$$
+
+Since $W(\cdot)$ does not depend on $x$, we are essentially back to the monopoly problem.  This makes since, the solution to this problem is player 1's 
+best response to player 2 playing $x_2(\omega)$.  The solution to this problem is: 
+
+ $$x_1(\omega) =  \max\left\{0, \frac{-1 + \sqrt{\alpha \beta \left[ (1 - \delta) (W(\omega_1 + 1; \omega) - W(\omega_1; \omega)) + \delta(W(\omega_1) - \delta W(\omega_1 - 1; \omega)) \right] } }{\alpha} \right\} $$
+
+\subsubsection{Value Function Iteration}
+
+So value function iteration proceeds as follows, given we have an initial guess of $V^{j-1}$ and $x^{j-1}$, which are firm 1's value function and policy
+function, respectively: 
+\begin{enumerate}
+\item Using exchangeability assumption, $x_2(\omega) = x^{j-1}(\omega_2, \omega_1)$. 
+\item Calculate firm 1 continuation value given firm 2's strategy: $W(\omega_1'; \omega)$. 
+\item Use $W(\cdot)$ to calculate firm 1's best response, $x^j(\omega)$.
+\item Use $x^j$ and $W$ in Bellman equation to calculate firm 1's value function $V^{j}$. 
+\item Check for convergence of Value and Policy functions.
+\end{enumerate}
+
+However, there is no guarantee of convergence. For this problem. The updating of the policy function (in addition to the value function) is what
+breaks the contraction property. In particular it is possible for the iterations to fall into ``cycles'' where two (non-symmetric) strategies are best responses to each-other. To avoid this, Doraszelski and Pakes recommend ``dampening'' which uses a convex combination of previous strategies instead of full updating: 
+$$ x^j = (1-\lambda)x^{j-1} + \lambda x^j $$
+$$ V^j = (1- \lambda) V^{j-1} + \lambda V^j$$
+Where $\lambda \in (0, 1)$, typically close to 1. 
+
+\end{document}
+
