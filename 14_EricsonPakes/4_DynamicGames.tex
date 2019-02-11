@@ -116,7 +116,7 @@
 \begin{document}
 %FILL IN THE RIGHT INFO.
 %\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
-\lecture{4}{Ericson-Pakes Games}{Paul Grieco}{Feb 4/11}
+\lecture{14}{Ericson-Pakes Games}{Paul Grieco}{Feb 4/11}
 %\footnotetext{These notes are partially based on those of Nigel Mansell.}
 
 % **** YOUR NOTES GO HERE:
@@ -345,11 +345,11 @@ Or simply that the marginal cost of investment should equal its (dynamic) benefi
 This simplifies to the quadratic condition: 
 \begin{align*}
 (1 + \alpha x)^2 & = \alpha \beta \left[ (1 - \delta) V(\omega_i + 1) + (\delta - (1 - \delta)) V(\omega_i) - \delta V(\omega_i - 1) \right] \\
-& = \alpha \beta \left[ (1 - \delta) (V(\omega_i + 1) - V(\omega)) + \delta(V(\omega_i) - \delta V(\omega_i - 1)) \right]  \\
+& = \alpha \beta \left[ (1 - \delta) (V(\omega_i + 1) - V(\omega)) + \delta(V(\omega_i) - V(\omega_i - 1)) \right]  \\
 \end{align*}
 
 So the optimal investment level is the positive solution to this equation is a closed form expression: 
-$$ x^*(\omega) = \max\left\{0, \frac{-1 + \sqrt{\alpha \beta \left[ (1 - \delta) (V(\omega_i + 1) - V(\omega)) + \delta(V(\omega_i) - \delta V(\omega_i - 1)) \right] } }{\alpha} \right\} $$
+$$ x^*(\omega) = \max\left\{0, \frac{-1 + \sqrt{\alpha \beta \left[ (1 - \delta) (V(\omega_i + 1) - V(\omega)) + \delta(V(\omega_i) -  V(\omega_i - 1)) \right] } }{\alpha} \right\} $$
 
 We also know the Bellman equation must hold at the optimum so, 
 $$ V(\omega_i) = \pi(\omega_i) - x^*(\omega_i) + \beta \sum_{\omega' = \omega_i-1}^{\omega_i + 1} V(\omega') p(\omega' | \omega_i, x^*(\omega_i))$$
@@ -402,7 +402,7 @@ multiple equilibria. Well talk about it more (if time) next week.
 
 \subsection{Investment: Duopoly}
 
-What changes when we go to multiple players and have a game: 
+What changes when we go to multiple players to compute equilibrium of a game? 
 \begin{itemize}
 \item Many more states, in in principle $L^N$ (but these are reduced via exchangeability). 
 \item Transition matrix depends on opponent strategies, expectations need to integrate over opponent strategies. 
@@ -425,6 +425,8 @@ Using symmetry/exchangeability:
 \item Means we can simply permute player $i$'s strategy to find player $j$'s strategy, simplifying computation. 
 \end{itemize}
 
+In practice, exchangeability can pose some challenges? What if we want to allow for something like firm fixed effects or covariates? Then exchangeability is not really all that useful. 
+
 \subsubsection{Bellman Equation and Optimal Policy Given Opponent's Strategy}
 
 Given Exchangability, the Bellman equation for the duopoly problem is: 
@@ -439,7 +441,7 @@ $$V(\omega_1, \omega_2) = \max_{x \geq 0} \bigg\{ \pi(\omega) - x + \beta \sum_{
 Since $W(\cdot)$ does not depend on $x$, we are essentially back to the monopoly problem.  This makes since, the solution to this problem is player 1's 
 best response to player 2 playing $x_2(\omega)$.  The solution to this problem is: 
 
- $$x_1(\omega) =  \max\left\{0, \frac{-1 + \sqrt{\alpha \beta \left[ (1 - \delta) (W(\omega_1 + 1; \omega) - W(\omega_1; \omega)) + \delta(W(\omega_1) - \delta W(\omega_1 - 1; \omega)) \right] } }{\alpha} \right\} $$
+ $$x_1(\omega) =  \max\left\{0, \frac{-1 + \sqrt{\alpha \beta \left[ (1 - \delta) (W(\omega_1 + 1; \omega) - W(\omega_1; \omega)) + \delta(W(\omega_1) -  W(\omega_1 - 1; \omega)) \right] } }{\alpha} \right\} $$
 
 \subsubsection{Value Function Iteration}
 
