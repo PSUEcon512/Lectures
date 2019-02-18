@@ -301,7 +301,7 @@ Time reversibility with respect to $\pi$ is the property that for a given distri
 $$\pi_i p_{ij} = \pi_j p_{ji}$$
 
 \begin{theorem}
-If a chain is time reversible with respect to $\theta$, then $\theta$ is the stationary distribution of the chain. 
+If a chain is time reversible with respect to $\pi$, then $\pi$ is the stationary distribution of the chain. 
 \end{theorem}
 
 Proof: 
@@ -343,9 +343,9 @@ Where $B < S$ is a suitable burn-in period to ensure chain has converged.
 \item Invariant distribution is the joint distribution of $\theta$: 
 \begin{itemize}
 \item Assume $\theta_{r-1}$ is a draw from $\pi$, then $\theta_{r-1}^i$ is a draw from the marginal distribution 
-$$\pi_i(\theta_i) = \int \pi(\theta_i, \theta_{-i}) d\theta_{-i}.$$
+$$\pi_i(\theta_i) = \int \pi(\theta^i, \theta^{-i}) d\theta^{-i}.$$
 \item So then in our first draw we have: 
-$$\theta^1_r \sim \int f_1(\theta_1 | \theta_{-1}) \pi_{-i}(\theta_{-i}) d \theta_{-i} = \pi_1(\theta_1)$$
+$$\theta^1_r \sim \int f_1(\theta^1 | \theta^{-1}_{r-1}) \pi_{-1}(\theta^{-1}_{r-1}) d \theta^{-1} = \pi_1(\theta_1)$$
 So we have a draw from the marginal distribution of $\theta^1$. 
 \item Repeating for $2, \ldots P$ gives us a new draw from the joint distribution. 
 \end{itemize}
@@ -366,7 +366,7 @@ $$ y_i = \begin{cases} 0 & z_i \leq 0 \\ 1 & z_i > 0 \end{cases}$$
 $$ \epsilon_i \sim N(0, 1)$$
 We observe a random sample of $(y_i, x_i)$ and want to estimate $\beta$. 
 
-Suppose we have a prior $\beta \sim N(\bar{\beta}, A^{-1})$. If we observed $z_i$ then the posterior would be normal (normal is the conjugate prior of normal). However, we don't so we use a Gibbs sampler with two blocks $(z_i, \beta)$:
+Suppose we have a prior $\beta \sim N(\bar{\beta}, A^{-1})$. If we observed $z_i$ then the posterior would be normal (normal is the conjugate prior of normal). However, when $z$ is unobserved there is no simple conjugate prior.  Instead, we can use an ``augmentation step'' by employing a Gibbs sampler with two blocks $(z_i, \beta)$, the second step uses draws of $z$ and the normal conjugate prior:
 
 \begin{enumerate}
 \item Given $\beta_{r-1}$, draw $z_i$ by drawing from a truncated normal: 
@@ -410,7 +410,7 @@ Some rules of thumb:
 \item Run chain from several start points and compare results. 
 \item Take different subsamples of the same chain draws and compare results.
 \item Compute the autocorellation function: 
-$$s_{\theta_i}(k) = \frac{ \sum_{r = k+1}^R (\theta_r - \bar{\theta})(\theta_{r-k} - \bar{\theta})}{ \sum_r=1^R  (\theta_r - \bar{\theta})^2} $$
+$$s_{\theta_i}(k) = \frac{ \sum_{r = k+1}^R (\theta_r - \bar{\theta})(\theta_{r-k} - \bar{\theta})}{ \sum_{r=1}^R  (\theta_r - \bar{\theta})^2} $$
 To make sure correlation is dying as time between draws increases. 
 \end{itemize}
 
