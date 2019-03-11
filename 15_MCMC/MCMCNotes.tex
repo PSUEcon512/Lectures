@@ -476,7 +476,7 @@ Let's do a very simple MCMC estimation of a mean and variance.
 
 \emph{Need to clean up notation here.}
 
-Suppose we have data $\{y_1, \ldots, y_N\}$ from a DGP: 
+Suppose we have data $y = \{y_1, \ldots, y_N\}$ from a DGP: 
 $$ y_i \sim N(\mu, \sigma^2).$$ 
 We wish to estimate $(\mu, \sigma)$. The likelihood is, 
 \begin{align*}
@@ -495,9 +495,9 @@ $$\pi(\mu, \sigma | y) \propto L(y | \mu, \sigma) f(\mu, \sigma).$$
 Where $\propto$ means ``proportionate to'' we know there is a constant of integration that depends only on $y$, but we don't need to worry about it. 
 
 This is a well-defined distribution, but it is not normal, so we don't really know how to draw from it. Moreover, the conditional $\sigma | \beta, y$ does
-not have a closed form either. 
+not have a closed form either. So we can't just employ Gibbs Sampling. 
 
-\subsection{Algorithm}
+\subsection{Implementation of M-H Algorithm}
 
 We will draw from this posterior using a random walk distribution Metropolis-Hastings algorithm. Let $\theta = (\mu, \sigma)'$, then our
 proposal is: $$ \tilde{\theta_t} \sim \theta_{t-1} + \xi_t $$
@@ -508,12 +508,12 @@ Notice that this proposal is symmetric, that will be convenient.
 As usual, the likelihood itself is going to be really small, so we will use the log likelihood everywhere. Our algorithm is: 
 
 \begin{enumerate}
-\item Start with $\theta_0$
+\item Start with $\theta_0 = (\mu_0, \sigma_0)$
 \item Compute the log posterior of $\theta_0$:
 $$ \pi(\theta_0) = \sum_{i=1}^N \log \phi \left( \frac{y_i - \mu_0}{\sigma_0} \right)  + \log f(\theta_0) $$
 \item For $1 \leq t \leq T$: 
 \begin{enumerate}
-\item Draw $\xi_t$, compute $\tilde{theta}_t = \theta_{t-1} + \xi_t$. 
+\item Draw $\xi_t$, compute $\tilde{\theta}_t = \theta_{t-1} + \xi_t$. 
 \item Compute $\pi(\tilde{\theta}_t)$ and $\log \alpha =  \pi(\tilde{\theta}_t) - \pi(\theta_0)$
 \item Draw $u \sim Unif(0,1)$
 \item Define

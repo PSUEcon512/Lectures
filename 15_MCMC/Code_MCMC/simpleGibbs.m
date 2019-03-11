@@ -16,7 +16,7 @@ rho = .8;
 
 %Setup space to store draws...
 %T = 100;
-animate = 0;
+animate = 1;
 if animate
     T = 500;
 else
