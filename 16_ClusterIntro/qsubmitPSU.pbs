@@ -1,0 +1,48 @@
+#! /bin/bash
+
+## Specifies 12 cores on a single node, ideal for parfor:
+##PBS -l nodes=1:ppn=12
+
+## Specifies a single core job: 
+#PBS -l nodes=1:ppn=1
+
+##Memory, walltime: should be just large enough: 
+#PBS -l pmem=1gb
+#PBS -l walltime=24:00:00
+
+##Joins standared out and standard error to same output file:
+#PBS -j oe
+#PBS -o output_$PBS_JOBID
+
+## Email me about job begining and ending
+#PBS -m abe 
+
+# This specifies a allocation queue, we want open: 
+#PBS -A open 
+
+if [ -z ${PBS_O_WORKDIR} ]
+then 
+   echo "Workdir is unset"
+else 
+  echo "Workdir is $PBS_O_WORKDIR"
+  cd $PBS_O_WORKDIR
+fi 
+
+module load matlab
+
+echo "Starting run at `date`"
+
+# Run the job itself
+matlab -nodisplay -nosplash < mcMaster.m 
+
+# Here we would redirect MATLAB's output to its own log file: 
+matlab -nodisplay -nosplasy < mcMaster.m > mylogfile
+
+env | grep PBS > pbsEnvVars.log
+
+# Finish up
+echo " "
+echo "Job Ended at `date`"
+echo " "
+
+
