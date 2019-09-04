@@ -1,0 +1,10 @@
+\frametitle{Remote Repository Hosting}
+Setting up remote hosting
+\begin{enumerate}
+\item Create a user account, (here username is pgri).
+\item Create an empty repository, (here repo name is mrepo).
+\item Clone repository to your local computer:  \inlinecode{\$ git clone https://pgri@bitbucket.org/pgri/mrepo.git}
+\item Copy in files, add them, commit them.
+\item Push first commit back to remote.
+\end{enumerate}
+You can also give permission to other users to read (pull) and write (push) to your repository.
