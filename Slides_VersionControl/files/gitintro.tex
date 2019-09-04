@@ -1,0 +1,270 @@
+%!TEX root = ../main.tex
+
+\begin{frame}[c]\frametitle{Introducing Git}
+    \begin{itemize}
+    \item     Git is a distributional version control system most notably used
+    by Github, the web-based hosting service for software development projects.
+    
+    \item It is a tool (among many) that does version control for you, once you learn to use it. 
+    
+    \item Git is available for Windows, Mac, and Linux. Installed on the PSU cluster (module load git). 
+    
+    \item GUI and text based interfaces. 
+    
+    \item Checkout a good Git book \href{http://git-scm.com/book}{here}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[c]\frametitle{Introducing Git}
+\begin{itemize}
+    \item A git repository is created in a directory by running, \inlinecode{\$ git init}
+    \item This creates a directory ``.git'' within the working directory.
+    This is where git saves internal information and snapshots, but you don't need to work with it directly.  
+    \item The command,  \inlinecode{\$ git add ``File a''}, stages ``File a'' for a commit. 
+    \item The command, \inlinecode{\$ git commit} adds staged files to the repository (as we'll see later). 
+\end{itemize}
+   \end{frame}
+
+
+\begin{frame}[t]\frametitle{Introducing Git}
+    First consider a git server, which is nothing but a computer
+    with the following file structure.
+
+    \begin{center}
+        \tikzstyle{file}=[draw, rectangle, text centered, text width=2.5cm,
+            fill=black!20, rounded corners]
+
+        \begin{tikzpicture}
+
+            \begin{scope}[local bounding box=bb]
+                \node (server) {Central Server};
+                \node [file, below of=server] (folder) {MyProject/};
+                \node [file,below of=folder,xshift=2cm] (a) {File a};
+                \node [file,below of=a] (b) {File b};
+                \node [file,below of=b] (c) {File c};
+                \node [file,below of=c,xshift=-2cm] (git) {.git/};
+                \node [below of=git,xshift=0.3cm] (content) {...};
+
+                \draw (folder) -- (0,-3);
+                \draw (0,-3) -- (a.west);
+                \draw (0,-3) -- (b.west);
+                \draw (0,-3) -- (c.west);
+                \draw (0,-3) -- (git.north);
+                \draw (git.south) -- (content.west);
+            \end{scope}
+
+            \begin{pgfonlayer}{background}
+                \node [fill=blue!20,fit=(bb)] {};
+            \end{pgfonlayer}
+
+            \draw [decorate,decoration={brace,amplitude=10pt}] (4,0) -- (4,-6) node [midway,xshift=1.5cm] (hash) {24b9da655};
+            \node [right of=git,xshift=6cm,yshift=-1cm] (gitlab) {Git Storage};
+            \node [below of=hash,xshift=1cm] (hashlab) {Commit Hash (version \#)};
+
+            \draw [<-] (hash) -- (hashlab);
+            \draw [<-] (git) -- (gitlab);
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}[t]\frametitle{Introducing Git}
+    When Pam clones this repository to her computer, she sees:
+    \begin{center}
+        \tikzstyle{file}=[draw, rectangle, text centered, text width=2.5cm,
+            fill=black!20, rounded corners]
+
+        \begin{tikzpicture}
+
+            \begin{scope}[local bounding box=bb]
+                \node (server) {Pam's Computer};
+                \node [file, below of=server] (folder) {MyProject/};
+                \node [file,below of=folder,xshift=2cm] (a) {File a};
+                \node [file,below of=a] (b) {File b};
+                \node [file,below of=b] (c) {File c};
+                \node [file,below of=c,xshift=-2cm] (git) {.git/};
+                \node [below of=git,xshift=0.3cm] (content) {...};
+
+                \draw (folder) -- (0,-3);
+                \draw (0,-3) -- (a.west);
+                \draw (0,-3) -- (b.west);
+                \draw (0,-3) -- (c.west);
+                \draw (0,-3) -- (git.north);
+                \draw (git.south) -- (content.west);
+            \end{scope}
+
+            \begin{pgfonlayer}{background}
+                \node [fill=blue!20,fit=(bb)] {};
+            \end{pgfonlayer}
+
+            % \draw [decorate,decoration={brace,amplitude=10pt}] (4,0) -- (4,-6) node [midway,xshift=1.5cm] (hash) {24b9da655};
+            % \node [right of=git,xshift=6cm,yshift=-1cm] (gitlab) {Git Storage};
+            % \node [below of=hash,xshift=1cm] (hashlab) {Commit Hash (version \#)};
+
+            % \draw [<-] (hash) -- (hashlab);
+            % \draw [<-] (git) -- (gitlab);
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}[t]\frametitle{Introducing Git}
+    When Pam changes ``File b'', she merely changes her ``working directory''.
+    Git will recognize the change, but won't record it.
+    \begin{center}
+        \tikzstyle{file}=[draw, rectangle, text centered, text width=2.5cm,
+            fill=black!20, rounded corners]
+
+        \begin{tikzpicture}
+
+            \begin{scope}[local bounding box=bb]
+                \node (server) {Pam's Computer};
+                \node [file, below of=server] (folder) {MyProject/};
+                \node [file,below of=folder,xshift=2cm] (a) {File a};
+                \node [file,below of=a,fill=red!70] (b) {File b};
+                \node [file,below of=b] (c) {File c};
+                \node [file,below of=c,xshift=-2cm] (git) {.git/};
+                \node [below of=git,xshift=0.3cm] (content) {...};
+
+                \draw (folder) -- (0,-3);
+                \draw (0,-3) -- (a.west);
+                \draw (0,-3) -- (b.west);
+                \draw (0,-3) -- (c.west);
+                \draw (0,-3) -- (git.north);
+                \draw (git.south) -- (content.west);
+            \end{scope}
+
+            \begin{pgfonlayer}{background}
+                \node [fill=blue!20,fit=(bb)] {};
+            \end{pgfonlayer}
+
+            % \draw [decorate,decoration={brace,amplitude=10pt}] (4,0) -- (4,-6) node [midway,xshift=1.5cm] (hash) {24b9da655};
+            % \node [right of=git,xshift=6cm,yshift=-1cm] (gitlab) {Git Storage};
+            % \node [below of=hash,xshift=1cm] (hashlab) {Commit Hash (version \#)};
+
+            % \draw [<-] (hash) -- (hashlab);
+            % \draw [<-] (git) -- (gitlab);
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}[c]\frametitle{Introducing Git}
+    To record the change she performs two commands:
+    \begin{enumerate}
+        \item \inlinecode{\$ git add ``File b''}
+        \item \inlinecode{\$ git commit -m ``I have changed File b.''}
+    \end{enumerate}
+
+    \vspace{0.5cm}
+    The second command generates a commit and a corresponding commit 
+    message. A \framebox{commit} is like a ``snapshot''; it records
+    the current state of your files. Read more on commits 
+    \href{http://git-scm.com/book/en/Getting-Started-Git-Basics}{here}.
+
+\end{frame}
+
+\begin{frame}[t]\frametitle{Introducing Git}
+    Now Pam's local repository is at a future state, recorded
+    as a new commit hash. The commit information is stored 
+    in the git directory.
+    \begin{center}
+        \tikzstyle{file}=[draw, rectangle, text centered, text width=2.5cm,
+            fill=black!20, rounded corners]
+
+        \begin{tikzpicture}
+
+            \begin{scope}[local bounding box=bb]
+                \node (server) {Pam's Computer};
+                \node [file, below of=server] (folder) {MyProject/};
+                \node [file,below of=folder,xshift=2cm] (a) {File a};
+                \node [file,below of=a] (b) {File b};
+                \node [file,below of=b] (c) {File c};
+                \node [file,below of=c,xshift=-2cm,fill=red!70] (git) {.git/};
+                \node [below of=git,xshift=0.3cm] (content) {...};
+
+                \draw (folder) -- (0,-3);
+                \draw (0,-3) -- (a.west);
+                \draw (0,-3) -- (b.west);
+                \draw (0,-3) -- (c.west);
+                \draw (0,-3) -- (git.north);
+                \draw (git.south) -- (content.west);
+            \end{scope}
+
+            \begin{pgfonlayer}{background}
+                \node [fill=blue!20,fit=(bb)] {};
+            \end{pgfonlayer}
+
+            \draw [decorate,decoration={brace,amplitude=10pt}] (4,0) -- (4,-6) node [draw,rectangle,fill=red!70,midway,xshift=1.5cm] (hash) {75b10da55};
+            \node [right of=git,xshift=6cm,yshift=-1cm] (gitlab) {Git Storage};
+            \node [below of=hash,xshift=1cm] (hashlab) {New Commit Hash};
+
+            \draw [<-] (hash) -- (hashlab);
+            \draw [<-] (git) -- (gitlab);
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}[c,fragile]\frametitle{Introducing Git}
+    Using \inlinecode{\$ git status}, we get the
+    following output:
+
+    \newbox{\mybox}
+    \begin{lrbox}{\mybox}
+    \begin{minipage}{\linewidth}
+    \begin{lstlisting}[basicstyle=\footnotesize\ttfamily\color{white}]
+$ git status
+# on branch master 
+# Your branch is ahead of 'origin/master' by 1 commit. 
+# 
+nothing to commit (working directory clean)  
+    \end{lstlisting}
+    \end{minipage}
+    \end{lrbox}
+    \colorbox{black}{\usebox{\mybox}}
+
+    \vspace{0.5cm}
+    The git directory stores the commit history:
+
+    \vspace{0.5cm}
+    ... $\rightarrow$ \colorbox{black!30}{24b9da655} $\rightarrow$ \colorbox{black!30}{75b10da55}
+
+    \vspace{0.5cm}
+    Using \inlinecode{\$ git status} told Git to compare the current state
+    with the last known state directly from `origin/master'.
+\end{frame}
+
+\begin{frame}[t,fragile]\frametitle{Introducing Git}
+    To see the last 2 commits we may do the following:
+
+    \newbox{\abox}
+    \begin{lrbox}{\abox}
+    \begin{minipage}{\linewidth}
+    \begin{lstlisting}[basicstyle=\footnotesize\ttfamily\color{white}]
+$ git log -2
+commit 75b10da55
+Author: Pam <pam@usa.com>
+Date:   Mon Mar 24 17:28:17 2014 -0500
+
+    I have changed File a
+
+commit 24b9da655
+Author: David <david@milkandcheese.com>
+Date:   Tue Mar 13 12:33:16 2014 -0500
+
+    Included this month's cow deaths in File c
+    \end{lstlisting}
+    \end{minipage}
+    \end{lrbox}
+    \colorbox{black}{\usebox{\abox}}
+\end{frame}
+
+\begin{frame}[t]\frametitle{Introducing Git}
+    To introduce her changes to the Central Server, Pam
+    has to push her changes.
+
+    \vspace{0.5cm}
+    \inlinecode{\$ git push origin master}
+
+    \vspace{0.5cm}
+    The Central Server has been updated with Pam's changes.
+
+
+\end{frame}

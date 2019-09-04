@@ -1,0 +1,15 @@
+
+# imports
+import os
+
+def build(bld):
+
+	os.chdir('slides/git')	
+
+	bld.add_group(); bld(features = 'tex', type = 'pdflatex', source = 'main.tex', prompt = False)
+	
+	bld.add_group(); bld(features = 'tex', type = 'bibtex', source = 'main.tex', prompt = False)
+	
+	bld.add_group(); bld(features = 'tex', type = 'pdflatex', source = 'main.tex', prompt = False)
+
+	os.chdir('../../')

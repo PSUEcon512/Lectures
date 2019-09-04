@@ -1,0 +1,281 @@
+<notes>
+  <note number="1">
+    - Hi, I'm Jake
+
+    - Work at ERC, projects varying from program evaluation,
+      forecasting with childhood measures, and some modelling
+      of dynamic discrete choice models
+
+        - Actively develop my own software tools for these
+          projects in Python. 
+
+        - Aid in some parts of development
+          in grmToolbox and the sructToolbox
+
+        - In all projects, use Git for version control
+          (and much more)
+
+    - Today, present on version control in Economic Research
+
+    - Boring and waste of time to explore syntax of version control
+
+    - Hope to show:
+        - How you already use version control
+        - But maybe you do it poorly
+        - Advantages of formal systems of version control
+        - Give concepts, speed-up understanding
+            - illustrate with conceptual examples
+            - additional resources
+  </note>
+  <note number="2">
+    - We all have versions of our work
+
+    - Look on your computer and you will see...
+  </note>
+  <note number="3">
+    - Which brings us to our topic...
+  </note>
+  <note number="4">
+    - Historically, what was version control?
+
+    - Poor methods lead to regional heterogeneity
+
+    - But these methods (though digitized) persist today...
+
+    - But there are better methods for those willing to 
+      invest a bit of time (trust me, its worth it!)
+
+    - There are some aspects central to all of these
+      (next slide)
+  </note>
+  <note number="5">
+    Infrastructure
+    --------------
+
+    - Remote file system
+    - Local file system
+
+    - Some method of comparing and sending files across
+      these two systems, with the purpose of storing
+      information about different versions
+
+    - See examples
+
+    - In local VCS, the remote and local are one in the same
+
+    - In centralized, the central (remote) stores everything
+      and is the central communicator for all actions
+
+    - In distributional, both the remote and local file systems
+      can function in the same way (they are copies!)
+  </note>
+  <note number="6,7">
+    - usually speed advantages (no networking)
+
+    - insured against loss (server is down, erased, etc.)
+  </note>
+  <note number="8">
+    - Ok, this looks nice, but what advantages does it have
+      for an Economic Researcher?
+
+    - How will it enhance my workflow?
+
+    - Arguably, these 3 concepts are central to your research
+
+        - Having more efficient way to handle these aspects of
+          research will free up time for...
+
+            - creativity
+
+            - focus on economic problems
+    - And, Version Control lies at the center of these
+      (hopefully not just because I created a Venn Diagram
+      saying so)
+
+    - I'll address each one of these topics throughout and
+      show how formal systems of version control do much more
+      than just manage version history.
+  </note>
+  <note number="9">
+    1. The very nature of DVCS systems makes it easy to send
+       around your project.
+
+    2. Many tools developed to visualize projects, especially
+       computer code and text (Github, Redmine, Ipython Notebook)
+
+    3. Integration with existing knowledge and the creation of 
+       new knowledge is faster!
+
+    4. Scientific work can be quickly reviewed by peers or
+       third parties
+
+    5. See, for example, the grmToolbox online!
+  </note>
+  <note number="10">
+    - Remember the Bible scribes? They wrote in the margins of the 
+      book to keep track of version issues. 
+
+    - Likewise, you've probably had to deal with plenty of ad-hoc
+      methods of tracking history (README files or word-of-mouth)
+
+    - You've been hesitant to try new methods, because the one
+      you currently have "works" (non-linear work-flows)
+
+        - Model Averaging, MCMC sampling
+
+    - Only gets messier when you collaborate
+  </note>
+  <note number="11">
+    - You might say, but I have no problems, my code
+      doesn't need version history and I don't collaborate
+      and I have no need for such an intricate vehicle of
+      dissemenation and visibility. 
+
+          - Raising issues, merge conflicts, these are problems
+            I don't want to deal with--but you might already 
+            do this (emailing versions) but you hardly notice it
+
+    - You might be right. You're project might not require
+      version control.
+
+    - I hope to give you a quick guide to help you determine
+      the benefit for yourself
+
+    - And because I think Git is a good choice, I'll go over 
+      important concepts to (hopefully) make learning Git a 
+      bit easier
+  </note>
+  <note number="12">
+    - Overview:
+
+        - What is Git and how does it relate to my file system?
+
+        - How do I "do" Git? (hint: the commands)
+
+        - What is going on in there!??
+
+        - Go back and help you understand those concepts after you've
+          had time to see some basic functionality
+  </note>
+  <note number="14">
+    - Begin with familiar setting (e.g. Github, or Athens)
+
+    - This is all Git is
+
+    - Everything stored in .git/ directory
+
+        - Gitland vs. working directory
+  </note>
+  <note number="16">
+    - Notice how I'm highlight that the file has changed, but that nothing
+      in what I call "Gitland" has changed. Meaning, Git is not recording
+      the change.
+  </note>
+  <note number="17">
+    - When Pam is at a milestone, or maybe its the end of her workday, she 
+      want to record her changes to Git. This means "committing" her work.
+      This is the first Git concept I'll introduce. 
+  </note>
+  <note number="18">
+    - Notice how "Gitland" has changed. I highlighted the Git 
+      directory to show that Git has recorded a new snapshot to
+      the commit history.
+  </note>
+  <note number="22">
+    - Okay, let's take a step back and look at what we have done
+
+    - We've actually explored a lot of the core functions of Git
+  </note>
+  <note number="23">
+    - But how to make Git track a file?
+  </note>
+  <note number="25">
+    - Let's make a new file
+
+    - In white (not red, as before) because Git does not know this
+      file, but it recognizes it as untracked
+
+    - mention the .gitignore file
+  </note>
+  <note number="26">
+    - Not anything new
+
+    - We can commit these changes as before
+  </note>
+  <note number="28">
+    - You have the core functionality now.
+    
+    - And there is value in just keeping track of your history
+      in an efficient and organized way
+
+    - But the benefits go way beyond. Git makes collaborating
+      more effective.
+  </note>
+  <note number="29">
+    - Typical mode of communication is through the remote
+      central server. Though direct communication is possible.
+
+    - Additional tools for communicating bugs. Github issue
+      tracker
+  </note>
+  <note number="31">
+    - What happened in that merge?
+
+    - Need to introduce branching to understanding merging
+  </note>
+  <note number="33">
+    - For the economist, this means adding unobservable agent heterogeneity
+      to the model (as in the grmToolbox)
+
+    - For the statistician/econometrician, this means adding a new sampler
+      for a Markov Chain (as in ModelAveraging)
+
+    - Experimentation without worry
+
+    - Checkout Numpy or Statsmodels on github to see this workflow in action
+  </note>
+  <note number="35">
+    - By location, I mean the state of your files, literally what the files look like, 
+      over the course of development.
+  </note>
+  <note number="37">
+    - Stuck in the mud if you have made modifications to files
+
+    - Head must point to a branch
+  </note>
+  <note number="38">
+    - Won't go into details
+
+    - Merging works on BRANCHES, it is the counterpart to a simultaneous
+      workflow.
+
+    - Allows to bring successful "experiments" into your core analysis
+
+    - EXAMPLE: After MCMC sampling worked, I merged my sampler branch with
+      my master branch
+  </note>
+  <note number="42">
+    - You are in Git limbo when resolving a merge conflict
+
+    - There is no automatic way to do this
+
+    - But Git makes it EXPLICIT and APPARENT when there are conflicts
+        - easier to spot
+        - easier to fix
+  </note>
+  <note number="44">
+    - This is special commit, a merge commit
+
+    - Has two parents!
+  </note>
+  <note number="47">
+    - Familiar with the concepts
+
+    - Tie it together
+  </note>
+  <note number="48">
+    - Form a mental partition of Gitland and working directory
+
+    - Framework for understanding the commands
+  </note>
+</notes>
