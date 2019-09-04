@@ -4,7 +4,7 @@
 %% Big Picture of the Course
 %
 % * Learn and develop computational skills that will help you with your research.
-% * Knowlwdge is applicable across fields.
+% * Knowledge is applicable across fields.
 % * Traditional structural fields like IO, Trade, and Macro. 
 % * Theory -- simulate calibrated models and graph results.
 % * Metrics -- Monte Carlo simulations. Code own estimator. 
