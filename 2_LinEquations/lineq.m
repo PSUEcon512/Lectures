@@ -1,19 +1,22 @@
 %% Class 2: Linear Equations
-% This week, we'll briefly review solviing linear equations. In fact,
+% This week, we'll briefly review solving linear equations. In fact,
 % solving linear equations will be at the heart of a lot of what we do. For
-% example Newtons method for solving a non-linear system can be thought as
-% an iterative procedure that successively solves a linear approximate
-% problem to the non-linear problem of interest. 
+% example Newton's method for solving a non-linear system is
+% an iterative procedure that successively solves a linear problem approximate
+% to the non-linear problem of interest. 
 %
-% Almost always, we want to solve non-linear systems using package code. So
+% Almost always, we want to solve linear and non-linear systems using package code. So
 % this class is mostly about making sure we have some idea what that code
 % does.
 %
+% Moreover, it is about driving home the importance of numerical stability
+% in posing problems. We'll also learn a bit about floating point numbers,
+% digital *approximations* to real numbers.
 
 %% Linear Equations
-% We'll devote today to solving problems of the form
+% We'll devote today to solving problems of the form,
 %
-% $$ Ax = b $$
+% $$ Ax = b. $$
 %
 % This is easily the most common problem you will need to solve in
 % empirical work, for a quick example OLS is an example of this problem
@@ -28,19 +31,24 @@ A =  [28    69    44    19
 
 b = [100 ; 250 ; 300; 400];
 %%
-% You might think the way way to use a matrix inversion, after all we'd analytically
-% solve this by writing $x = A^{-1}b$, and in fact this
-% will work
+% You might think the way to go would be to use a matrix inversion, e.g., $x = A^{-1}b$, and in fact this
+% will work,
 
 x = inv(A)*b
 %%
-% However, this first computes the inverse (although maybe modern MATLAB
-% catches this for you, that is still what you are asking for). In fact,
+% There is nothing mathematically wrong with this, but it is not efficient
+% in terms of computation. 
+% Why? This approach must first computes the inverse before doing a matrix multiplication. In fact,
 % computing the inverse takes many more computational steps than just
 % solvng for $x$. 
 %
 % So what we really want is: 
 x = A\b
+%% 
+% Aside: MATLAB will actually 'catch' this error by recognizing that inv(A)
+% is just an intermediate result you aren't saving. Despite that, it's
+% worth learning what's going on under the hood. MATLAB doing your thinking 
+% is a blessing and a curse. 
 %%
 % For a little intuition, using backslash tells Matlab exactly what you
 % want, rather than asking it to compute an intermediate object |inv(A)|
@@ -84,7 +92,7 @@ T = tril(A)
 %
 % $$ Tz = b$$ 
 %
-%using _forward substiution_ 
+% using _forward substiution_ 
 z = zeros(size(b))
 z(1) = b(1)/T(1,1)
 for i = 2:length(b)
@@ -116,7 +124,8 @@ x = U\y
 A\b
 %%
 % All that is left is to figure out how to do the decomposition, which is
-% just an application of Gaussian Elimination. 
+% just an application of _Gaussian Elimination_. 
+% (Again, fancy names are important for marketing purposes.)
 
 %%% Gaussian Elimination
 %
@@ -124,7 +133,7 @@ A\b
 % algebra? Neither do I. But all LU decomposition does is apply elementary
 % row operations to convert $IA=A$ to $LU=A$
 mL = eye(size(A));
-mU = A;
+mU = A
 
 %%
 % I first want to get rid of the 5 in |mU(2,1)|, if I multiply the first
@@ -157,6 +166,12 @@ y = mL\b;
 mx = mU\y
 
 x = A\b
+%%
+% There was nothing fancy there! So why bother using a library, wouldn't it
+% be better to really know all the details yourself and code this from scratch?
+%
+% (Class discussion here.)
+
 
 %% Pivoting
 %
@@ -169,7 +184,7 @@ x = A\b
 % * Since
 %   the mantissa is of finite length, at some point we will need to round,
 %   which can cause rounding errors. 
-% * These isues can comound on themselves when we want to manipulate numbers of very different
+% * These isues can compound on themselves when we want to manipulate numbers of very different
 %   magnitude. 
 % * The MATLAB |lu(A)| (and other built in operations) include extra
 %   _pivoting_
@@ -181,7 +196,9 @@ x = A\b
 
 %%% Aside: Floating Point and its Discontents
 % 
-% Here is a quick example of a floating point pitfall:
+% Here is a quick example of a floating point pitfall. The function |fix|
+% rounds a floating point down to the nearest integer (same as floor). But
+% when we do: 
 for ind = 0:.1:1;
     if ind ~= fix(10*ind)/10
         disp(ind)
@@ -191,8 +208,11 @@ end
 %%
 % * Why does anything print out?
 % * One moral of this story: *do not use logical equalities and floating point.* 
-% * A second moral: Be careful when working with variables of very
-% different magnitude, you may want to just rescale them so their magnitudes are similar. 
+% * A second moral: Floating points imply rounding, and rounding can imply
+% errors. Be especially careful when working with variables of very
+% different magnitude. If possible, you may want to just rescale them so their magnitudes are similar. 
+%
+% 
 %
 %% Conditioning, good and ill 
 %
@@ -214,11 +234,13 @@ end
 %
 % * Then let's define the elasiticty of error with respect to a
 %  perturbation of b, $\frac{||e||}{||x||} \div \frac{||r||}{||b||}.$
+%  That is, the percent change in the error to our solution for a percent
+%  change in an error to our $b$. 
 %
 % * It is interesting because it tells us how rounding errors in $b$ "grow"
 %  through the solution of $Ax = b$. Bigger elasticity is going to cause more numerical problems. 
 %
-% * Now we can bound to percentage error: 
+% * Now we can bound to percentage error using the above inequalities: 
 %
 % $$ \frac{||r||}{||A||||A^{-1}|| ||b||} \leq \frac{||e||}{||x||} \leq
 % \frac{||A||||A^{-1}|| ||r||}{ ||b||} $$
@@ -280,7 +302,7 @@ inv([2 0 0
 %%
 % $$x^{(k+1)} = Q^{-1}b + (I - Q^{-1}A)x^{(k)}$$
 %
-% If the process converges such that $||x^(k+1) - x^{(k)}|| < \epsilon$
+% If the process converges such that $||x^{(k+1)} - x^{(k)}|| < \epsilon$
 % we've solved $Ax = b$. 
 %
 %
@@ -288,7 +310,7 @@ inv([2 0 0
 x = [1; 1; 1; 1;];
 maxit = 100;
 tol = 1e-4;
-A = A .* ((10*eye(4))+1); %I'm cheating here, but we'll talk about why later...
+A = A.*((10*eye(4))+1); %I'm cheating here, but we'll talk about why later...
 for it = 1:maxit
     dx = (b - A*x);
     x = x + dx;
@@ -428,6 +450,6 @@ if ~(success)
 end
 
 %%
-% For this reason, if you can, you probably should direct methods for solving linear equations whenever possible. Of
+% For this reason, if you can, you probably should use direct methods for solving linear equations whenever possible. Of
 % course, we'll have a use for these iterative methods later on in
 % non-linear problems. That brings us to next week...
