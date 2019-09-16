@@ -1,6 +1,7 @@
 %% Class 3: Nonlinear Equations
 %
-% These notes will cover the basics of solving nonlinear equations, which
+% These notes will cover the basics of solving nonlinear equations. 
+% Systems of nonlinear equations 
 % show up in economics in a variety of ways, most obviously in the
 % calculation of equilibrium. 
 %
@@ -107,9 +108,10 @@ format short
 %
 % Newton's method is the real workhorse for solving nonlinear equations. It
 % is an iterative scheme that follows the principle of _successive
-% linearization_. That is, it approximates the nonlinear problem with its
-% linear taylor approximation, solves that, and then checks the solution
-% of the original problem. 
+% linearization_. That is, it (1) approximates the nonlinear problem with its
+% linear taylor approximation, (3) solves that linear problem, and then (3) checks the solution
+% of the original problem. If it is solved, we are done, if not, we
+% iterate.
 %
 % Newton's method iterations are derived from a first-order Taylor approximation: 
 %
@@ -139,7 +141,7 @@ format short
 % $$ \max_{q_i} P(q_i + q_{-i})q_i - C_i(q_i) $$
 %
 % We can find equilibrium of this model by simultaneously solving both
-% firms first order conditions, which will be nonlinear equations for $i = 1,2$: 
+% firms' first order conditions, which will be nonlinear equations for $i = 1,2$: 
 %
 % $$ f_i(q) = (q_i + q_{-i})^{-1/\eta} - (1/\eta)(q_i + q_{-i})^{-1/(\eta-1)}q_i
 % - c_iq_i = 0$$
@@ -233,7 +235,7 @@ fsolve('cournot', [2; 2], options)
 %
 % $$h = \max(|x|, 1) \sqrt(\epsilon)$$
 %
-% Where $\epsilon$ is machine epsilon. The same rule of thump for two-sided
+% Where $\epsilon$ is machine epsilon. The same rule of thumb for two-sided
 % derivatives would lead to: 
 %
 % $$h = \max(|x|, 1) \sqrt[3](\epsilon)$$
