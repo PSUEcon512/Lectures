@@ -192,6 +192,14 @@ optset('broyden','tol',1e-8) ;
 % *Call Broyden*
 tic
 [P,pfval]  = broyden(@(P) gravity_priobj(P,m),P);  
+
+%%
+% *Function we are solving:*
+% 
+% <include>gravity_priobj.m</include>
+%
+
+
 toc
 Pold=Pnew;
 Pnew=P;
