@@ -139,7 +139,7 @@ f(4)
 % # Sort the verticies such that $f(x^1) \leq f(x^2) \leq \cdots \leq
 % f(x^{N+1})$. 
 % # Find the lowest $i$ such that reflecting $x^i$ across the remaining
-% points produces a point $r^i$ such that $f(x^i) < f(y^i)$. Set $x^i \leftarrow y^i$,
+% points produces a point $y^i$ such that $f(x^i) < f(y^i)$. Set $x^i \leftarrow y^i$,
 % go to 1. If no such point exists, continue to 3. 
 % # If the area of the current simplex is less than $\varepsilon$, Return $f(x^{N+1})$.
 % Otherwise, go to 4. 
@@ -148,7 +148,7 @@ f(4)
 %
 % To calculate a reflection: 
 %
-% $$ r_i = x_i + 2 \left( \frac{1}{n} \sum_{j\neq i} x_j - x_i \right) $$
+% $$ y_i = x_i + 2 \left( \frac{1}{n} \sum_{j\neq i} x_j - x_i \right) $$
 %
 %
 % This algorithm will converge to a local min (for small enough tolerance), but can be very slow. It is

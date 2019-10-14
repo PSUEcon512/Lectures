@@ -83,6 +83,7 @@ x = [1; 1];
 %x=[.05;-.5];        %set starting value
 %
 a = 0.09; %dampen value, if we set this anywhere near 1, things will blow up.
+%a = 1;
 
 %Computation loop 
 while focerr>1e-5&n<100 
@@ -120,7 +121,18 @@ n,x,focerr,        %display end values
 % quasi-Newton methods in that they use consecutive iterates to estimate
 % curvature. 
 %
-% Both satisfy the *quasi-Newton* Condition. Whereas a Newton step is approximately,  
+% They replace the Hessian in the iteration: 
+% 
+% $$ x^{(k+1)} \leftarrow x^{(k)} + H^{-1}(x^{(k)}) \nabla f(x^{(k)}) $$
+%
+% With, 
+%
+% $$ x^{(k+1)} \leftarrow x^{(k)} + B^{(k)} \nabla f(x^{(k)}) $$
+%
+% With an approximation $B$ for $H^{-1}$ that is guarenteed to be positive definite and
+% satsifies the *quasi-Newton* Condition. 
+%
+% What is the quasi-newtion condition? Whereas a Newton step is approximately,  
 %
 % $$ x^{(k+1)} - x^{(k)} = d^{(k)} \approx  H^{-1}(x^{(k)}) [ \nabla f(x^{(k)} + d^{(k)} ) - \nabla f(x^{(k)})] $$
 %
@@ -224,8 +236,7 @@ fminunc('qfunc', [1, 1], options);
 % 
 % $$ f(x) = \frac{1}{2}x^T A x + b^T x + c $$
 %
-% If we optimize along one direction $u$ (in steepest descent (u = -\nabla
-% f$), then we will solve: 
+% If we optimize along one direction $u$ (in steepest descent, $u = -\nabla f$), then we will solve: 
 % $$ (Ax + b)^T u = 0  $$
 %
 % The problem would be solved if this holds for any $u$. 
@@ -247,7 +258,7 @@ fminunc('qfunc', [1, 1], options);
 % gradient) such that it is conjugate with the previous iterate, this leads
 % to the updating rule: 
 %
-% $$ s^{(k+1)} = -\nabla f(x^{(k+1)}) + \frac{||\nabla f(x^{(k+1)})||^2}{||\nabla f(x^{(k)})||^2} $$
+% $$ s^{(k+1)} = -\nabla f(x^{(k+1)}) + \frac{||\nabla f(x^{(k+1)})||^2}{||\nabla f(x^{(k)})||^2} s^{(k)} $$
 % 
 % Some notes: 
 %
@@ -288,7 +299,7 @@ fminunc('qfunc', [1, 1], options);
 %
 % Which can be computed via a series of vector multiplications. This means
 % the storage and cost of iteration will be $O(mn)$ instead of $O(n^2)$,
-% useful if $m \ll n$. 
+% useful if $m \ll n$. And of course, the user chooses $m$. 
 %
 % Final Thoughts: 
 %
