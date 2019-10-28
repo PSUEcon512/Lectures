@@ -5,18 +5,22 @@
 %
 % $$ \int_{x \in I} f(x) w(x) dx $$
 %
-% The weight function $w(x)$ will most commonly be a probability density function,
-% in which case the integral denotes the expectation of $f(x)$. 
+% The weight function $w : R^d \rightarrow R$ will most commonly be a probability density function,
+% in which case the integral denotes the expectation of $f : R^d \rightarrow R^k$. 
 %
 % There are plenty of places where such a problem will pop up:
 %
 % * Evaluating expectations of future states in a dynamic model. 
-% * Integrating out unobserved heterogeneity in a likelihood estimation. 
-% * Dealing with unobserved consumer types in a discrete choice or demand
+% * Integrating out unobserved heterogeneity in a likelihood estimation...e.g., Dealing with unobserved consumer types in a discrete choice or demand
 % problem. 
+% * Solving a Bayesian Nash Equilibrium where agents are uncertain about
+% opponents' objectives. 
 % * ...
 %
-% All numerical integration formulae must break this problem into a finite
+% As we've discussed, computers---being *digital* machines---don't really work 
+% with real numbers. 
+% As a
+% result, all numerical integration formulae must break this problem into a finite
 % number of calculations, so they all end up using approximations of the
 % form: 
 %
@@ -28,7 +32,8 @@
 %
 % * Newton-Cotes methods approximate $f$ between nodes using polynomials. 
 % * Gaussian quadrature choses nodes and weights which satisfy moment
-% conditions.
+% conditions over the weight functions, and so hopefully have "good"
+% properties over a large class of functions $f$. 
 % * Monte Carlo and quasi-Monte Carlo methods use "random" or
 % equidistributed nodes and rely on asymptotic properties of their
 % approximation. 
@@ -42,9 +47,9 @@
 % $$ \int_a^b f(x) dx = (b - a) f\left(\frac{a+b}{2} \right) +
 % \frac{(b-a)^3}{24}f''(\xi) $$
 % 
-% Where $\xi \in [a, b]$, and the sceond term represents the error in the
+% Where $\xi \in [a, b]$, and the second term represents the error in the
 % midpoint approximation. Notice that the rule's error is increasing in the
-% width of the interval. We can improve by making it a composit rule. 
+% width of the interval. We can improve by making it a composite rule. 
 %
 % Suppose we divide $[a,b]$ into $n$ intervals of width $h = \frac{(b-a)}{n}$.
 % Then we can write the rule: 
