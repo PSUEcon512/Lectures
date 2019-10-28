@@ -335,7 +335,13 @@ norm(eye(4) - A)
 % you could expect to work. In essence, for a guess of $x^{(t)}$ it guesses $x^{t+1}$ by 
 % solving for $x_i$ in the $i$th equation using fixing $x_{-i}$.  In short:
 % 
-% $$ x_i^{(k+1)} = x_i^{(k)} + \frac{1}{a_{ii}} \left(b - \sum_{j \neq i} a_{ij} x_j^{(k)} \right)$$
+% $$ x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b - \sum_{j \neq i} a_{ij} x_j^{(k)} \right)$$
+%
+% Equivalently, we can re-arrange the iteration rule to calculate how $x^i$ should be updated,
+% this avoids the need to ``leave one out'' when doing the iteration in
+% matrix notations: 
+% 
+% $$ x_i^{(k+1)} - x_i^{(k)} = \frac{1}{a_{ii}} \left(b - \sum_{j = 1}^{n} a_{ij} x_j^{(k)} \right) = \frac{1}{a_{ii}}(b-Ax)$$
 %
 % This is pretty easy to code: 
 x = [1; 1; 1; 1;];
@@ -387,7 +393,11 @@ norm(eye(4) - Q\A)
 % $x_i^{(k+1)}$, why not use it immediately instead of waiting to the next
 % round? 
 %
-% $$ x_i^{(k+1)} = x_i^{(k)} + \frac{1}{a_{ii}} \left(b - \sum_{j = 1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j = i+1}^{n} a_{ij} x_j^{(k)} \right)$$
+% $$ x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b - \sum_{j = 1}^{i-1} a_{ij} x_j^{(k+1)} - \sum_{j = i+1}^{n} a_{ij} x_j^{(k)} \right)$$
+%
+% Again, let's rearrange to express the rule in differences: 
+%
+% $$ x_i^{(k+1)} - x_i^{(k)} = \frac{1}{a_{ii}} \left(b - \sum_{j = 1}^{i} a_{ij} x_j^{(k+1)} - \sum_{j = i+1}^{n} a_{ij} x_j^{(k)} \right)$$
 %
 % If you stare at this, (maybe for a while) you can see we are using
 % $x^{(k)}$ with the upper
@@ -395,11 +405,22 @@ norm(eye(4) - Q\A)
 % portion (with diagonal). And hence it is equivalent to using 
 Q = tril(A) 
 %%
-% in the "general" iteration method. To see this, we can write:
+% in the "general" iteration method. To see this, we can write $Ax = b$:
+% with $A$'s lower triangular being $Q$ and upper triangular being $U$ as,
 %
 % $$Qx = b - Ux$$
 %
 % $$Qx = b - (Q - A)x$$
+%
+% $$ x = Q^{-1}b + (I - Q^{-1}A)x $$
+%
+% Iterating on this will converge quickly if $||(I - Q^{-1}A)|| < 1$. Which gives us an iteration rule, 
+%
+% $$ x^{(k+1)} = Q^{-1}b + (I - Q^{-1}A)x^{(k)} $$
+%
+% Or more cleanly in terms of differences,
+%
+% $$ x^{(k+1)} - x^{(k)} = Q^{-1}(b - Ax^{(k)}) $$
 %
 % Thus we can implement Gauss-Seidel as: 
 x = [1; 1; 1; 1;];
