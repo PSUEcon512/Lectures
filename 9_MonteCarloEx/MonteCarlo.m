@@ -214,7 +214,7 @@ scatter(biNorm(1,:), biNorm(2,:));
 %
 % The CEToolbox contains an algorithm to produce `N'eiderrieter, 'W'eyl and 'H'aber points
 % Do to draw 500 Neiderrieter points on the unit square:
-addpath('../CETools');
+addpath('../CEtools');
 [n, w] = qnwequi(500, [0 0], [1, 1], 'N');
 [n(1:5, :) w(1:5)]
 scatter(n(:,1), n(:,2));
