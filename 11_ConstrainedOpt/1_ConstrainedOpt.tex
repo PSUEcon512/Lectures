@@ -55,7 +55,7 @@
    \framebox{
       \vbox{\vspace{2mm}
     \hbox to 6.28in { {\bf ECON 512: Empirical Methods
-	\hfill Fall 2018} }
+	\hfill Fall 2019} }
        \vspace{4mm}
        \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
        \vspace{2mm}
@@ -110,7 +110,7 @@
 \begin{document}
 %FILL IN THE RIGHT INFO.
 %\lecture{**LECTURE-NUMBER**}{**DATE**}{**LECTURER**}{**SCRIBE**}
-\lecture{1}{Constrained Optimization}{Paul Grieco}{Nov 28/Dec 5}
+\lecture{11}{Constrained Optimization}{Paul Grieco}{Nov 4/11}
 %\footnotetext{These notes are partially based on those of Nigel Mansell.}
 
 % **** YOUR NOTES GO HERE:
@@ -206,7 +206,7 @@ So again, we just need to solve this system of equations.  Notice life is {\it m
 
 Add $m$ ``slack'' variables to deal with the inequalities, as follows: 
 \begin{align*}
-\min_x & f(x) - \beta \sum_{m=1}^m \log s_i \\
+\min_{x,s} & f(x) - \beta \sum_{m=1}^m \log s_i \\
 \mbox{subject to: } & C^E(x) = 0 \\
 & C^I(x) + s = 0 \\ 
 \end{align*}
@@ -264,7 +264,8 @@ An older alternative to the Barrier method for constrained optimization is the A
 
 \begin{itemize}
 \item Recall the issue with inequality constraints is translating them into a system of \emph{equalities} on which to apply (quasi-)Newton's method. 
-\item If we knew which constraints were binding, and which weren't we could ignore the binding (active) constraints and solve: 
+\item If we knew which constraints were binding, and which weren't we could ignore the non-binding
+ones and focus on the binding (active) constraints to solve: 
 
 \begin{align*}
 \min_x & f(x) \\
