@@ -28,7 +28,7 @@
 %
 % A computer is a deterministic machine, so it cannot really produce random
 % numbers. Most commonly it uses psueo-random numbers based on
-% deterministic sequences which ``look'' random:
+% deterministic sequences which ''look'' random:
 %
 % * Zero serial correllation (at all lags)
 % * Correct frequency of "runs" (e.g., three draws greater than .5). 
@@ -188,7 +188,7 @@ scatter(biNorm(1,:), biNorm(2,:));
 % Quasi-Monte Carlo sequences are deterministic, but concentrate on
 % efficiently, they effectively dispense with the effort to mimic random
 % numbers and instead concentrate on what we want from integration, that sequences
-% are \emph{equidistributed}. A sequence $\{x_j\} is equidistributed over [a, b] iff::
+% are *equidistributed*. A sequence $\{x_j\}$ is equidistributed over $[a, b]$ iff::
 %
 % $$ \lim_{n \rightarrow \infty} \frac{b - a}{n} \sum_{j=1}^n f(x_j) = \int_a^b f(x) dx $$
 % 
@@ -196,7 +196,7 @@ scatter(biNorm(1,:), biNorm(2,:));
 % Effectively, Monte Carlo methods rely on the Law of large numbers, which
 % says that random sequences will be equi-distributed. Quasi-monte carlo
 % gives up on randomness and uses number theory to find equidistributed
-% deterministic sequences. (In actually has nothing to do with randomness,
+% deterministic sequences. (Notice: these actually have nothing to do with randomness,
 % or Monte Carlo, at all). 
 %
 % There are only a handful of known deterministic sequences that are proven to be equidistibuted.
@@ -221,7 +221,7 @@ scatter(n(:,1), n(:,2));
 
 %%
 % I'm also providing some MATLAB code for Halton Sequences, this code
-% doesn't provides weights (since they are just 1/n) and only returns
+% doesn't provide weights (since they are just 1/n) and only returns
 % values for Uniform [0,1], since you can do the transformation to [a, b]
 % yourself. 
 h = haltonseq(500,2);
@@ -263,10 +263,10 @@ scatter(hbiNorm(1,:), hbiNorm(2,:));
 % 
 % $$ a_{it}=\mu _{0}+\gamma _{1}Y_{it-1}+\gamma_{2}{Y}_{it-2}+\gamma_{3}{Y}_{it-3}+\sum_{t=85}^{89}\mu_{t}D_{t}+\beta Z_{it}+\alpha _{i} $$
 %
-% Where $Y_{it}$ is an export summy, $D_t$ are year dummies $Z_{it}$ are
+% Where $Y_{it}$ is an export dummy, $D_t$ are year dummies $Z_{it}$ are
 % observable plant charachteristics, and $\alpha_i$ is a plant effect that is constant over time.
 % 
-% If we add a standard normal shock to $a_it$ to determine the export
+% If we add a standard normal shock to $a_{it}$ to determine the export
 % decision we get that firm $i$ will export in year $t$ with probability: 
 %
 % $$ \mbox{Pr}(Y_{it} = 1) = \mbox{Pr}(a_{it} + \varepsilon_{it}  \geq 0) =
@@ -275,14 +275,14 @@ scatter(hbiNorm(1,:), hbiNorm(2,:));
 % However, this model suffers from an initial conditions problem. In the
 % first year (1984) the lagged values will be correllated with the plant
 % effect $\alpha_i$, but this is not modeled. We'll deal with this with a
-% correction proposed by Heckman (1981). For years the initial condition
+% correction proposed by Heckman (1981). For the initial condition
 % years we'll propose a seperate model for long run profits that does not
 % include lagged years (which we don't observe). 
 %
 % $$ b_{it}=\lambda _{0}+\sum_{t=82}^{83}\lambda _{t}D_{t}+\lambda
 %  Z_{it}^{P}+\alpha _{i}^{P} $$
 %
-% As above, we'll assume a normal chock to long-run profits determines the
+% As above, we'll assume a normal shock to long-run profits determines the
 % exporting decision, $\mbox{Pr}(Y_{it} = 1) = \Phi(b_{it})$.
 % There are no lagged dependent variables here so no initial conditions problem. 
 % Moreover, we will allow
@@ -324,4 +324,9 @@ scatter(hbiNorm(1,:), hbiNorm(2,:));
 % Nelder-Mead once, |ex6.m| loops. Why?
 % * If you play with this, don't forget to add the |CETools| library to
 % your path. 
+%
+%
+% Note: The optimization uses mex files, you may need to use a Mac or
+% Windows machine to get them to run. Something for me to fix next year.
+% But also an opportunity for us to discuss mex & MATLAB if I have time. 
 

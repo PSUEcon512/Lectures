@@ -162,7 +162,7 @@ T=300;
 %here we set our tolerance for convergence; 
 %play with this to see how the results depend on tolerance
 
-toler=.001;
+toler=1e-6;
 
 % now keep doing the code from above as we loop and loop and..
 
@@ -170,7 +170,7 @@ toler=.001;
 
 %%
 %%SECTION 5: VALUE FUNCTION ITERATION
-for j=1:T;
+for j=1:T
 % use the last iteration to create a matrix of future values
 % where the future capital stock is a row
 
