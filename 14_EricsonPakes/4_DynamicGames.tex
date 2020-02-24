@@ -208,7 +208,7 @@ $i$'s best response to opponent strategy $\tilde{x}_{-i}(\cdot)$.
  
  \begin{definition} A Markov perfect equilibrium (MPE) is a strategy profile $(x_1(\cdot), x_2(\cdot), \ldots, x_N(\cdot))$ such that 
  \begin{itemize} 
- \item Every agent's' strategy is 
+ \item Every agent's strategy is 
  optimal given its perceptions about future industry structure (the state), and 
  \item Those perceptions are consistent with each player's equilibrium behavior (strategies). 
  \end{itemize}
@@ -234,11 +234,11 @@ $$V_i(\omega, \sigma_i, \sigma_{-i}) \geq V_i(\omega, \tilde{\sigma}_i, \sigma_{
 
 So I estimate profit parameters by minimizing the objective:
 
-$$  \frac{1}{|\Omega | \times | \tilde{\sigma}_i | } \sum_{s, \tilde{\sigma}} \min \left\{ 0, V(\omega, \tilde{\sigma}_i, \sigma_{-i}) - V(\omega, \sigma_i, \sigma_{-i}) \right\} $$
+$$  \frac{1}{|\Omega | \times | \tilde{\sigma}_i | } \sum_{s, \tilde{\sigma}} \min \left\{ 0, V(\omega, \tilde{\sigma}_i, \sigma_{-i}) - V(\omega, \sigma_i, \sigma_{-i}) \right\}^2 $$
 
 \end{enumerate}
 
-While this might looks complicated, if we let $\pi$ be linear in parameters it can actually boil down to a very simple problem. The key is you only need to do the forward simulation a single time, and it becomes a linear moment inequality problem. 
+While this might look complicated, if we let $\pi$ be linear in parameters it can actually boil down to a very simple problem. Why? The key is you only need to do the forward simulation a single time, and so the optimization becomes a linear moment inequality problem. 
 
 Concluding thoughts: 
 \begin{itemize} 
